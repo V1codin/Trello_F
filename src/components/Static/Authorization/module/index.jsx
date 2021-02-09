@@ -11,14 +11,12 @@ function FormModule(props) {
     error: { login, errorText, signIn },
   } = props;
 
-  const cachedEmail = "";
-
   switch (type) {
     case "signIn":
       return (
         <div className={style.formWrapper}>
           <form action="/" className={style.form} onSubmit={submitFn}>
-            <h2>Sign In</h2>
+            <h2>Sign Up</h2>
             <input
               type="email"
               name="email"
@@ -57,7 +55,7 @@ function FormModule(props) {
                 {errorText}
               </label>
             )}
-            <button>SIGN IN</button>
+            <button>SIGN UP</button>
           </form>
         </div>
       );
@@ -66,13 +64,7 @@ function FormModule(props) {
         <div className={style.formWrapper}>
           <form action="/" className={style.form} onSubmit={submitFn}>
             <h2>Log In</h2>
-            <input
-              type="Email"
-              placeholder="Email"
-              name="email"
-              defaultValue={cachedEmail}
-              required
-            />
+            <input type="Email" placeholder="Email" name="email" required />
             <input
               type="password"
               placeholder="Password"

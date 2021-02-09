@@ -14,7 +14,7 @@ class Req {
 
   getListFromSearch(value, stateFn, page = 1) {
     return async () => {
-      const url = `${this.search_url}${this.api_key}&page=${page}&language=ru&query=${value}`;
+      const url = `${this.search_url}${this.api_key}&page=${page}&language=en&query=${value}`;
 
       try {
         const res = await fetch(url);
@@ -33,7 +33,7 @@ class Req {
     return async () => {
       try {
         const res = await fetch(
-          `${this.base_url}discover/movie?sort_by=popularity.desc&page=${page}&language=ru`,
+          `${this.base_url}discover/movie?sort_by=popularity.desc&page=${page}&language=en`,
           {
             headers: {
               Authorization: `Bearer ${this.request_token}`,
@@ -55,7 +55,7 @@ class Req {
     return async () => {
       try {
         const res = await fetch(
-          `${this.base_url}discover/movie?&vote_average.gte=8&page=${page}&language=ru`,
+          `${this.base_url}discover/movie?&vote_average.gte=8&page=${page}&language=en`,
           {
             headers: {
               Authorization: `Bearer ${this.request_token}`,

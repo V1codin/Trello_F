@@ -36,7 +36,7 @@ function Profile(props) {
   const isLogged = localStorage.getItem("isLogged");
   const customClasses = useStyles();
 
-  if (isLogged === "false") {
+  if (isLogged === "false" || isLogged === null) {
     return <ErrorLoginPage history={history} />;
   }
   return <ProfileTable customClasses={customClasses} />;

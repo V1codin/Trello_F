@@ -28,7 +28,7 @@ function LoginBlock(props) {
             backgroundColor: "#00b566",
           }}
         >
-          SIGN IN
+          REGISTER
         </NavLink>
         <NavLink
           to="/auth/logIn"

@@ -24,17 +24,17 @@ export const firestore = db.firestore();
 export const usersCollection = firestore.collection("users");
 
 export const logoutWrapper = (dispatchLogout) => {
-  return () => {
+  return async () => {
     const auth = db.auth();
-    auth
-      .signOut()
-      .then(() => {
-        dispatchLogout();
-        window.location.reload();
-        localStorage.setItem("isLogged", false);
-        console.log("signed out");
-      })
-      .catch((e) => console.log("sign out error", e));
+    try {
+      await auth.signOut();
+      dispatchLogout();
+      window.location.reload();
+      localStorage.setItem("isLogged", false);
+      console.log("signed out");
+    } catch (e) {
+      console.log("sign out error", e);
+    }
   };
 };
 

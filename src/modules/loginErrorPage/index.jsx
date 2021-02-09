@@ -9,9 +9,12 @@ const useStyles = makeStyles({
     "&:hover": {
       backgroundColor: "#476bcf",
     },
-    border: "2px solid #fff",
-    backgroundColor: "#1040bf",
+    border: "1px solid #fff",
+    color: "#000",
+    backgroundColor: "#fff",
     borderRadius: "15px",
+    padding: "3px 10px",
+    fontWeight: "bold",
   },
 });
 
