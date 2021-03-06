@@ -4,7 +4,8 @@
   "description": "server for movies46",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "node src/index.js",
+    "server": "nodemon src/index.js"
   },
   "author": "Kir O",
   "license": "ISC",
