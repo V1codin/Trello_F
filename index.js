@@ -33,7 +33,7 @@ const start = async () => {
     */
 
     app.get("/", (req, res) => {
-      res.sendFile(path.resolve(__dirname, "view/error.html"));
+      res.sendFile(path.resolve(__dirname, "src/view/error.html"));
     });
 
     app.listen(PORT, () => {
