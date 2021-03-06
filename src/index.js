@@ -15,6 +15,7 @@ const PORT = +process.env.PORT || config.get("serverPort");
 
 const start = async () => {
   try {
+    /*
     app.disable("x-powered-by");
     app.use(express.json());
     app.use(cors);
@@ -23,7 +24,6 @@ const start = async () => {
     app.use(csrf({ cookie: true }));
     ignoreFavicon(app);
 
-    /*
     app.all("*", (req, res, next) => {
       console.log("all");
       const token = req.csrfToken();
@@ -51,6 +51,7 @@ const start = async () => {
       console.log("Server started on port ", PORT);
     });
 
+    /*
     app.get("/getcsrf", (req, res) => {
       const csrf = req.csrfToken();
 
@@ -73,6 +74,7 @@ const start = async () => {
       //res.send(JSON.stringify(data));
       // res.sendFile(path.resolve(__dirname, "public", "index.html"));
     });
+    */
   } catch (e) {
     console.log(e);
   }
