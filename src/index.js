@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const config = require("config");
 const coockieParser = require("cookie-parser");
 const csrf = require("csurf");
+const path = require("path");
 
 const cors = require("./modules/cors");
 const ignoreFavicon = require("./modules/ignoreFavicon");
@@ -32,7 +33,7 @@ const start = async () => {
     */
 
     app.get("/", (req, res) => {
-      res.send("WELCOME !!111");
+      res.sendFile(path.resolve(__dirname, "view/error.html"));
     });
 
     app.listen(PORT, () => {
