@@ -5,9 +5,9 @@ const coockieParser = require("cookie-parser");
 const csrf = require("csurf");
 const path = require("path");
 
-const cors = require("./modules/cors");
-const ignoreFavicon = require("./modules/ignoreFavicon");
-const { getUserDocument, getUsersInfo } = require("./modules/Api");
+const cors = require("./src/modules/cors");
+const ignoreFavicon = require("./src/modules/ignoreFavicon");
+const { getUserDocument, getUsersInfo } = require(".src/modules/Api");
 
 const app = express();
 
