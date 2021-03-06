@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js"
   },
-  "author": "",
+  "author": "Kir O",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -19,5 +19,16 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/V1codin/tasks.git"
+  },
+  "keywords": [
+    "server"
+  ],
+  "bugs": {
+    "url": "https://github.com/V1codin/tasks/issues"
+  },
+  "homepage": "https://github.com/V1codin/tasks#readme"
 }
