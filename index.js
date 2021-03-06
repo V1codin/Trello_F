@@ -7,7 +7,7 @@ const path = require("path");
 
 const cors = require("./src/modules/cors");
 const ignoreFavicon = require("./src/modules/ignoreFavicon");
-const { getUserDocument, getUsersInfo } = require(".src/modules/Api");
+const { getUserDocument, getUsersInfo } = require("./src/modules/Api");
 
 const app = express();
 
