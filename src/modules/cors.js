@@ -2,7 +2,7 @@ module.exports = (req, res, next) => {
   // eslint-disable-line consistent-return
   res.header(
     "Access-Control-Allow-Origin",
-    "*"
+    "http://localhost:3000"
     // "http://movies46.hostronavt.ru"
   );
   res.header("Vary", "Origin");
