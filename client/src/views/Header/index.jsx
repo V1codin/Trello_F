@@ -1,11 +1,11 @@
 import { useRef, memo } from "react";
 import { NavLink } from "react-router-dom";
-import { Avatar } from "../../modules/avatar";
+import { LoggedHeader } from "./logged";
 
 import "./Header.css";
 
 const HeaderView = memo((props) => {
-  const { isLogged, imgLink, name } = props;
+  const { isLogged } = props;
 
   const loginLink = useRef(null);
   const signupLink = useRef(null);
@@ -37,7 +37,7 @@ const HeaderView = memo((props) => {
           </button>
         </div>
       ) : (
-        <Avatar imgLink={imgLink} name={name} />
+        <LoggedHeader {...props} />
       )}
     </header>
   );

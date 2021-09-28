@@ -1,10 +1,18 @@
 import { client, userService } from "./feathers.api";
-import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
+import {
+  LOGIN_ACTION,
+  LOGOUT_ACTION,
+  PENDING_ACTION,
+} from "../utils/actions.types";
 
 const STRATEGY = "local";
 
 const login = async (loginPayload, dispatch) => {
   try {
+    dispatch({
+      type: PENDING_ACTION,
+    });
+
     const payload = await client.authenticate({
       ...loginPayload,
       strategy: STRATEGY,
@@ -17,6 +25,9 @@ const login = async (loginPayload, dispatch) => {
 
     return payload;
   } catch (e) {
+    dispatch({
+      type: PENDING_ACTION,
+    });
     // eslint-disable-next-line
     throw { message: "Invalid username or password", errorClass: e.className };
   }
@@ -24,23 +35,40 @@ const login = async (loginPayload, dispatch) => {
 
 const logout = async (dispatch) => {
   try {
+    dispatch({
+      type: PENDING_ACTION,
+    });
     const res = await client.logout();
     dispatch({
       type: LOGOUT_ACTION,
     });
     return res;
   } catch (e) {
+    dispatch({
+      type: PENDING_ACTION,
+    });
+
     // eslint-disable-next-line
     throw { message: e.message, errorClass: e.className };
   }
 };
 
-const createUser = async (props) => {
+const createUser = async (props, dispatch) => {
   props.strategy = STRATEGY;
   try {
+    dispatch({
+      type: PENDING_ACTION,
+    });
     const res = await userService.create(props);
+
+    dispatch({
+      type: PENDING_ACTION,
+    });
     return res;
   } catch (e) {
+    dispatch({
+      type: PENDING_ACTION,
+    });
     switch (e.code) {
       case 408:
         // eslint-disable-next-line

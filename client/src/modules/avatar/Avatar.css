@@ -1,7 +1,10 @@
-.avatar {
-  cursor: pointer;
+.avatar_btn {
   border-radius: 50%;
 }
+.avatar_btn * {
+  border-radius: 50%;
+}
+
 .colored > * {
   border-radius: 50%;
   background-color: var(--pale-blue);
@@ -9,4 +12,8 @@
   text-align: center;
   font-weight: 700;
   font-size: 1em !important;
+}
+
+.avatar:focus {
+  border: 1px dashed var(--pale-blue);
 }

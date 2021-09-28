@@ -25,20 +25,13 @@ function RowAvatar(props) {
   return (
     <>
       {imgLink === "" ? (
-        <Ava
-          name={name}
-          className="avatar colored"
-          size={40}
-          onClick={logoutHandler}
-        />
+        <button className="avatar_btn" onClick={logoutHandler}>
+          <Ava name={name} className="avatar colored" size={40} />
+        </button>
       ) : (
-        <Ava
-          src={imgLink}
-          name={name}
-          className="avatar"
-          size={40}
-          onClick={logoutHandler}
-        />
+        <button className="avatar_btn" onClick={logoutHandler}>
+          <Ava src={imgLink} name={name} className="avatar" size={40} />
+        </button>
       )}
     </>
   );

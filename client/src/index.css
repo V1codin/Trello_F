@@ -8,6 +8,7 @@
   --blue: #42c5e4;
   --pale-blue: #69abad;
   --yellow: #e0fd4d;
+  --glowing-yellow: #e0fd4d;
 }
 
 * {
@@ -34,6 +35,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  position: relative;
+  top: 70px;
+}
+
+button {
+  cursor: pointer;
+  background-color: unset;
+  border: none;
+}
+
 .unselectable {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -47,20 +59,30 @@ body {
   margin: 30px auto;
   width: 98%;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 7px;
   background-color: var(--black-aqua_hard_op);
 }
 
 .glowing {
-  text-shadow: 0 0 4px var(--blue);
+  text-shadow: 0 0 4px var(--glowing-yellow);
 }
-.blocks {
+.cBoard {
   display: flex;
   flex-wrap: wrap;
 }
-.block {
+
+.card {
+  padding: 15px;
+  margin: 10px 0 0 15px;
+  overflow: auto;
+
+  /* * size is under consideration */
   width: 250px;
   height: 250px;
-  background-color: aqua;
-  margin: 10px 0 0 15px;
+}
+
+.card_design {
+  background-color: var(--black-aqua_op);
+  box-shadow: 0 0 5px var(--yellow);
+  border-radius: 7px;
 }

@@ -89,7 +89,7 @@ const Form = memo((props) => {
 
   return (
     <>
-      <form className="login__form container">
+      <form className="login__form container card_design">
         <h3 className="form__heading">
           {type === "login" ? "Login" : "Sign up for your account"}
         </h3>

@@ -1,20 +1,23 @@
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
+import "./Profile.css";
+
 const mapStateToProps = (state) => {
   return {
     isLogged: state.auth.isLogged,
+    userData: state.auth.user,
   };
 };
 
 function RowProfile(props) {
-  const { isLogged } = props;
+  const { isLogged, userData } = props;
   if (isLogged === false) return <Redirect to="login" />;
 
   return (
-    <>
-      <h2>IT"S GONNA BE A PROFILE!!</h2>
-    </>
+    <div className="card card_design profile">
+      <pre>{JSON.stringify(userData, null, 2)}</pre>
+    </div>
   );
 }
 

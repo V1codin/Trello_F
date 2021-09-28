@@ -1,0 +1,37 @@
+.wrapper {
+  position: absolute;
+  z-index: 8000;
+  top: -70px;
+  left: 0;
+  background-color: var(--black-aqua_op);
+  width: 100%;
+
+  height: 100vh;
+}
+.spinner {
+  position: relative;
+  top: 30vh;
+  left: 50vw;
+  width: 130px;
+}
+
+#pulse {
+  stroke-width: 20px;
+  stroke-dashoffset: 1645;
+  stroke-dasharray: 1645;
+
+  stroke: var(--pale-green);
+  animation: follow 1s ease-in-out infinite;
+}
+
+@keyframes follow {
+  0% {
+    stroke-dasharray: 1645;
+  }
+  10% {
+    stroke-dasharray: 1919;
+  }
+  100% {
+    stroke-dasharray: 3730;
+  }
+}
