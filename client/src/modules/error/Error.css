@@ -1,0 +1,10 @@
+.error {
+  text-align: center;
+}
+
+.conflict {
+  color: var(--pink);
+}
+.timeout {
+  color: var(--pale-yellow);
+}

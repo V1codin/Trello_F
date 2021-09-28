@@ -1,9 +1,0 @@
-{
-  "serverPort": 5000,
-  "responses": {
-    "getcsrf": {
-      "error": false,
-      "message": "csrf token is set"
-    }
-  }
-}

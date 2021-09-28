@@ -1,0 +1,4 @@
+const LOGIN_ACTION = "LOGIN";
+const LOGOUT_ACTION = "LOGOUT";
+
+export { LOGIN_ACTION, LOGOUT_ACTION };
