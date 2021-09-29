@@ -89,7 +89,8 @@
   background-color: var(--black-aqua_hard_op);
 }
 .userSection__btn:active {
-  background-color: var(--black-aqua);
+  color: var(--pale-green);
+  background-color: var(--monokai);
   box-shadow: none;
 }
 

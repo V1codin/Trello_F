@@ -17,7 +17,15 @@ const options = {
   storage: localStorage,
 };
 
-const socket = io(REACT_APP_SERVER_URL);
+const socket = io(REACT_APP_SERVER_URL, {
+  reconnectionDelay: 10000,
+  transports: ["websocket"],
+});
+
+socket.on("connect_error", (e) => {
+  console.log("connection error");
+});
+
 const client = feathers();
 
 client.configure(feathersio(socket));
@@ -25,5 +33,6 @@ client.configure(auth(options));
 client.configure(feathers.authentication());
 
 const userService = client.service("users");
+const boardsService = client.service("boards");
 
-export { client, userService };
+export { client, userService, boardsService };

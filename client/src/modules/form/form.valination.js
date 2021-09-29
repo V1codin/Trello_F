@@ -2,6 +2,7 @@ const masks = {
   username: /^[a-zA-Z0-9]{4,16}$/,
   password: /^(?=.*[0-9])(?=.*[a-zA-Z])(?=\S+$).{4,16}$/,
   displayName: /^[A-Z]{1}\w{2,10}\s{1}[A-Z]{1}\w{2,11}$/,
+  email: /^[a-zA-Z\d]{1,15}@[a-z]{1,9}\.{1}([a-z]{2,4}){1}$/,
 };
 
 const warns = {
@@ -11,6 +12,7 @@ const warns = {
   displayName:
     "Enter your name and surname divided by space. First letters are capital :)",
   confirmPassword: "Passwards should match",
+  email: "Enter your email",
 };
 
 const inputValidation = (string, name) => {
@@ -40,13 +42,13 @@ const confirmValidation = (pass, confirmPassword) => {
 };
 
 const formValidation = (obj, type) => {
-  const { password, username, displayName } = obj;
+  const { password, username, displayName, email } = obj;
   const tempResult = [];
   const res = { data: null, isValidated: false };
 
   // * Switch/case has only one block... So 'else if'.
   if (type === "signup") {
-    const forValidation = { password, username, displayName };
+    const forValidation = { password, username, displayName, email };
 
     for (let item in forValidation) {
       tempResult.push(inputValidation(forValidation[item], item));

@@ -1,8 +1,11 @@
 import { Redirect } from "react-router-dom";
+import { useAsyncCallback } from "react-async-hook";
 import { connect } from "react-redux";
 
 import { Form } from "../../modules/form";
 import { Process } from "../../modules/process";
+import { ErrorBlock } from "../../modules/error";
+
 import { createUser } from "../../api/login.api";
 
 import "./Signup.css";
@@ -10,7 +13,6 @@ import "./Signup.css";
 const mapStateToProps = (state) => {
   return {
     isLogged: state.auth.isLogged,
-    pending: state.auth.pending,
   };
 };
 
@@ -21,29 +23,30 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function RowSignup(props) {
-  const { history, isLogged, dispatch, pending } = props;
-
-  if (isLogged === true) return <Redirect to="/profile" />;
+  const { isLogged, dispatch } = props;
 
   const sendRequest = async (data) => {
     try {
-      const res = await createUser(data, dispatch);
-      if (res) {
-        history.push("/login");
-      }
+      await createUser(data, dispatch);
     } catch (e) {
-      history.push("/error", e);
+      throw e;
     }
   };
 
+  const { execute, loading, error, status } = useAsyncCallback(sendRequest);
+
+  if (isLogged === true || status === "success")
+    return <Redirect to="/profile" />;
+
   return (
-    <>
-      {pending ? (
-        <Process isShown={pending} />
+    <div className="form__container">
+      {error ? <ErrorBlock {...error} /> : null}
+      {loading ? (
+        <Process isShown={loading} />
       ) : (
-        <Form type="signup" callback={sendRequest} />
+        <Form type="signup" callback={execute} />
       )}
-    </>
+    </div>
   );
 }
 

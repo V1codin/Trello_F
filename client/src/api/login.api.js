@@ -1,18 +1,10 @@
-import { client, userService } from "./feathers.api";
-import {
-  LOGIN_ACTION,
-  LOGOUT_ACTION,
-  PENDING_ACTION,
-} from "../utils/actions.types";
+import { client, userService, boardsService } from "./feathers.api";
+import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
 
 const STRATEGY = "local";
 
 const login = async (loginPayload, dispatch) => {
   try {
-    dispatch({
-      type: PENDING_ACTION,
-    });
-
     const payload = await client.authenticate({
       ...loginPayload,
       strategy: STRATEGY,
@@ -25,50 +17,40 @@ const login = async (loginPayload, dispatch) => {
 
     return payload;
   } catch (e) {
-    dispatch({
-      type: PENDING_ACTION,
-    });
-    // eslint-disable-next-line
-    throw { message: "Invalid username or password", errorClass: e.className };
+    switch (e.code) {
+      case 408:
+        // eslint-disable-next-line
+        throw { message: "Timeout", errorClass: e.className };
+      default:
+        // eslint-disable-next-line
+        throw {
+          message: "Invalid username or password",
+          errorClass: e.className,
+        };
+    }
   }
 };
 
 const logout = async (dispatch) => {
   try {
-    dispatch({
-      type: PENDING_ACTION,
-    });
     const res = await client.logout();
     dispatch({
       type: LOGOUT_ACTION,
     });
     return res;
   } catch (e) {
-    dispatch({
-      type: PENDING_ACTION,
-    });
-
     // eslint-disable-next-line
     throw { message: e.message, errorClass: e.className };
   }
 };
 
-const createUser = async (props, dispatch) => {
+const createUser = async (props) => {
   props.strategy = STRATEGY;
   try {
-    dispatch({
-      type: PENDING_ACTION,
-    });
     const res = await userService.create(props);
 
-    dispatch({
-      type: PENDING_ACTION,
-    });
     return res;
   } catch (e) {
-    dispatch({
-      type: PENDING_ACTION,
-    });
     switch (e.code) {
       case 408:
         // eslint-disable-next-line
@@ -93,6 +75,10 @@ const cachedLogin = async (dispatch) => {
     try {
       const payload = await client.authenticate();
 
+      /* // ? getting user's boards 
+       const boards = await boardsService.find({ user: payload });
+      */
+
       dispatch({
         type: LOGIN_ACTION,
         payload,
@@ -103,4 +89,4 @@ const cachedLogin = async (dispatch) => {
   }
 };
 
-export { login, client, createUser, userService, cachedLogin, logout };
+export { login, client, createUser, cachedLogin, logout };

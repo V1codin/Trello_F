@@ -5,7 +5,7 @@ import {
   formValidation,
   inputValidation,
   confirmValidation,
-} from "../../utils/form.valination";
+} from "./form.valination";
 
 import "./Form.css";
 
@@ -17,6 +17,7 @@ const Form = memo((props) => {
     password: "",
     confirmPassword: "",
     displayName: "",
+    email: "",
   };
 
   const [form, setForm] = useState(formDefault);
@@ -89,7 +90,7 @@ const Form = memo((props) => {
 
   return (
     <>
-      <form className="login__form container card_design">
+      <form className="login__form card_design">
         <h3 className="form__heading">
           {type === "login" ? "Login" : "Sign up for your account"}
         </h3>
@@ -113,7 +114,6 @@ const Form = memo((props) => {
           placeholder="Enter password"
           value={form.password}
           onChange={changeHandler}
-          onBlur={type === "signup" ? confirmBlur : null}
           required
         />
         {warn.password ? (
@@ -150,6 +150,21 @@ const Form = memo((props) => {
         ) : null}
         {warn.displayName ? (
           <span className="form__warning">{warn.displayName}</span>
+        ) : null}
+
+        {type === "signup" ? (
+          <input
+            type="email"
+            name="email"
+            className="form__input"
+            placeholder="Enter Your Email"
+            value={form.email}
+            onChange={changeHandler}
+            required
+          />
+        ) : null}
+        {warn.email ? (
+          <span className="form__warning">{warn.email}</span>
         ) : null}
 
         <button className="form__btn" onClick={submit}>

@@ -3,39 +3,18 @@
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 const { Schema } = require("mongoose");
-const singleRoomSchema = new Schema({
-  roomName: String,
-  creator: {
-    type: String,
-    default: "Your mom's so fat...",
-  },
-
-  /*
-  subscribers: {
-    type: Array,
-    default: [],
-  },
-  */
-});
-
-const roomsSchema = new Schema({
-  type: Array,
-  of: singleRoomSchema,
-});
 
 const schemaProps = {
   username: { type: String, unique: true, require: true },
 
   password: { type: String, required: true },
 
-  rooms: [roomsSchema],
-
   displayName: {
     type: String,
     default: "",
   },
 
-  //email: { type: String, unique: true },
+  email: { type: String, unique: true, require },
 
   imageURL: {
     type: String,

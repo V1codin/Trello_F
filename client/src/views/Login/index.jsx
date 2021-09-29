@@ -1,8 +1,11 @@
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { useAsyncCallback } from "react-async-hook";
 
 import { Process } from "../../modules/process";
 import { Form } from "../../modules/form";
+import { ErrorBlock } from "../../modules/error";
+
 import { login } from "../../api/login.api";
 
 import "./Login.css";
@@ -16,31 +19,33 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     isLogged: state.auth.isLogged,
-    pending: state.auth.pending,
   };
 };
 
 function RowLogin(props) {
-  const { history, dispatch, isLogged, pending } = props;
-
-  if (isLogged === true) return <Redirect to="/profile" />;
+  const { dispatch, isLogged } = props;
 
   const sendRequest = async (data) => {
     try {
       await login(data, dispatch);
     } catch (e) {
-      history.push("/error", e);
+      throw e;
     }
   };
 
+  const { execute, loading, error } = useAsyncCallback(sendRequest);
+
+  if (isLogged === true) return <Redirect to="/profile" />;
+
   return (
-    <>
-      {pending ? (
-        <Process isShown={pending} />
+    <div className="form__container">
+      {error ? <ErrorBlock {...error} /> : null}
+      {loading ? (
+        <Process isShown={loading} />
       ) : (
-        <Form type="login" callback={sendRequest} />
+        <Form type="login" callback={execute} />
       )}
-    </>
+    </div>
   );
 }
 

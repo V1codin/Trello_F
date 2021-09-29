@@ -1,15 +1,13 @@
-import { Redirect } from "react-router-dom";
-
 import "./Error.css";
 
-function ErrorPage(props) {
-  return props?.location?.state?.message ? (
-    <div className={`container error ${props?.location?.state?.errorClass}`}>
-      <h2>{props.location.state.message}</h2>
+function ErrorBlock(props) {
+  const { message, errorClass } = props;
+
+  return message ? (
+    <div className={`container error ${errorClass}`}>
+      <h4>{message}</h4>
     </div>
-  ) : (
-    <Redirect to="/profile" />
-  );
+  ) : null;
 }
 
-export { ErrorPage };
+export { ErrorBlock };

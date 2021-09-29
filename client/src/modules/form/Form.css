@@ -4,16 +4,8 @@
   align-items: center;
   flex-wrap: wrap;
 
-  max-width: 330px;
   padding: 20px 30px;
   text-align: center;
-  /* background-color: var(--monokai); */
-  /* box-shadow: 0 0 5px #03090c; */
-
-  /* * card_design class
-  background-color: var(--black-aqua_op);
-  box-shadow: 0 0 5px var(--yellow);
-  border-radius: 7px; */
 }
 
 .form__heading {

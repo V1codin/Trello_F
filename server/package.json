@@ -50,6 +50,7 @@
     "compression": "^1.7.4",
     "concurrently": "^6.2.1",
     "cors": "^2.8.5",
+    "feathers-authentication-hooks": "^1.0.2",
     "feathers-mongoose": "^8.3.3",
     "helmet": "^4.6.0",
     "mongodb": "^4.1.2",

@@ -63,6 +63,11 @@ button {
   background-color: var(--black-aqua_hard_op);
 }
 
+.form__container {
+  max-width: 330px;
+  margin: 30px auto;
+}
+
 .glowing {
   text-shadow: 0 0 4px var(--glowing-yellow);
 }
