@@ -1,16 +1,22 @@
+import { createContext } from "react";
+import { useRef } from "react";
+
+import { Menu } from "./components/menu";
 import { Avatar } from "../../../modules/avatar";
-import plusIco from "../../../assets/plus.svg";
+
+const ParentRefContext = createContext(null);
 
 function LoggedHeader(props) {
   const { imgLink, name } = props;
+  const sectionRef = useRef(null);
   return (
-    <section className="userSection">
-      <button className="userSection__btn">
-        <img src={plusIco} alt="add board" className="plus__ico" />
-      </button>
-      <Avatar imgLink={imgLink} name={name} />
-    </section>
+    <ParentRefContext.Provider value={sectionRef}>
+      <section className="userSection" ref={sectionRef}>
+        <Menu />
+        <Avatar imgLink={imgLink} name={name} />
+      </section>
+    </ParentRefContext.Provider>
   );
 }
 
-export { LoggedHeader };
+export { LoggedHeader, ParentRefContext };

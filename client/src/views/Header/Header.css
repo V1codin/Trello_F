@@ -59,22 +59,7 @@
   display: flex;
   align-items: center;
   margin-right: 15px;
-}
-
-.userSection__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-right: 15px;
-  padding: 7px;
-  border-radius: 5px;
-  box-shadow: 0 0 5px var(--yellow);
-  transition: 0.2s ease;
-}
-.plus__ico {
-  width: 20px;
-  height: 20px;
+  position: relative;
 }
 
 .log__btn:hover {
@@ -83,15 +68,6 @@
 .log__btn_sign:hover {
   text-decoration: none;
   background-color: #4343ff;
-}
-
-.userSection__btn:hover {
-  background-color: var(--black-aqua_hard_op);
-}
-.userSection__btn:active {
-  color: var(--pale-green);
-  background-color: var(--monokai);
-  box-shadow: none;
 }
 
 .header__article:hover {

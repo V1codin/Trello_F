@@ -3,8 +3,6 @@ import auth from "@feathersjs/authentication-client";
 import io from "socket.io-client";
 import feathersio from "@feathersjs/socketio-client";
 
-const { REACT_APP_SERVER_URL } = process.env;
-
 const options = {
   header: "Authorization",
   scheme: "Bearer",
@@ -17,7 +15,7 @@ const options = {
   storage: localStorage,
 };
 
-const socket = io(REACT_APP_SERVER_URL, {
+const socket = io(null, {
   reconnectionDelay: 10000,
   transports: ["websocket"],
 });

@@ -167,7 +167,7 @@ const Form = memo((props) => {
           <span className="form__warning">{warn.email}</span>
         ) : null}
 
-        <button className="form__btn" onClick={submit}>
+        <button className="form__btn unselectable" onClick={submit}>
           {type === "login" ? "Log in" : "Sign up"}
         </button>
         {type === "login" ? (

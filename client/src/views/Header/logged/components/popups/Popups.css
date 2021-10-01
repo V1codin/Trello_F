@@ -1,0 +1,54 @@
+.board_popup {
+  position: absolute;
+  z-index: 8000;
+  padding: 5px;
+  top: 60px;
+  right: 10px;
+}
+.add {
+  width: 300px;
+}
+
+.info__body {
+  padding: 5px;
+}
+
+.info__body * {
+  display: block;
+  text-align: center;
+}
+
+.popup__header {
+  display: grid;
+  grid-template-columns: 0fr 5fr 0fr;
+
+  padding: 5px;
+  text-align: center;
+}
+.popup__header,
+.info__body {
+  border-bottom: 1px solid var(--blue);
+}
+
+.popup__article {
+  grid-column: 2;
+  color: var(--pale-green);
+}
+
+.popup__btn {
+  color: #fff;
+}
+
+.info__image {
+  width: 350px;
+  height: 200px;
+}
+
+.popup__btn:hover {
+  color: #888888;
+}
+
+*:focus {
+  border: 1px dashed var(--pale-blue);
+  box-shadow: none;
+}
