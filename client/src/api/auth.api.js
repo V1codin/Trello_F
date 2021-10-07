@@ -1,18 +1,29 @@
-import { client, userService, boardsService } from "./feathers.api";
+import { client, userService } from "./feathers.api";
+
+import { findBoards } from "./board.api";
 import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
+import { STRATEGY } from "../utils/constants";
 
-const STRATEGY = "local";
-
-const login = async (loginPayload, dispatch) => {
+const login = async (loginPayload, dispatch, ...callbacks) => {
   try {
-    const payload = await client.authenticate({
-      ...loginPayload,
-      strategy: STRATEGY,
+    const [payload, { data }] = await Promise.all([
+      client.authenticate({
+        ...loginPayload,
+        strategy: STRATEGY,
+      }),
+      findBoards(),
+    ]);
+
+    callbacks.forEach((cb) => {
+      if (typeof cb === "function") {
+        cb(payload, data);
+      }
     });
 
     dispatch({
       type: LOGIN_ACTION,
       payload,
+      data,
     });
 
     return payload;
@@ -69,22 +80,47 @@ const createUser = async (props) => {
 };
 
 const cachedLogin = async (dispatch) => {
+  /*
+  // ! for dev
+
+  try {
+    const payload = await client.authenticate({
+      strategy: "local",
+      username: "qqqq",
+      password: "qwe1",
+    });
+
+    const { data } = await findBoards();
+
+    dispatch({
+      type: LOGIN_ACTION,
+      payload,
+      data,
+    });
+  } catch (e) {
+    console.log("auth error", e);
+  }
+
+  // ! for dev
+
+  */
+
   const token = window.localStorage.getItem("feathers-jwt");
 
   if (typeof token === "string" && token.length > 0) {
     try {
-      const payload = await client.authenticate();
-
-      /* // ? getting user's boards 
-       const boards = await boardsService.find({ user: payload });
-      */
+      const [payload, { data }] = await Promise.all([
+        client.authenticate(),
+        findBoards(),
+      ]);
 
       dispatch({
         type: LOGIN_ACTION,
         payload,
+        data,
       });
     } catch (e) {
-      console.log("No cached login");
+      console.log(e, "No cached login");
     }
   }
 };

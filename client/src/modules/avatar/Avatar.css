@@ -1,17 +1,10 @@
-.avatar_btn {
-  border-radius: 50%;
-}
-.avatar_btn * {
-  border-radius: 50%;
-}
-
 .colored > * {
-  border-radius: 50%;
   background-color: var(--pale-blue);
   color: var(--yellow);
   text-align: center;
   font-weight: 700;
   font-size: 1em !important;
+  border-radius: 50%;
 }
 
 .avatar:focus {

@@ -1,4 +1,55 @@
-import { NavLink } from "react-router-dom";
+import { memo } from "react";
+
+import { FormInputs } from "./forms";
+import { ErrorBlock } from "../error";
+
+import "./Form.css";
+
+const Form = memo((props) => {
+  const { type, heading, form, changeHandler, submit, ...res } = props;
+
+  const formProps = {
+    type,
+    heading,
+    state: form,
+    warns: props?.warn,
+    changeHandler,
+    submit,
+    ...res,
+  };
+  const customStyle =
+    props.form.bg !== ""
+      ? {
+          backgroundColor: props.form.bg,
+        }
+      : props.form.link !== ""
+      ? {
+          backgroundImage: `url(${props.form.link})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }
+      : null;
+  return (
+    <>
+      <form
+        className="login__form card_design"
+        style={customStyle}
+        {...props?.containerAttrs}
+      >
+        {res.error ? <ErrorBlock {...res.error} /> : null}
+        <FormInputs {...formProps} />
+      </form>
+    </>
+  );
+});
+
+export { Form };
+
+/*
+
+? prev implementation
+
+
 import { useState, memo } from "react";
 
 import {
@@ -7,10 +58,12 @@ import {
   confirmValidation,
 } from "./form.valination";
 
+import { FormInputs } from "./forms";
+
 import "./Form.css";
 
 const Form = memo((props) => {
-  const { type, callback } = props;
+  const { type, callback, heading } = props;
 
   const formDefault = {
     username: "",
@@ -91,93 +144,23 @@ const Form = memo((props) => {
   return (
     <>
       <form className="login__form card_design">
-        <h3 className="form__heading">
-          {type === "login" ? "Login" : "Sign up for your account"}
-        </h3>
-        <input
-          type="text"
-          name="username"
-          className="form__input"
-          placeholder="Enter username"
-          value={form.username}
-          onChange={changeHandler}
-          required
+        <FormInputs
+          {...{
+            type,
+            heading,
+            state: form,
+            warns: warn,
+            changeHandler,
+            submit,
+            confirmBlur,
+          }}
         />
-        {warn.username ? (
-          <span className="form__warning">{warn.username}</span>
-        ) : null}
-        <input
-          type="password"
-          name="password"
-          className="form__input"
-          data-validatefor="confirmPassword"
-          placeholder="Enter password"
-          value={form.password}
-          onChange={changeHandler}
-          required
-        />
-        {warn.password ? (
-          <span className="form__warning">{warn.password}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="password"
-            name="confirmPassword"
-            data-validatefor="password"
-            className="form__input"
-            placeholder="Confirm password"
-            value={form.confirmPassword}
-            onChange={changeHandler}
-            onBlur={confirmBlur}
-            required
-          />
-        ) : null}
-        {warn.confirmPassword ? (
-          <span className="form__warning">{warn.confirmPassword}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="text"
-            name="displayName"
-            className="form__input"
-            placeholder="Enter Your full name"
-            value={form.displayName}
-            onChange={changeHandler}
-            required
-          />
-        ) : null}
-        {warn.displayName ? (
-          <span className="form__warning">{warn.displayName}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="email"
-            name="email"
-            className="form__input"
-            placeholder="Enter Your Email"
-            value={form.email}
-            onChange={changeHandler}
-            required
-          />
-        ) : null}
-        {warn.email ? (
-          <span className="form__warning">{warn.email}</span>
-        ) : null}
-
-        <button className="form__btn unselectable" onClick={submit}>
-          {type === "login" ? "Log in" : "Sign up"}
-        </button>
-        {type === "login" ? (
-          <NavLink to="/signup" className="form__link">
-            Sign up for an account
-          </NavLink>
-        ) : null}
       </form>
     </>
   );
 });
 
 export { Form };
+
+
+*/

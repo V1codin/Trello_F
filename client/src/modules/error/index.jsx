@@ -1,6 +1,8 @@
+import { memo } from "react";
+
 import "./Error.css";
 
-function ErrorBlock(props) {
+const ErrorBlock = memo((props) => {
   const { message, errorClass } = props;
 
   return message ? (
@@ -8,6 +10,6 @@ function ErrorBlock(props) {
       <h4>{message}</h4>
     </div>
   ) : null;
-}
+});
 
 export { ErrorBlock };

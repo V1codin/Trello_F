@@ -1,7 +1,62 @@
-/* ? for dev */
 .profile {
+  display: flex;
+  flex-wrap: wrap;
   margin: 0 auto;
-  width: 500px;
-  overflow: hidden;
-  height: auto;
+  width: 31%;
+  background-color: unset;
+}
+
+.board__card {
+  /* padding: 15px; */
+  position: relative;
+  margin: 10px 0 0 15px;
+  overflow: auto;
+
+  cursor: pointer;
+  width: 225px;
+  height: 150px;
+}
+
+.board__card:hover {
+  box-shadow: 0 0 15px var(--blue);
+}
+
+.board__card:active {
+  background-color: red;
+}
+
+.card__btn {
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 43px;
+  overflow: auto;
+}
+
+.delete__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delete__btn:hover {
+  width: 23px;
+  height: 23px;
+}
+.delete__btn:active {
+  background-color: var(--aqua-active);
+}
+
+.board__ico {
+  width: inherit;
+  height: inherit;
+  transform: rotate(45deg);
+}
+
+.delete__btn {
+  position: absolute;
+  top: 3px;
+  right: 5px;
 }

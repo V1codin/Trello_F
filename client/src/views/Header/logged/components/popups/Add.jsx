@@ -5,9 +5,9 @@ import { useOuterCLick } from "../../../../../hooks/hooks";
 import "./Popups.css";
 
 function AddBoardPopup(props) {
-  const { toggle } = props;
+  const { toggle, initBoardCreationForm } = props;
   const parentRef = useContext(ParentRefContext);
-  useOuterCLick(parentRef, () => toggle());
+  useOuterCLick(parentRef, toggle);
 
   return (
     <section className="board_popup card_design add">
@@ -19,7 +19,7 @@ function AddBoardPopup(props) {
       </header>
       <ul className="popup__body">
         <li>
-          <button className="popup__body__el">
+          <button className="popup__body__el" onClick={initBoardCreationForm}>
             <span className="el__span">Create a board</span>
             <p className="el__article">
               A board is made up of cards ordered on lists. Use it to manage
@@ -31,7 +31,8 @@ function AddBoardPopup(props) {
           <button className="popup__body__el">
             <span className="el__span">Start with template</span>
             <p className="el__article">
-              Get started faster with a board template.
+              Get started faster with a board template.{" "}
+              <span style={{ color: "var(--pink)" }}>(not implemented)</span>
             </p>
           </button>
         </li>
@@ -40,7 +41,8 @@ function AddBoardPopup(props) {
             <span className="el__span">Create a workspace</span>
             <p className="el__article">
               A Workspace is a group of boards and people. Use it to organize
-              your company, side hustle, family, or friends.
+              your company, side hustle, family, or friends.{" "}
+              <span style={{ color: "var(--pink)" }}>(not implemented)</span>
             </p>
           </button>
         </li>

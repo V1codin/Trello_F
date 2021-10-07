@@ -1,14 +1,22 @@
-//import { } from "./actions.types";
+import {
+  NEW_BOARD_CREATED,
+  BOARD_DELETED,
+  LOGIN_ACTION,
+  LOGOUT_ACTION,
+} from "./actions.types";
 
-const init = {
-  name: "",
-  background: "",
-  ownerId: "",
-  memberIds: [],
-};
+const init = [];
 
-function boards(state = init, { type, payload }) {
+function boards(state = init, { type, payload, data = [] }) {
   switch (type) {
+    case NEW_BOARD_CREATED:
+      return [...state, payload];
+    case BOARD_DELETED:
+      return [...state.filter(({ _id }) => _id !== payload)];
+    case LOGIN_ACTION:
+      return [...data];
+    case LOGOUT_ACTION:
+      return init;
     default:
       return state;
   }

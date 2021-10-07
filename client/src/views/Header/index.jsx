@@ -37,7 +37,7 @@ const HeaderView = memo((props) => {
           </button>
         </div>
       ) : (
-        <LoggedHeader {...props} />
+        <LoggedHeader />
       )}
     </header>
   );

@@ -5,15 +5,21 @@
   top: 60px;
   right: 10px;
 }
-.add {
-  width: 300px;
+
+.add,
+.account {
+  min-width: 300px;
+}
+.note {
+  min-width: 450px;
+  min-height: 300px;
 }
 
-.info__body {
+.body_shape {
   padding: 5px;
 }
 
-.info__body * {
+.body_shape * {
   display: block;
   text-align: center;
 }
@@ -26,7 +32,7 @@
   text-align: center;
 }
 .popup__header,
-.info__body {
+.body_shape {
   border-bottom: 1px solid var(--blue);
 }
 
@@ -42,6 +48,22 @@
 .info__image {
   width: 350px;
   height: 200px;
+}
+.account__el {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-left: 15px;
+}
+
+.body_row {
+  display: flex;
+  align-items: center;
+}
+
+.btn_textAlign > * {
+  text-align: start;
 }
 
 .popup__btn:hover {

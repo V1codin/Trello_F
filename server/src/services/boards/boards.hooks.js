@@ -5,13 +5,17 @@ const setUserId = setField({
   from: "params.user._id",
   as: "params.query.ownerId",
 });
+const setUserForCreation = setField({
+  from: "params.user._id",
+  as: "data.ownerId",
+});
 
 module.exports = {
   before: {
     all: [authenticate("jwt")],
     find: [setUserId],
     get: [setUserId],
-    create: [setUserId],
+    create: [setUserForCreation],
     update: [setUserId],
     patch: [setUserId],
     remove: [setUserId],

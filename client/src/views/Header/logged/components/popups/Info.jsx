@@ -12,7 +12,7 @@ function InfoBoardPopup(props) {
 
   const [state, setState] = useState(0);
 
-  useOuterCLick(parentRef, () => toggle());
+  useOuterCLick(parentRef, toggle);
 
   const { url, title, changeTipTitle } = images[state];
 
@@ -33,7 +33,7 @@ function InfoBoardPopup(props) {
           X
         </button>
       </header>
-      <ul className="popup__body info__body">
+      <ul className="popup__body body_shape">
         <li>
           <div className="popup__body__el">
             <img

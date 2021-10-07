@@ -3,22 +3,14 @@ import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth,
+    isLogged: state.auth.isLogged,
   };
 };
 
 function RowHeader(props) {
-  const {
-    auth: { isLogged, user },
-  } = props;
+  const { isLogged } = props;
 
-  return (
-    <HeaderView
-      isLogged={isLogged}
-      imgLink={user?.imageURL}
-      name={user?.displayName}
-    />
-  );
+  return <HeaderView isLogged={isLogged} />;
 }
 
 const Header = connect(mapStateToProps, null)(RowHeader);

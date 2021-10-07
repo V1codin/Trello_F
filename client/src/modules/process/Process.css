@@ -17,11 +17,12 @@
 } */
 
 .wrapper {
-  margin: 0 auto;
+  margin: 10% auto;
   display: flex;
   justify-content: center;
+  align-self: center;
   align-items: center;
-  background-color: var(--black-aqua_op);
+  border: 1px solid var(--pale-green);
   border-radius: 50%;
   width: 100px;
   height: 100px;

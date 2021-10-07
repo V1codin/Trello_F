@@ -1,7 +1,12 @@
 import { useState } from "react";
 
+import { Account } from "../../../../../components/Account";
 import { AddBoardPopup } from "../popups/Add";
 import { InfoBoardPopup } from "../popups/Info";
+import { NoteBoardPopup } from "../popups/Note";
+import { AccountPopup } from "../popups/Account";
+import { AddBoardOverlay } from "../../../../Overlays/AddBoards";
+
 import plus from "../../../../../assets/plus.svg";
 import info from "../../../../../assets/info.svg";
 import note from "../../../../../assets/notification.svg";
@@ -13,8 +18,10 @@ function Menu(props) {
     add: false,
     info: false,
     note: false,
+    account: false,
   };
   const [state, setState] = useState(defState);
+  const [overlay, setOverlay] = useState(false);
 
   const clickHandler = (e) => {
     const {
@@ -22,6 +29,11 @@ function Menu(props) {
     } = e;
 
     setState({ ...defState, [name]: !state[name] });
+  };
+
+  const initBoardCreationForm = () => {
+    setOverlay(true);
+    setState(defState);
   };
 
   return (
@@ -32,8 +44,10 @@ function Menu(props) {
       {state.add ? (
         <AddBoardPopup
           toggle={() => setState({ ...defState, add: !state.add })}
+          initBoardCreationForm={initBoardCreationForm}
         />
       ) : null}
+
       <button className="menu__btn" name="info" onClick={clickHandler}>
         <img src={info} alt="info" className="menu__ico" name="info" />
       </button>
@@ -42,9 +56,24 @@ function Menu(props) {
           toggle={() => setState({ ...defState, info: !state.info })}
         />
       ) : null}
-      <button className="menu__btn">
-        <img src={note} alt="notification" className="menu__ico" />
+
+      <button className="menu__btn" name="note" onClick={clickHandler}>
+        <img src={note} alt="notification" className="menu__ico" name="note" />
       </button>
+      {state.note ? (
+        <NoteBoardPopup
+          toggle={() => setState({ ...defState, note: !state.note })}
+        />
+      ) : null}
+
+      <Account click={clickHandler} />
+      {state.account ? (
+        <AccountPopup
+          toggle={() => setState({ ...defState, account: !state.account })}
+        />
+      ) : null}
+
+      {overlay ? <AddBoardOverlay overlayHandler={setOverlay} /> : null}
     </>
   );
 }

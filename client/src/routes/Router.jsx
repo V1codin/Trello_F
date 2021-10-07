@@ -1,22 +1,39 @@
+import { Children } from "react";
+import { connect } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Board } from "../components/Board";
-import { Login } from "../views/Login";
-import { Signup } from "../views/Signup";
-import { Profile } from "../views/Profile";
+import { publicRoutes, authenticatedRoutes } from "./routes.js";
 
-function Router() {
+const mapStateToProps = (state) => {
+  return {
+    isLogged: state.auth.isLogged,
+  };
+};
+
+function RowRouter(props) {
+  const { isLogged } = props;
   return (
     <Switch>
-      <Route exact path="/" component={Board} />
-      <Route exact path="/board" component={Board} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={Signup} />
-      <Route exact path="/profile" component={Profile} />
+      {isLogged === true
+        ? Children.toArray(
+            authenticatedRoutes.map((route) => {
+              const { path, component } = route;
+              return <Route exact path={path} component={component} />;
+            })
+          )
+        : null}
 
-      <Redirect to="/profile" />
+      {Children.toArray(
+        publicRoutes.map((route) => {
+          const { path, component } = route;
+          return <Route exact path={path} component={component} />;
+        })
+      )}
+      <Redirect to="/" />
     </Switch>
   );
 }
+
+const Router = connect(mapStateToProps, null)(RowRouter);
 
 export { Router };

@@ -5,7 +5,6 @@ import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { BrowserRouter } from "react-router-dom";
 import { reducer } from "./utils/main.reducer";
-import { cachedLogin } from "./api/login.api";
 
 import "./index.css";
 
@@ -26,7 +25,6 @@ const combineProviders = (providers) =>
 const Providers = combineProviders([Provider, BrowserRouter]);
 
 const store = createStore(reducer, composeWithDevTools());
-cachedLogin(store.dispatch);
 
 ReactDOM.render(
   <Providers store={store}>

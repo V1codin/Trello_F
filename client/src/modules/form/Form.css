@@ -47,6 +47,26 @@
   color: var(--pink);
 }
 
+.form__colorPicker {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+}
+.menu_linkBg {
+  padding: 5px !important;
+  margin-right: 0 !important;
+}
+.colorPicker__el {
+  cursor: pointer;
+  padding: 15px;
+}
+.form__colorPicker > li {
+  margin-left: 10px;
+}
+.form__colorPicker > li:first-of-type {
+  margin-left: 0;
+}
 .form__link:active {
   color: var(--yellow);
 }

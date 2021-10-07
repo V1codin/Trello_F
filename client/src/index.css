@@ -4,6 +4,8 @@
   --aqua-active: #133d52;
   --black-aqua_op: #091921d5;
   --black-aqua_hard_op: #09192171;
+  --popup-overlay: #161616de;
+
   --pink: #ff105e;
   --pale-green: #67b04b;
   --blue: #42c5e4;
@@ -28,6 +30,7 @@ body {
   background-image: url(./assets/body_bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
+  object-fit: cover;
 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -45,6 +48,12 @@ button {
   cursor: pointer;
   background-color: unset;
   border: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .unselectable {
@@ -61,7 +70,7 @@ button {
   width: 98%;
   padding: 15px;
   border-radius: 7px;
-  background-color: var(--black-aqua_hard_op);
+  /* background-color: var(--black-aqua_hard_op); */
 }
 
 .form__container {
@@ -71,10 +80,6 @@ button {
 
 .glowing {
   text-shadow: 0 0 4px var(--glowing-yellow);
-}
-.cBoard {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .card {
@@ -91,4 +96,25 @@ button {
   background-color: var(--black-aqua_op);
   box-shadow: 0 0 5px var(--yellow);
   border-radius: 7px;
+  transition: 0.2s ease;
+}
+.avatar_btn {
+  transition: 0.2s ease;
+  border-radius: 50%;
+}
+
+.card_design:hover,
+.avatar_btn:hover {
+  box-shadow: 0 0 15px var(--blue);
+}
+
+.span_email {
+  font-size: 0.9em;
+  color: #ffffff49;
+  font-style: unset;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  color: #ffffff49;
 }
