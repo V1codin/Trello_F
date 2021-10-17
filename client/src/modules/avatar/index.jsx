@@ -9,6 +9,7 @@ function Avatar(props) {
     <>
       {imgLink === "" ? (
         <Ava
+          alt="avatar"
           round={true}
           name={name}
           className="avatar colored unselectable"
@@ -16,6 +17,7 @@ function Avatar(props) {
         />
       ) : (
         <Ava
+          alt="avatar"
           round={true}
           src={imgLink}
           name={name}

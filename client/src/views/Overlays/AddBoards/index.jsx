@@ -3,7 +3,7 @@ import { useAsyncCallback } from "react-async-hook";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { createBoard } from "../../../api/board.api";
+import { board } from "../../../api/board.api";
 import { useOuterCLick } from "../../../hooks/hooks";
 import { getDataFromClipBoard } from "../../../utils/helpers";
 import { STANDARD_BG } from "../../../utils/constants";
@@ -46,7 +46,7 @@ function RowAddBoardOverlay(props) {
     if (form.title !== "") {
       form.bg = form.bg || form.link;
 
-      const result = await createBoard({ user, form }, dispatch, () =>
+      const result = await board.create({ user, form }, dispatch, () =>
         overlayHandler(false)
       );
 

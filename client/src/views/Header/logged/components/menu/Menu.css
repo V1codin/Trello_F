@@ -23,33 +23,3 @@
   width: 20px;
   height: 20px;
 }
-
-.popup__body {
-  font-size: 0.8em;
-}
-
-.popup__body__el {
-  width: 100%;
-  text-align: start;
-  font-size: 1em;
-  color: #fff;
-  cursor: pointer;
-  margin-top: 5px;
-  padding: 10px;
-}
-.el__span {
-  font-size: 1.1em;
-  font-weight: 700;
-  font-style: italic;
-}
-.el__article {
-  margin-top: 3px;
-}
-
-.popup__body__el:hover {
-  background-color: var(--black-aqua);
-}
-
-.popup__body__el:active {
-  background-color: var(--aqua-active);
-}

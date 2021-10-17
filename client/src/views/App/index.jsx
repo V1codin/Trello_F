@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { useAsync } from "react-async-hook";
 
-import { cachedLogin } from "../../api/auth.api";
+import { auth } from "../../api/auth.api";
 
 import { Header } from "../../components/Header";
 import { Router } from "../../routes/Router";
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => {
 function RowApp(props) {
   const { dispatch } = props;
 
-  const { loading } = useAsync(cachedLogin, [dispatch]);
+  const { loading } = useAsync(auth.loginFromCache, [dispatch]);
 
   return (
     <div className="app">

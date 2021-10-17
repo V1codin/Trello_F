@@ -1,5 +1,5 @@
 import feathers from "@feathersjs/client";
-import auth from "@feathersjs/authentication-client";
+import feathersAuth from "@feathersjs/authentication-client";
 import io from "socket.io-client";
 import feathersio from "@feathersjs/socketio-client";
 
@@ -27,10 +27,13 @@ socket.on("connect_error", (e) => {
 const client = feathers();
 
 client.configure(feathersio(socket));
-client.configure(auth(options));
+client.configure(feathersAuth(options));
 client.configure(feathers.authentication());
 
 const userService = client.service("users");
 const boardsService = client.service("boards");
 
-export { client, userService, boardsService };
+const listsService = client.service("lists");
+//const cardsService = client.service("cards");
+
+export { client, userService, boardsService, listsService };

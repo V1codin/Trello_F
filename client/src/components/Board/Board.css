@@ -1,0 +1,37 @@
+.add__list__form,
+.add__list__input {
+  padding: 5px;
+}
+.add__list__form {
+  min-height: 110px;
+}
+.add__form {
+  margin-left: 15px;
+  max-width: 250px;
+}
+
+.add__form_wd {
+  margin-left: 15px;
+  width: 165px;
+}
+
+.add__toggler {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 20px;
+  color: var(--yellow);
+  transition: all 0.5s ease;
+}
+
+.createList {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff3d;
+  color: #fff;
+}
+.add__toggler:active {
+  background-color: var(--aqua-active);
+}

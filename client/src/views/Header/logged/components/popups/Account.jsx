@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { ParentRefContext } from "../../";
 import { connect } from "react-redux";
 
-import { logout } from "../../../../../api/auth.api";
+import { auth } from "../../../../../api/auth.api";
 import { useOuterCLick } from "../../../../../hooks/hooks";
 
+import { DropDown } from "../../../../../modules/dropdown";
 import { Avatar } from "../../../../../modules/avatar";
 
 const mapDispatchToProps = (dispatch) => {
@@ -19,55 +20,54 @@ const mapStateToProps = (state) => {
   };
 };
 
+const PopupBody = (props) => {
+  const { imageURL, displayName, email, logoutHandler } = props;
+  return (
+    <>
+      <li>
+        <div className="popup__body__el body_row">
+          <Avatar imgLink={imageURL} name={displayName} />
+          <div className="account__el">
+            <span className="el__span">{displayName}</span>
+            <span className="span_email">{email}</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <button
+          className="popup__body__el btn_textAlign"
+          onClick={logoutHandler}
+        >
+          <span className="el__span">Log out</span>
+        </button>
+      </li>
+    </>
+  );
+};
+
 function RowAccountPopup(props) {
-  const {
-    toggle,
-    dispatch,
-    userInfo: { displayName, email, imageURL },
-  } = props;
+  const { toggle, dispatch, userInfo } = props;
   const parentRef = useContext(ParentRefContext);
 
   useOuterCLick(parentRef, toggle);
 
   const logoutHandler = async () => {
     try {
-      logout(dispatch);
+      await auth.logout(dispatch);
     } catch (e) {
       console.log("Logout error", e);
     }
   };
 
-  return (
-    <section className="board_popup card_design account">
-      <header className="popup__header">
-        <h4 className="popup__article">Account</h4>
-        <button className="popup__btn" onClick={toggle}>
-          X
-        </button>
-      </header>
-      <ul className="popup__body body_shape">
-        <li>
-          <div className="popup__body__el body_row">
-            <Avatar imgLink={imageURL} name={displayName} />
-            <div className="account__el">
-              <span className="el__span">{displayName}</span>
-              <span className="span_email">{email}</span>
-            </div>
-          </div>
-        </li>
-        <li>
-          <button
-            className="popup__body__el btn_textAlign"
-            onClick={logoutHandler}
-          >
-            <span className="el__span">Log out</span>
-          </button>
-        </li>
-      </ul>
-    </section>
-  );
-}
+  const dropProps = {
+    toggle,
+    heading: "Account",
+    className: "account",
+    popupBody: PopupBody({ ...userInfo, logoutHandler }),
+  };
 
+  return <DropDown {...dropProps} />;
+}
 const AccountPopup = connect(
   mapStateToProps,
   mapDispatchToProps

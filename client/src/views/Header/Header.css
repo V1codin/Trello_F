@@ -80,3 +80,6 @@
   border-bottom: 1px dashed var(--pale-blue);
   box-shadow: none;
 }
+button:focus {
+  border-radius: 7px;
+}

@@ -29,7 +29,7 @@ function RowRouter(props) {
           return <Route exact path={path} component={component} />;
         })
       )}
-      <Redirect to="/" />
+      <Redirect to="/login" />
     </Switch>
   );
 }

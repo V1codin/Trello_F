@@ -7,7 +7,7 @@ import { Process } from "../../modules/process";
 import { Form } from "../../modules/form";
 import { formValidation, inputValidation } from "../../utils/form.valination";
 
-import { login } from "../../api/auth.api";
+import { auth } from "../../api/auth.api";
 
 import "./Login.css";
 
@@ -28,7 +28,7 @@ function RowLogin(props) {
 
   const sendRequest = async (data) => {
     try {
-      await login(data, dispatch);
+      await auth.login(data, dispatch);
     } catch (e) {
       throw e;
     }

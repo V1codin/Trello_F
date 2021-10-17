@@ -1,59 +1,66 @@
+import { ErrorHandler } from "./error.api";
 import { boardsService } from "./feathers.api";
 import { NEW_BOARD_CREATED, BOARD_DELETED } from "../utils/actions.types";
 
-const createBoard = async (props, dispatch, ...callbacks) => {
-  try {
-    const { form } = props;
-    const payload = await boardsService.create(form);
+class Board extends ErrorHandler {
+  create = async (props, dispatch, ...callbacks) => {
+    try {
+      const { form } = props;
+      const payload = await boardsService.create(form);
 
-    callbacks.forEach((cb) => {
-      if (typeof cb === "function") {
-        cb(payload);
-      }
-    });
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(payload);
+        }
+      });
 
-    dispatch({
-      type: NEW_BOARD_CREATED,
-      payload,
-    });
+      dispatch({
+        type: NEW_BOARD_CREATED,
+        payload,
+      });
 
-    return payload;
-  } catch (e) {
-    console.log("create a board error", e);
-    throw e;
-  }
-};
+      return payload;
+    } catch (e) {
+      console.log("create a board error", e);
+      const errorFromHandler = this.handleError(e, dispatch);
+      throw errorFromHandler;
+    }
+  };
+  find = async (props = {}) => {
+    try {
+      const boards = await boardsService.find(props);
 
-const findBoards = async (props) => {
-  try {
-    const boards = await boardsService.find(props);
+      return boards;
+    } catch (e) {
+      console.log("find boards error", e);
+      const errorFromHandler = this.handleError(e);
+      throw errorFromHandler;
+    }
+  };
+  delete = async (props = "", dispatch, ...callbacks) => {
+    try {
+      const { _id } = await boardsService.remove(props);
 
-    return boards;
-  } catch (e) {
-    console.log("get boards error", e);
-    throw e;
-  }
-};
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(_id);
+        }
+      });
 
-const deleteBoard = async (props = "", dispatch, ...callbacks) => {
-  try {
-    const { _id } = await boardsService.remove(props);
+      dispatch({
+        type: BOARD_DELETED,
+        payload: _id,
+      });
 
-    callbacks.forEach((cb) => {
-      if (typeof cb === "function") {
-        cb(_id);
-      }
-    });
+      return new Promise((res) => res("done"));
+    } catch (e) {
+      console.log("delete a board error", e);
+      const errorFromHandler = this.handleError(e, dispatch);
+      throw errorFromHandler;
+    }
+  };
+}
 
-    dispatch({
-      type: BOARD_DELETED,
-      payload: _id,
-    });
+const board = new Board();
 
-    return new Promise((res) => res("done"));
-  } catch (e) {
-    throw e;
-  }
-};
-
-export { createBoard, findBoards, deleteBoard };
+export { board };

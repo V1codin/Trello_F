@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useAsyncCallback } from "react-async-hook";
-import { deleteBoard } from "../../api/board.api";
+import { board } from "../../api/board.api";
 
 import { Process } from "../../modules/process";
 
@@ -12,14 +12,15 @@ function BoardCard(props) {
   const deleteBoardHandler = async (e) => {
     try {
       const { name } = e.target;
-      return deleteBoard(name, dispatch);
+      await board.delete(name, dispatch);
     } catch (e) {
-      throw e;
+      console.log("delete board card err ", e);
     }
   };
 
   const { execute, loading } = useAsyncCallback(deleteBoardHandler);
-  const boardRedirect = () => {
+
+  const boardRedirect = (e) => {
     navLinkRef.current.click();
   };
 
@@ -43,7 +44,7 @@ function BoardCard(props) {
       title={title}
     >
       <NavLink to={`/board/${_id}`} ref={navLinkRef} hidden></NavLink>
-      <button className="delete__btn" onClick={execute} name={_id}>
+      <button className="close__btn" onClick={execute} name={_id}>
         <img
           src={deleteIco}
           name={_id}

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useRef } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { isLink } from "../utils/helpers";
 import { BG_IMAGE, BODY_REF } from "../utils/constants";
 
@@ -40,20 +40,27 @@ const useOuterCLick = (parentRef, ...callbacks) => {
 };
 
 const useBodyColor = (background = BG_IMAGE) => {
-  const bodyRef = useRef(BODY_REF);
+  const bodyRef = BODY_REF;
   const linkChecker = isLink(background);
 
   useEffect(() => {
     if (!linkChecker) {
-      bodyRef.current.style.backgroundImage = "none";
-      bodyRef.current.style.background = background;
+      bodyRef.style.backgroundImage = "none";
+      bodyRef.style.background = background;
     } else {
-      bodyRef.current.style.background = "";
-      bodyRef.current.style.backgroundRepeat = "no-repeat";
-      bodyRef.current.style.backgroundSize = "cover";
-      bodyRef.current.style.backgroundImage = `url(${background})`;
+      bodyRef.style.background = "";
+      bodyRef.style.backgroundRepeat = "no-repeat";
+      bodyRef.style.backgroundSize = "cover";
+      bodyRef.style.backgroundImage = `url(${background})`;
     }
-  }, [background, linkChecker]);
+
+    return () => {
+      bodyRef.style.background = "";
+      bodyRef.style.backgroundRepeat = "no-repeat";
+      bodyRef.style.backgroundSize = "cover";
+      bodyRef.style.backgroundImage = "";
+    };
+  }, [background, linkChecker, bodyRef]);
 };
 
 export { useToggle, useOuterCLick, useBodyColor };

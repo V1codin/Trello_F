@@ -11,7 +11,7 @@ import {
   confirmValidation,
 } from "../../utils/form.valination";
 
-import { createUser } from "../../api/auth.api";
+import { auth } from "../../api/auth.api";
 
 import "./Signup.css";
 
@@ -32,7 +32,7 @@ function RowSignup(props) {
 
   const sendRequest = async (data) => {
     try {
-      await createUser(data, dispatch);
+      await auth.create(data, dispatch);
     } catch (e) {
       throw e;
     }

@@ -2,6 +2,8 @@ import { Children } from "react";
 import { NavLink } from "react-router-dom";
 
 import link from "../../assets/link.svg";
+import closeIco from "../../assets/plus.svg";
+
 import colors from "./colors.json";
 
 function FormInputs(props) {
@@ -19,6 +21,7 @@ function FormInputs(props) {
             value={state.username}
             onChange={changeHandler}
             required
+            autoFocus
           />
           {warns.username ? (
             <span className="form__warning">{warns.username}</span>
@@ -37,7 +40,7 @@ function FormInputs(props) {
             <span className="form__warning">{warns.password}</span>
           ) : null}
 
-          <button className="form__btn unselectable" onClick={submit}>
+          <button className="form__btn" onClick={submit}>
             Log in
           </button>
           <NavLink to="/signup" className="form__link">
@@ -59,6 +62,7 @@ function FormInputs(props) {
             value={state.username}
             onChange={changeHandler}
             required
+            autoFocus
           />
           {warns.username ? (
             <span className="form__warning">{warns.username}</span>
@@ -119,7 +123,7 @@ function FormInputs(props) {
             <span className="form__warning">{warns.email}</span>
           ) : null}
 
-          <button className="form__btn unselectable" onClick={submit}>
+          <button className="form__btn" onClick={submit}>
             Sign up
           </button>
         </>
@@ -136,6 +140,7 @@ function FormInputs(props) {
             value={state.title}
             onChange={changeHandler}
             required
+            autoFocus
           />
           <ul className="form__colorPicker">
             {Children.toArray(
@@ -180,7 +185,7 @@ function FormInputs(props) {
             </li>
           </ul>
           <button
-            className="form__btn unselectable"
+            className="form__btn"
             onClick={submit}
             disabled={
               state.title === "" || state.title === undefined ? true : false
@@ -188,6 +193,36 @@ function FormInputs(props) {
           >
             Create Board
           </button>
+        </>
+      );
+    case "add_list":
+      const { closeFn } = props;
+      return (
+        <>
+          <input
+            type="text"
+            name="list_name"
+            className="form__input add__list__input"
+            placeholder="Enter name of the new list"
+            onChange={changeHandler}
+            autoFocus
+          />
+          <section className="add__list__btns">
+            <button onClick={submit} className="createList card_design">
+              Add list
+            </button>
+            <button
+              className="close__btn btn_static btn_ml10"
+              onClick={closeFn}
+            >
+              <img
+                src={closeIco}
+                alt="close"
+                className="menu__ico board__ico"
+                title="add the list"
+              />
+            </button>
+          </section>
         </>
       );
     default:
@@ -274,7 +309,7 @@ export { FormInputs };
           <span className="form__warning">{warn.email}</span>
         ) : null}
 
-        <button className="form__btn unselectable" onClick={submit}>
+        <button className="form__btn" onClick={submit}>
           {type === "login" ? "Log in" : "Sign up"}
         </button>
         {type === "login" ? (

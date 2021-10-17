@@ -15,7 +15,7 @@ const services = require("./services");
 const appHooks = require("./app.hooks");
 const channels = require("./channels");
 
-const authentication = require("./authentication");
+const authentication = require("./services/auth/authentication.service");
 
 const mongoose = require("./mongoose");
 

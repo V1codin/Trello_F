@@ -17,10 +17,16 @@ const Form = memo((props) => {
     submit,
     ...res,
   };
-  const customStyle =
-    props.form.bg !== ""
+
+  const formClasses =
+    form?.className !== ""
+      ? `form card_design ${form.className}`
+      : "form card_design";
+
+  const customBgStyle =
+    props?.form?.bg !== ""
       ? {
-          backgroundColor: props.form.bg,
+          backgroundColor: props?.form?.bg,
         }
       : props.form.link !== ""
       ? {
@@ -32,8 +38,8 @@ const Form = memo((props) => {
   return (
     <>
       <form
-        className="login__form card_design"
-        style={customStyle}
+        className={formClasses}
+        style={customBgStyle}
         {...props?.containerAttrs}
       >
         {res.error ? <ErrorBlock {...res.error} /> : null}

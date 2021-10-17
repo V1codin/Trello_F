@@ -4,6 +4,7 @@ exports.Users = class Users extends Service {
   constructor(opts, app) {
     super(opts, app);
   }
+
   /*
     // ! DEV for imitate server load
   async get(...props) {

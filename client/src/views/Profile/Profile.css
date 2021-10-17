@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  width: 31%;
   background-color: unset;
 }
 
@@ -36,16 +35,20 @@
   overflow: auto;
 }
 
-.delete__btn {
+.close__btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.delete__btn:hover {
-  width: 23px;
-  height: 23px;
+
+.close__btn:hover,
+.popup__btn:hover {
+  transform: scale(1.09);
+  box-shadow: 0 0 15px var(--blue);
+  border-radius: 7px;
 }
-.delete__btn:active {
+.close__btn:active,
+.popup__btn:active {
   background-color: var(--aqua-active);
 }
 
@@ -55,8 +58,16 @@
   transform: rotate(45deg);
 }
 
-.delete__btn {
+.close__btn {
   position: absolute;
   top: 3px;
   right: 5px;
+}
+
+.btn_static {
+  position: static;
+}
+
+.btn_ml10 {
+  margin-left: 10px;
 }
