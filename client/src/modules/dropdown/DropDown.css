@@ -55,7 +55,7 @@
 }
 
 .popup__body__el:hover {
-  background-color: var(--black-aqua);
+  background-color: var(--hover-blue);
 }
 
 .popup__body__el:active {

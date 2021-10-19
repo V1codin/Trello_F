@@ -11,7 +11,7 @@ function DropDown(props) {
   return (
     <section className={containerClasses}>
       <header className="popup__header">
-        <h4 className="popup__article">{heading}</h4>
+        <h4 className="popup__article unselectable">{heading}</h4>
         <button className="close__btn" onClick={toggle}>
           <img
             src={closeIco}

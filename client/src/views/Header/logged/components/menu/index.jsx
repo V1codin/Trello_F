@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 import { Account } from "../../../../../components/Account";
-import { AddBoardPopup } from "../popups/Add";
-import { InfoBoardPopup } from "../popups/Info";
-import { NoteBoardPopup } from "../popups/Note";
-import { AccountPopup } from "../popups/Account";
+import { AddBoardDrop } from "../dropdowns/Add";
+import { InfoBoardDrop } from "../dropdowns/Info";
+import { NoteBoardDrop } from "../dropdowns/Note";
+import { AccountDrop } from "../dropdowns/Account";
 import { AddBoardOverlay } from "../../../../Overlays/AddBoards";
 
 import plus from "../../../../../assets/plus.svg";
@@ -42,7 +42,7 @@ function Menu(props) {
         <img src={plus} alt="add board" className="menu__ico" name="add" />
       </button>
       {state.add ? (
-        <AddBoardPopup
+        <AddBoardDrop
           toggle={() => setState({ ...defState, add: !state.add })}
           initBoardCreationForm={initBoardCreationForm}
         />
@@ -52,7 +52,7 @@ function Menu(props) {
         <img src={info} alt="info" className="menu__ico" name="info" />
       </button>
       {state.info ? (
-        <InfoBoardPopup
+        <InfoBoardDrop
           toggle={() => setState({ ...defState, info: !state.info })}
         />
       ) : null}
@@ -61,14 +61,14 @@ function Menu(props) {
         <img src={note} alt="notification" className="menu__ico" name="note" />
       </button>
       {state.note ? (
-        <NoteBoardPopup
+        <NoteBoardDrop
           toggle={() => setState({ ...defState, note: !state.note })}
         />
       ) : null}
 
       <Account click={clickHandler} />
       {state.account ? (
-        <AccountPopup
+        <AccountDrop
           toggle={() => setState({ ...defState, account: !state.account })}
         />
       ) : null}

@@ -45,7 +45,7 @@ const PopupBody = (props) => {
   );
 };
 
-function RowAccountPopup(props) {
+function RowAccountDrop(props) {
   const { toggle, dispatch, userInfo } = props;
   const parentRef = useContext(ParentRefContext);
 
@@ -68,9 +68,9 @@ function RowAccountPopup(props) {
 
   return <DropDown {...dropProps} />;
 }
-const AccountPopup = connect(
+const AccountDrop = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RowAccountPopup);
+)(RowAccountDrop);
 
-export { AccountPopup };
+export { AccountDrop };

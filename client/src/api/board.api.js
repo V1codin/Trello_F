@@ -1,6 +1,6 @@
 import { ErrorHandler } from "./error.api";
 import { boardsService } from "./feathers.api";
-import { NEW_BOARD_CREATED, BOARD_DELETED } from "../utils/actions.types";
+//import { NEW_BOARD_CREATED, BOARD_DELETED } from "../utils/actions.types";
 
 class Board extends ErrorHandler {
   create = async (props, dispatch, ...callbacks) => {
@@ -14,10 +14,13 @@ class Board extends ErrorHandler {
         }
       });
 
+      /*
+      ? prev realization
       dispatch({
         type: NEW_BOARD_CREATED,
         payload,
       });
+      */
 
       return payload;
     } catch (e) {
@@ -37,6 +40,7 @@ class Board extends ErrorHandler {
       throw errorFromHandler;
     }
   };
+
   delete = async (props = "", dispatch, ...callbacks) => {
     try {
       const { _id } = await boardsService.remove(props);
@@ -47,10 +51,13 @@ class Board extends ErrorHandler {
         }
       });
 
+      /*
+      ? prev realization
       dispatch({
         type: BOARD_DELETED,
         payload: _id,
       });
+      */
 
       return new Promise((res) => res("done"));
     } catch (e) {

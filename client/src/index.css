@@ -12,6 +12,8 @@
   --pale-blue: #69abad;
   --yellow: #e0fd4d;
   --glowing-yellow: #e0fd4d;
+
+  --hover-blue: #102936;
 }
 
 * {
@@ -95,20 +97,6 @@ button {
 
 .glowing {
   text-shadow: 0 0 4px var(--glowing-yellow);
-}
-
-.list {
-  padding: 15px;
-  margin: 0 0 0 5px;
-  overflow: auto;
-
-  /* * size is under consideration */
-  width: 270px;
-  height: 250px;
-}
-
-.list:first-of-type {
-  margin: 0;
 }
 
 .card_design {

@@ -1,4 +1,4 @@
-import { useState, Children } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useAsync } from "react-async-hook";
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const ListsIterator = (props) => {
   const { lists } = props;
-  return Children.toArray(lists.map((list) => <List list={list} />));
+  return lists.map((list) => <List key={list._id} list={list} />);
 };
 
 function RowBoard(props) {
@@ -46,6 +46,7 @@ function RowBoard(props) {
   const [form, setForm] = useState({
     className: "add__list__form",
     name: "",
+    boardId: id,
   });
 
   const { loading } = useAsync(list.find, [id, dispatch]);
@@ -63,15 +64,15 @@ function RowBoard(props) {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
     if (form.name === "" || form.name === " ") return;
     try {
-      await list.create(form, dispatch);
       formToggle();
+      await list.create(form, dispatch);
     } catch (e) {
       console.log("create lists error", e);
     }
   };
 
   const formProps = {
-    type: "add_list",
+    type: "add_form",
     form,
     changeHandler: (e) => {
       const { value } = e.target;
@@ -82,6 +83,8 @@ function RowBoard(props) {
     },
     submit: createListsHandler,
     closeFn: formToggle,
+    addBtnTest: "Add list",
+    inputPlaceholder: "Enter list title",
   };
 
   return (
@@ -103,8 +106,9 @@ function RowBoard(props) {
             />
             Add another list
           </button>
-        ) : null}
-        {addForm ? <Form {...formProps} /> : null}
+        ) : (
+          <Form {...formProps} />
+        )}
       </section>
     </div>
   );

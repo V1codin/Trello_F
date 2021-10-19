@@ -195,21 +195,21 @@ function FormInputs(props) {
           </button>
         </>
       );
-    case "add_list":
-      const { closeFn } = props;
+    case "add_form":
+      const { closeFn, addBtnTest, inputPlaceholder } = props;
       return (
         <>
           <input
             type="text"
             name="list_name"
             className="form__input add__list__input"
-            placeholder="Enter name of the new list"
+            placeholder={inputPlaceholder}
             onChange={changeHandler}
             autoFocus
           />
           <section className="add__list__btns">
-            <button onClick={submit} className="createList card_design">
-              Add list
+            <button onClick={submit} className="innerCreate__btn card_design">
+              {addBtnTest}
             </button>
             <button
               className="close__btn btn_static btn_ml10"
@@ -219,7 +219,7 @@ function FormInputs(props) {
                 src={closeIco}
                 alt="close"
                 className="menu__ico board__ico"
-                title="add the list"
+                title="close"
               />
             </button>
           </section>
@@ -231,93 +231,3 @@ function FormInputs(props) {
 }
 
 export { FormInputs };
-
-/*
- <h3 className="form__heading">
-          {type === "login" ? "Login" : "Sign up for your account"}
-        </h3>
-        <input
-          type="text"
-          name="username"
-          className="form__input"
-          placeholder="Enter username"
-          value={form.username}
-          onChange={changeHandler}
-          required
-        />
-        {warn.username ? (
-          <span className="form__warning">{warn.username}</span>
-        ) : null}
-        <input
-          type="password"
-          name="password"
-          className="form__input"
-          data-validatefor="confirmPassword"
-          placeholder="Enter password"
-          value={form.password}
-          onChange={changeHandler}
-          required
-        />
-        {warn.password ? (
-          <span className="form__warning">{warn.password}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="password"
-            name="confirmPassword"
-            data-validatefor="password"
-            className="form__input"
-            placeholder="Confirm password"
-            value={form.confirmPassword}
-            onChange={changeHandler}
-            onBlur={confirmBlur}
-            required
-          />
-        ) : null}
-        {warn.confirmPassword ? (
-          <span className="form__warning">{warn.confirmPassword}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="text"
-            name="displayName"
-            className="form__input"
-            placeholder="Enter Your full name"
-            value={form.displayName}
-            onChange={changeHandler}
-            required
-          />
-        ) : null}
-        {warn.displayName ? (
-          <span className="form__warning">{warn.displayName}</span>
-        ) : null}
-
-        {type === "signup" ? (
-          <input
-            type="email"
-            name="email"
-            className="form__input"
-            placeholder="Enter Your Email"
-            value={form.email}
-            onChange={changeHandler}
-            required
-          />
-        ) : null}
-        {warn.email ? (
-          <span className="form__warning">{warn.email}</span>
-        ) : null}
-
-        <button className="form__btn" onClick={submit}>
-          {type === "login" ? "Log in" : "Sign up"}
-        </button>
-        {type === "login" ? (
-          <NavLink to="/signup" className="form__link">
-            Sign up for an account
-          </NavLink>
-        ) : null}
-
-
-
-*/

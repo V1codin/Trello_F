@@ -64,10 +64,11 @@
 
 .add__list__btns {
   width: 100%;
-  justify-content: flex-start;
-  margin-top: 15px;
+  height: 40px;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  margin-top: 15px;
 }
 .add__list__input {
   width: 100%;

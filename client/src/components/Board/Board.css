@@ -25,12 +25,15 @@
   transition: all 0.5s ease;
 }
 
-.createList {
+.innerCreate__btn {
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #ffffff3d;
+  background-color: #42a185;
   color: #fff;
+}
+.innerCreate__btn:active {
+  background-color: var(--aqua-active);
 }
 .add__toggler:active {
   background-color: var(--aqua-active);

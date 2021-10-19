@@ -19,7 +19,7 @@ const PopupBody = () => {
   );
 };
 
-function NoteBoardPopup(props) {
+function NoteBoardDrop(props) {
   const { toggle } = props;
   const parentRef = useContext(ParentRefContext);
 
@@ -35,4 +35,4 @@ function NoteBoardPopup(props) {
   return <DropDown {...dropProps} />;
 }
 
-export { NoteBoardPopup };
+export { NoteBoardDrop };

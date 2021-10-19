@@ -34,7 +34,7 @@ const PopupBody = (props) => {
   );
 };
 
-function InfoBoardPopup(props) {
+function InfoBoardDrop(props) {
   const { toggle } = props;
   const parentRef = useContext(ParentRefContext);
 
@@ -60,4 +60,4 @@ function InfoBoardPopup(props) {
   return <DropDown {...dropProps} />;
 }
 
-export { InfoBoardPopup };
+export { InfoBoardDrop };

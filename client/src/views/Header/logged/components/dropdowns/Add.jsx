@@ -43,7 +43,7 @@ const PopupBody = (props) => {
   );
 };
 
-function AddBoardPopup(props) {
+function AddBoardDrop(props) {
   const { toggle, initBoardCreationForm } = props;
   const parentRef = useContext(ParentRefContext);
   useOuterCLick(parentRef, toggle);
@@ -58,4 +58,4 @@ function AddBoardPopup(props) {
   return <DropDown {...dropProps} />;
 }
 
-export { AddBoardPopup };
+export { AddBoardDrop };

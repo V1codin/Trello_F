@@ -1,10 +1,8 @@
 import { ErrorHandler } from "./error.api";
 import { listsService } from "./feathers.api";
-import {
-  NEW_LISTS_CREATED,
-  GET_LISTS,
-  LIST_DELETED,
-} from "../utils/actions.types";
+
+import { GET_LISTS } from "../utils/actions.types";
+//import { NEW_LISTS_CREATED, LIST_DELETED } from "../utils/actions.types";
 
 class List extends ErrorHandler {
   create = async (props, dispatch, ...callbacks) => {
@@ -17,10 +15,13 @@ class List extends ErrorHandler {
         }
       });
 
+      /*
+      ? prev realization
       dispatch({
         type: NEW_LISTS_CREATED,
         payload,
       });
+      */
 
       return payload;
     } catch (e) {
@@ -31,7 +32,7 @@ class List extends ErrorHandler {
   };
   find = async (props, dispatch, ...callbacks) => {
     try {
-      const { data } = await listsService.find(props);
+      const { data } = await listsService.find({ query: { props } });
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
@@ -53,12 +54,16 @@ class List extends ErrorHandler {
   };
   delete = async (id, dispatch) => {
     try {
-      const deletedList = await listsService.remove({ _id: id });
+      await listsService.remove({ _id: id });
 
+      /*
+      ? prev realization
+      const deletedList = await listsService.remove({ _id: id });
       dispatch({
         type: LIST_DELETED,
         payload: deletedList._id,
       });
+      */
 
       return new Promise((res) => res("done"));
     } catch (e) {
