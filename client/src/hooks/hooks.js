@@ -63,4 +63,35 @@ const useBodyColor = (background = BG_IMAGE) => {
   }, [background, linkChecker, bodyRef]);
 };
 
-export { useToggle, useOuterCLick, useBodyColor };
+const useAddForm = (defaultFormState) => {
+  const formDefState = {
+    ...defaultFormState,
+    isAddForm: false,
+  };
+  const [formState, setFormState] = useState(formDefState);
+
+  const formToggle = () => {
+    setFormState({
+      ...formDefState,
+      isAddForm: !formState.isAddForm,
+    });
+  };
+
+  const changeHandler = (e) => {
+    const { value } = e.target;
+    setFormState({
+      ...formState,
+      name: value,
+    });
+  };
+
+  return {
+    isAddForm: formState.isAddForm,
+    formToggle,
+    setFormState,
+    changeHandler,
+    formState,
+  };
+};
+
+export { useToggle, useOuterCLick, useBodyColor, useAddForm };

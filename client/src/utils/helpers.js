@@ -1,3 +1,13 @@
+import { boardsService, listsService, cardsService } from "../api/feathers.api";
+import {
+  NEW_BOARD_CREATED,
+  BOARD_DELETED,
+  NEW_LIST_CREATED,
+  LIST_DELETED,
+  CARD_DELETED,
+  NEW_CARD_CREATED,
+} from "../utils/actions.types";
+
 const isLink = (background) => {
   return /\/{1,}/g.test(background);
 };
@@ -27,4 +37,64 @@ const getDataFromClipBoard = async () => {
   }
 };
 
-export { isLink, getDataFromClipBoard };
+const isPropInObject = (prop, obj) => prop in obj;
+
+const addListenersForServerChanges = (store) => {
+  //? events for updating data in case of duplicated login
+
+  boardsService.on("created", (payload) => {
+    store.dispatch({
+      type: NEW_BOARD_CREATED,
+      payload,
+    });
+  });
+
+  boardsService.on("removed", ({ _id }) => {
+    store.dispatch({
+      type: BOARD_DELETED,
+      payload: _id,
+    });
+  });
+
+  listsService.on("created", (payload) => {
+    store.dispatch({
+      type: NEW_LIST_CREATED,
+      payload,
+    });
+  });
+
+  listsService.on("removed", ({ _id }) => {
+    store.dispatch({
+      type: LIST_DELETED,
+      payload: _id,
+    });
+  });
+
+  /*
+  TODO suggestion
+  ? get a new card/list 
+  ? for every changed data (action type GET_LISTS/GET_CARDS)
+  ? instead of
+  */
+
+  cardsService.on("removed", ({ _id, listId }) => {
+    store.dispatch({
+      type: CARD_DELETED,
+      payload: { _id, listId },
+    });
+  });
+
+  cardsService.on("created", (payload) => {
+    store.dispatch({
+      type: NEW_CARD_CREATED,
+      payload,
+    });
+  });
+};
+
+export {
+  isLink,
+  getDataFromClipBoard,
+  isPropInObject,
+  addListenersForServerChanges,
+};

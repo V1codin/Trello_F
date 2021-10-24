@@ -14,14 +14,6 @@ class Board extends ErrorHandler {
         }
       });
 
-      /*
-      ? prev realization
-      dispatch({
-        type: NEW_BOARD_CREATED,
-        payload,
-      });
-      */
-
       return payload;
     } catch (e) {
       console.log("create a board error", e);
@@ -29,14 +21,20 @@ class Board extends ErrorHandler {
       throw errorFromHandler;
     }
   };
-  find = async (props = {}) => {
+  find = async (props = {}, ...callbacks) => {
     try {
       const boards = await boardsService.find(props);
 
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(boards);
+        }
+      });
+
       return boards;
     } catch (e) {
-      console.log("find boards error", e);
       const errorFromHandler = this.handleError(e);
+      console.log("find boards error", errorFromHandler);
       throw errorFromHandler;
     }
   };
@@ -50,14 +48,6 @@ class Board extends ErrorHandler {
           cb(_id);
         }
       });
-
-      /*
-      ? prev realization
-      dispatch({
-        type: BOARD_DELETED,
-        payload: _id,
-      });
-      */
 
       return new Promise((res) => res("done"));
     } catch (e) {

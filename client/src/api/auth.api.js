@@ -38,6 +38,7 @@ class Auth extends ErrorHandler {
   logout = async (dispatch) => {
     try {
       const res = await client.logout();
+
       dispatch({
         type: LOGOUT_ACTION,
       });

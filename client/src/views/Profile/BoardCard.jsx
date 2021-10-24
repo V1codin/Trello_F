@@ -14,7 +14,7 @@ function BoardCard(props) {
       const { name } = e.target;
       await board.delete(name, dispatch);
     } catch (e) {
-      console.log("delete board card err ", e);
+      console.log("delete board err ", e);
     }
   };
 

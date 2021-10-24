@@ -7,6 +7,7 @@ const ParentRefContext = createContext(null);
 
 function LoggedHeader() {
   const sectionRef = useRef(null);
+
   return (
     <ParentRefContext.Provider value={sectionRef}>
       <nav className="userSection" ref={sectionRef}>

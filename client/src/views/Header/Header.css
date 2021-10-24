@@ -3,7 +3,7 @@
 
   position: fixed;
   top: 0;
-  z-index: 8000;
+  z-index: 6000;
   min-height: 65px;
 
   display: flex;

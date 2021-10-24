@@ -1,27 +1,21 @@
 import {
   LIST_DELETED,
-  NEW_LISTS_CREATED,
+  NEW_LIST_CREATED,
   GET_LISTS,
+  GET_LISTS_AND_CARDS,
 } from "../utils/actions.types";
-
-/*
-const init = {
-  name: "",
-  order: 0,
-  borderId: "",
-  archived: false,
-};
-*/
 
 const init = [];
 
-function lists(state = init, { type, payload }) {
+function lists(state = init, { type, payload, lists }) {
   switch (type) {
     case LIST_DELETED:
       return state.filter((list) => list._id !== payload);
     case GET_LISTS:
       return [...payload];
-    case NEW_LISTS_CREATED:
+    case GET_LISTS_AND_CARDS:
+      return [...lists];
+    case NEW_LIST_CREATED:
       return [...state, payload];
     default:
       return state;

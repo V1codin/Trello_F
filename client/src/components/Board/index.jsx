@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { useAsync } from "react-async-hook";
 
-import { useBodyColor } from "../../hooks/hooks";
-import { list } from "../../api/lists.api";
+import { useBodyColor, useAddForm } from "../../hooks/hooks";
+import { list } from "../../api/list.api";
+import { card } from "../../api/card.api";
+import { GET_LISTS_AND_CARDS } from "../../utils/actions.types";
 
 import { Process } from "../../modules/process";
 import { List } from "../../views/List";
 import { Form } from "../../modules/form";
+
 import plus from "../../assets/plus.svg";
 import "./Board.css";
 
@@ -42,18 +45,35 @@ function RowBoard(props) {
     },
   } = props;
 
-  const [addForm, setAddForm] = useState(false);
-  const [form, setForm] = useState({
+  const { isAddForm, formToggle, changeHandler, formState } = useAddForm({
     className: "add__list__form",
     name: "",
     boardId: id,
   });
 
-  const { loading } = useAsync(list.find, [id, dispatch]);
+  const { loading, result } = useAsync(
+    async (id) => {
+      try {
+        const result = await Promise.all([list.find(id), card.find(id)]);
+        return result;
+      } catch (e) {
+        throw e;
+      }
+    },
+    [id, dispatch]
+  );
 
-  const formToggle = () => {
-    setAddForm((prev) => !prev);
-  };
+  useEffect(() => {
+    if (result) {
+      const [lists, cards] = result;
+
+      dispatch({
+        type: GET_LISTS_AND_CARDS,
+        lists,
+        cards,
+      });
+    }
+  }, [result, dispatch]);
 
   const board = getBoardByID(id);
   useBodyColor(board?.bg);
@@ -62,10 +82,10 @@ function RowBoard(props) {
 
   const createListsHandler = async (e) => {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
-    if (form.name === "" || form.name === " ") return;
+    if (formState.name === "" || formState.name === " ") return;
     try {
       formToggle();
-      await list.create(form, dispatch);
+      await list.create(formState, dispatch);
     } catch (e) {
       console.log("create lists error", e);
     }
@@ -73,14 +93,8 @@ function RowBoard(props) {
 
   const formProps = {
     type: "add_form",
-    form,
-    changeHandler: (e) => {
-      const { value } = e.target;
-      setForm({
-        ...form,
-        name: value,
-      });
-    },
+    form: formState,
+    changeHandler,
     submit: createListsHandler,
     closeFn: formToggle,
     addBtnTest: "Add list",
@@ -92,11 +106,11 @@ function RowBoard(props) {
       {loading ? (
         <Process isShown={loading} />
       ) : (
-        <ListsIterator lists={lists} />
+        <ListsIterator lists={lists.filter(({ boardId }) => boardId === id)} />
       )}
 
-      <section className={addForm ? "add__form" : "add__form_wd"}>
-        {!addForm ? (
+      <section className={isAddForm ? "add__form" : "add__form_wd"}>
+        {!isAddForm ? (
           <button className="add__toggler card_design" onClick={formToggle}>
             <img
               src={plus}

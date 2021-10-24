@@ -1,9 +1,6 @@
 import { ErrorHandler } from "./error.api";
 import { listsService } from "./feathers.api";
 
-import { GET_LISTS } from "../utils/actions.types";
-//import { NEW_LISTS_CREATED, LIST_DELETED } from "../utils/actions.types";
-
 class List extends ErrorHandler {
   create = async (props, dispatch, ...callbacks) => {
     try {
@@ -14,14 +11,6 @@ class List extends ErrorHandler {
           cb(payload);
         }
       });
-
-      /*
-      ? prev realization
-      dispatch({
-        type: NEW_LISTS_CREATED,
-        payload,
-      });
-      */
 
       return payload;
     } catch (e) {
@@ -40,11 +29,6 @@ class List extends ErrorHandler {
         }
       });
 
-      dispatch({
-        type: GET_LISTS,
-        payload: data,
-      });
-
       return data;
     } catch (e) {
       console.log("find a list error", e);
@@ -52,20 +36,17 @@ class List extends ErrorHandler {
       throw errorFromHandler;
     }
   };
-  delete = async (id, dispatch) => {
+  delete = async (id, dispatch, ...callbacks) => {
     try {
       await listsService.remove({ _id: id });
 
-      /*
-      ? prev realization
-      const deletedList = await listsService.remove({ _id: id });
-      dispatch({
-        type: LIST_DELETED,
-        payload: deletedList._id,
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(id);
+        }
       });
-      */
 
-      return new Promise((res) => res("done"));
+      return id;
     } catch (e) {
       console.log("delete list error", e);
       const errorFromHandler = this.handleError(e, dispatch);

@@ -16,7 +16,7 @@ const options = {
 };
 
 const socket = io(null, {
-  reconnectionDelay: 10000,
+  reconnectionDelay: 5000,
   transports: ["websocket"],
 });
 
@@ -34,6 +34,6 @@ const userService = client.service("users");
 const boardsService = client.service("boards");
 
 const listsService = client.service("lists");
-//const cardsService = client.service("cards");
+const cardsService = client.service("cards");
 
-export { client, userService, boardsService, listsService };
+export { client, userService, boardsService, listsService, cardsService };

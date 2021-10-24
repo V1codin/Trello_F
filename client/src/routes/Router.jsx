@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
 
 function RowRouter(props) {
   const { isLogged } = props;
+
   return (
     <Switch>
       {isLogged === true
