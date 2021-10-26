@@ -8,7 +8,7 @@ module.exports = {
     patch: [],
 
     // ! adding jwt to Blocklist
-    remove: [(hook) => console.log("test")],
+    remove: [(hook) => console.log("auth before")],
   },
 
   after: {

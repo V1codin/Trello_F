@@ -4,20 +4,22 @@ import { useAsyncCallback } from "react-async-hook";
 
 import { list } from "../../api/list.api";
 import { card } from "../../api/card.api";
-import { useAddForm } from "../../hooks/hooks";
 
-import { CardComponent } from "../CardComponent";
+import { CardComponent } from "../../views/CardComponent";
+import { AddForm } from "./components/addForm";
 import { ListDropDown } from "./ListDropdown";
-import { Form } from "../../modules/form";
 import { Process } from "../../modules/process";
 
-import plus from "../../assets/plus.svg";
 import moreDots from "../../assets/more.svg";
 import "./List.css";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+  const {
+    list: { _id },
+  } = props;
+
   return {
-    cards: state.card,
+    cards: state.cards[_id] || [],
   };
 };
 
@@ -28,17 +30,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 const CardsIterator = (props) => {
-  const { cards, id, deleteCard } = props;
-  if (id in cards)
-    return cards[id].map((card) => (
-      <CardComponent
-        card={card}
-        key={card._id}
-        removeCard={deleteCard(card._id)}
-      />
-    ));
-
-  return null;
+  const { cards, deleteCard } = props;
+  return cards.map((card) => (
+    <CardComponent
+      card={card}
+      key={card._id}
+      removeCard={deleteCard(card._id)}
+    />
+  ));
 };
 
 function RowList(props) {
@@ -47,13 +46,6 @@ function RowList(props) {
     list: { name, _id, boardId },
     cards,
   } = props;
-
-  const { isAddForm, formToggle, changeHandler, formState } = useAddForm({
-    className: "add__card__form",
-    name: "",
-    listId: _id,
-    boardId,
-  });
 
   const [isDropDown, setDropDown] = useState(false);
 
@@ -76,22 +68,7 @@ function RowList(props) {
     }
   };
 
-  const createCardsHandler = async (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
-    if (formState.name === "" || formState.name === " ") return;
-
-    try {
-      formToggle();
-
-      await card.create(formState, dispatch);
-    } catch (e) {
-      console.log("create card error", e);
-      throw e;
-    }
-  };
-
   const deleteHandler = useAsyncCallback(deleteList);
-  const addCardHandler = useAsyncCallback(createCardsHandler);
 
   const moreBtn = () => {
     setDropDown((prev) => !prev);
@@ -101,16 +78,6 @@ function RowList(props) {
     deleteList: deleteHandler.execute,
     toggle: moreBtn,
     parentRef: cardRef,
-  };
-
-  const formProps = {
-    type: "add_form",
-    form: formState,
-    changeHandler,
-    submit: addCardHandler.execute,
-    closeFn: formToggle,
-    addBtnTest: "Add card",
-    inputPlaceholder: "Enter a title for the card",
   };
 
   return (
@@ -130,25 +97,10 @@ function RowList(props) {
             </header>
 
             <section className="list__body">
-              <CardsIterator {...{ cards, id: _id, deleteCard }} />
+              <CardsIterator {...{ cards, deleteCard }} />
             </section>
             <section className="list__body">
-              {!isAddForm ? (
-                <button
-                  className="add__toggler card_design"
-                  onClick={formToggle}
-                >
-                  <img
-                    src={plus}
-                    alt="add"
-                    className="menu__ico"
-                    title="add the card"
-                  />
-                  Add another card
-                </button>
-              ) : (
-                <Form {...formProps} />
-              )}
+              <AddForm {...{ _id, boardId }} />
             </section>
           </>
         )}

@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 import { auth } from "./auth.reducer";
 import { boards } from "./boards.reducer";
-import { card } from "./card.reducer";
+import { cards } from "./cards.reducer";
 import { lists } from "./lists.reducer";
 
-const reducer = combineReducers({ auth, boards, card, lists });
+const reducer = combineReducers({ auth, boards, cards, lists });
 
 export { reducer };

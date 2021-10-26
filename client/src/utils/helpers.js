@@ -40,7 +40,11 @@ const getDataFromClipBoard = async () => {
 const isPropInObject = (prop, obj) => prop in obj;
 
 const addListenersForServerChanges = (store) => {
-  //? events for updating data in case of duplicated login
+  // ? if on the server delete  app.channel(user.email).join(connection);
+  // ? and app.publish("created" , () => {})
+  // ? that would cause to re render after any creation of any user
+
+  // ? events for updating data in case of subscription
 
   boardsService.on("created", (payload) => {
     store.dispatch({

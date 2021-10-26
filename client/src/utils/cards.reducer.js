@@ -2,20 +2,19 @@ import {
   GET_LISTS_AND_CARDS,
   NEW_CARD_CREATED,
   CARD_DELETED,
+  LIST_DELETED,
 } from "./actions.types";
 
 import { isPropInObject } from "./helpers";
 
-/*
-{
-  "listId" : [Array of cards]
-}
-*/
-
 const init = {};
 
-function card(state = init, { type, payload, cards }) {
+function cards(state = init, { type, payload, cards }) {
   switch (type) {
+    case LIST_DELETED:
+      if (payload in state) delete state[payload];
+
+      return state;
     case CARD_DELETED:
       const deletedCardListId = payload.listId;
       const deletedId = payload._id;
@@ -78,4 +77,4 @@ function card(state = init, { type, payload, cards }) {
   }
 }
 
-export { card };
+export { cards };

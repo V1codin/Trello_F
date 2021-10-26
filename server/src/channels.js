@@ -1,3 +1,5 @@
+// TODO add a certain user subscribe to another user's channel
+
 module.exports = function (app) {
   if (typeof app.channel !== "function") {
     // If no real-time functionality has been configured just return
@@ -14,7 +16,7 @@ module.exports = function (app) {
     // real-time connection, e.g. when logging in via REST
     if (connection) {
       // Obtain the logged in user from the connection
-      // const user = connection.user;
+      const user = connection.user;
 
       // The connection is no longer anonymous, remove it
       app.channel("anonymous").leave(connection);
@@ -31,7 +33,7 @@ module.exports = function (app) {
       // if(Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(connection));
 
       // Easily organize users by email and userid for things like messaging
-      // app.channel(`emails/${user.email}`).join(connection);
+      app.channel(`emails/${user.email}`).join(connection);
       // app.channel(`userIds/${user.id}`).join(connection);
     }
   });
@@ -48,12 +50,42 @@ module.exports = function (app) {
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
+    app.publish("created", (data, second) => {
+      return app
+        .channel(`emails/${second.params.user.email}`)
+        .send({ ...data });
+    });
+
+    app.publish("removed", (data, second) => {
+      return app
+        .channel(`emails/${second.params.user.email}`)
+        .send({ ...data });
+    });
+
+    app.publish("updated", (data, second) => {
+      return app
+        .channel(`emails/${second.params.user.email}`)
+        .send({ ...data });
+    });
+
+    app.publish("patched", (data, second) => {
+      return app
+        .channel(`emails/${second.params.user.email}`)
+        .send({ ...data });
+    });
+
     console.log(
       "Publishing all events to all authenticated users. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information."
     ); // eslint-disable-line
 
     // e.g. to publish all service events to all authenticated users use
     return app.channel("authenticated");
+  });
+
+  app.service("users").on("removed", (user) => {
+    app.channel(app.channels).leave((connection) => {
+      return user._id === connection.user._id;
+    });
   });
 
   // Here you can also add service specific event publishers
