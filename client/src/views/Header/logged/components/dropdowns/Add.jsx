@@ -51,7 +51,7 @@ function AddBoardDrop(props) {
   const dropProps = {
     toggle,
     heading: "Create",
-    className: "add",
+    classList: ["add"],
     popupBody: PopupBody({ initBoardCreationForm }),
   };
 

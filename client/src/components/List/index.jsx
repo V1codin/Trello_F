@@ -89,11 +89,12 @@ function RowList(props) {
           <>
             <header className="popup__header list__header">
               <h3 className="list__heading unselectable">{name}</h3>
-              <div className="list__btnSection">
+
+              <section className="list__btnSection">
                 <button className="menu__btn more__btn" onClick={moreBtn}>
                   <img src={moreDots} alt="more" className="menu__ico" />
                 </button>
-              </div>
+              </section>
             </header>
 
             <section className="list__body">

@@ -3,6 +3,7 @@ import {
   NEW_CARD_CREATED,
   CARD_DELETED,
   LIST_DELETED,
+  NEW_LIST_CREATED,
 } from "./actions.types";
 
 import { isPropInObject } from "./helpers";
@@ -11,6 +12,12 @@ const init = {};
 
 function cards(state = init, { type, payload, cards }) {
   switch (type) {
+    case NEW_LIST_CREATED:
+      return {
+        ...state,
+        [payload._id]: [],
+      };
+
     case LIST_DELETED:
       if (payload in state) delete state[payload];
 

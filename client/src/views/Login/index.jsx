@@ -94,6 +94,7 @@ function RowLogin(props) {
   const formProps = {
     type,
     heading: "Login",
+    btnText: "Log in",
     form,
     warn,
     changeHandler,

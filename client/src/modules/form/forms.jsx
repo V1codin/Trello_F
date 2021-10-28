@@ -1,13 +1,14 @@
 import { Children } from "react";
 import { NavLink } from "react-router-dom";
 
+import { Button } from "../button";
 import link from "../../assets/link.svg";
 import closeIco from "../../assets/plus.svg";
 
 import colors from "./colors.json";
 
 function FormInputs(props) {
-  const { type, heading, state, warns, changeHandler, submit } = props;
+  const { type, heading, state, warns, changeHandler, submit, btnText } = props;
   switch (type) {
     case "login":
       return (
@@ -41,7 +42,7 @@ function FormInputs(props) {
           ) : null}
 
           <button className="form__btn" onClick={submit}>
-            Log in
+            {btnText || ""}
           </button>
           <NavLink to="/signup" className="form__link">
             Sign up for an account
@@ -124,7 +125,7 @@ function FormInputs(props) {
           ) : null}
 
           <button className="form__btn" onClick={submit}>
-            Sign up
+            {btnText || ""}
           </button>
         </>
       );
@@ -191,12 +192,12 @@ function FormInputs(props) {
               state.title === "" || state.title === undefined ? true : false
             }
           >
-            Create Board
+            {btnText || ""}
           </button>
         </>
       );
     case "add_form":
-      const { closeFn, addBtnTest, inputPlaceholder } = props;
+      const { closeFn, inputPlaceholder, loading } = props;
       return (
         <>
           <input
@@ -208,9 +209,7 @@ function FormInputs(props) {
             autoFocus
           />
           <section className="add__list__btns">
-            <button onClick={submit} className="innerCreate__btn card_design">
-              {addBtnTest}
-            </button>
+            <Button {...{ submit, btnText, loading }} />
             <button
               className="close__btn btn_static btn_ml10"
               onClick={closeFn}

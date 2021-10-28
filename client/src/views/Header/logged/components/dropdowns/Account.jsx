@@ -62,7 +62,7 @@ function RowAccountDrop(props) {
   const dropProps = {
     toggle,
     heading: "Account",
-    className: "account",
+    classList: ["account"],
     popupBody: PopupBody({ ...userInfo, logoutHandler }),
   };
 

@@ -122,6 +122,7 @@ function RowSignup(props) {
   const formProps = {
     type,
     heading: "Sign up for your account",
+    btnText: "Sign up",
     form,
     warn,
     changeHandler,

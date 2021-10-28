@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { useAsyncCallback } from "react-async-hook";
 
 import { useAddForm } from "../../../../hooks/hooks";
 import { list } from "../../../../api/list.api";
@@ -22,21 +23,23 @@ function AddForm(props) {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
     if (formState.name === "" || formState.name === " ") return;
     try {
-      formToggle();
-      //await list.create(formState, dispatch);
       await list.create(formState, dispatch);
+      formToggle();
     } catch (e) {
       console.log("create lists error", e);
     }
   };
 
+  const { execute, loading } = useAsyncCallback(createListsHandler);
+
   const formProps = {
     type: "add_form",
     form: formState,
     changeHandler,
-    submit: createListsHandler,
+    submit: execute,
     closeFn: formToggle,
-    addBtnTest: "Add list",
+    loading,
+    btnText: "Add list",
     inputPlaceholder: "Enter list title",
   };
 

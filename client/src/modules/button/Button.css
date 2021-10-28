@@ -1,0 +1,12 @@
+.sec__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 70px;
+  min-height: 40px;
+  padding: 0 !important;
+}
+.btn__span {
+  padding: 10px;
+}

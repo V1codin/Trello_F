@@ -68,20 +68,22 @@ function RowAddBoardOverlay(props) {
         bg: "",
         link: res,
       });
-
       return;
     }
 
-    setForm({
-      ...form,
-      [name]: value,
-    });
+    if (form[name] !== value) {
+      setForm({
+        ...form,
+        [name]: value,
+      });
+    }
   };
 
   const formProps = {
     type: "add_board",
     submit: execute,
     heading: "Add board",
+    btnText: "Create Board",
     form,
     containerAttrs,
     changeHandler,

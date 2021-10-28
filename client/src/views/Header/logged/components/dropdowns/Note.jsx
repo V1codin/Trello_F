@@ -28,7 +28,7 @@ function NoteBoardDrop(props) {
   const dropProps = {
     toggle,
     heading: "Notifications",
-    className: "note",
+    classList: ["note"],
     popupBody: PopupBody(),
   };
 

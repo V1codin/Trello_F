@@ -25,24 +25,24 @@ function AddForm(props) {
     if (formState.name === "" || formState.name === " ") return;
 
     try {
-      formToggle();
-
       await card.create(formState, dispatch);
+      formToggle();
     } catch (e) {
       console.log("create card error", e);
       throw e;
     }
   };
 
-  const { execute } = useAsyncCallback(createCardsHandler);
+  const { execute, loading } = useAsyncCallback(createCardsHandler);
 
   const formProps = {
     type: "add_form",
     form: formState,
     changeHandler,
     submit: execute,
+    loading,
     closeFn: formToggle,
-    addBtnTest: "Add card",
+    btnText: "Add card",
     inputPlaceholder: "Enter a title for the card",
   };
 

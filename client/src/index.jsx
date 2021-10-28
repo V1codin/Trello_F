@@ -1,4 +1,5 @@
 import ReactDOM from "react-dom";
+import { StrictMode } from "react";
 
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -30,8 +31,10 @@ const store = createStore(reducer, composeWithDevTools());
 addListenersForServerChanges(store);
 
 ReactDOM.render(
-  <Providers store={store}>
-    <App />
-  </Providers>,
+  <StrictMode>
+    <Providers store={store}>
+      <App />
+    </Providers>
+  </StrictMode>,
   document.getElementById("root")
 );

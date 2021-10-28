@@ -1,12 +1,12 @@
-import React from "react";
-
 import closeIco from "../../assets/plus.svg";
 import "./DropDown.css";
 
 function DropDown(props) {
   const { toggle, heading, popupBody } = props;
 
-  const containerClasses = `board_popup card_design ${props?.className}`;
+  const containerClasses = `board_popup card_design ${props?.classList?.join(
+    " "
+  )}`;
 
   return (
     <section className={containerClasses}>

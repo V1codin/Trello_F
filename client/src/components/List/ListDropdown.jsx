@@ -26,7 +26,7 @@ function ListDropDown(props) {
     toggle,
     heading: "List actions",
     popupBody: PopupBody({ deleteList }),
-    className: "list_drop",
+    classList: ["list_drop"],
   };
 
   return <DropDown {...dropProps} />;

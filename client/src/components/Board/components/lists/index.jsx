@@ -34,8 +34,6 @@ const ListsIterator = (props) => {
 function RowListsWrapper(props) {
   const { localBoard, dispatch, isLogged, lists, _boardId } = props;
 
-  console.log("list wrapper");
-
   const { loading } = useAsync(
     async (id) => {
       try {

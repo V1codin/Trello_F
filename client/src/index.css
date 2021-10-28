@@ -124,6 +124,7 @@ button {
 button:disabled {
   cursor: not-allowed;
   color: #ffffff49;
+  background-color: #808080 !important;
 }
 
 *:focus {
