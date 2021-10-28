@@ -5,7 +5,7 @@ import { useAsyncCallback } from "react-async-hook";
 import { list } from "../../api/list.api";
 import { card } from "../../api/card.api";
 
-import { CardComponent } from "../../views/CardComponent";
+import { Card } from "../../components/Card";
 import { AddForm } from "./components/addForm";
 import { ListDropDown } from "./components/dropdown";
 import { Process } from "../../modules/process";
@@ -31,11 +31,7 @@ const mapDispatchToProps = (dispatch) => {
 const CardsIterator = (props) => {
   const { cards, deleteCard } = props;
   return cards.map((card) => (
-    <CardComponent
-      card={card}
-      key={card._id}
-      removeCard={deleteCard(card._id)}
-    />
+    <Card card={card} key={card._id} removeCard={deleteCard(card._id)} />
   ));
 };
 
