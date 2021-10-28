@@ -19,7 +19,10 @@ const useToggle = (initialState = false) => {
 const useOuterCLick = (parentRef, ...callbacks) => {
   const click = useCallback(
     (e) => {
-      if (!parentRef.current?.contains(e.target) || e.code === "Escape") {
+      if (
+        (e.type === "click" && !parentRef.current?.contains(e.target)) ||
+        (e.type === "keydown" && e.code === "Escape")
+      ) {
         callbacks.forEach((callback) => callback());
       }
     },

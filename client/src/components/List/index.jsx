@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { connect } from "react-redux";
 import { useAsyncCallback } from "react-async-hook";
 
@@ -7,10 +7,9 @@ import { card } from "../../api/card.api";
 
 import { CardComponent } from "../../views/CardComponent";
 import { AddForm } from "./components/addForm";
-import { ListDropDown } from "./ListDropdown";
+import { ListDropDown } from "./components/dropdown";
 import { Process } from "../../modules/process";
 
-import moreDots from "../../assets/more.svg";
 import "./List.css";
 
 const mapStateToProps = (state, props) => {
@@ -47,13 +46,10 @@ function RowList(props) {
     cards,
   } = props;
 
-  const [isDropDown, setDropDown] = useState(false);
-
   const cardRef = useRef(null);
 
   const deleteList = async () => {
     try {
-      setDropDown(false);
       await list.delete(_id, dispatch);
     } catch (e) {
       console.log("delete list error", e);
@@ -70,14 +66,9 @@ function RowList(props) {
 
   const deleteHandler = useAsyncCallback(deleteList);
 
-  const moreBtn = () => {
-    setDropDown((prev) => !prev);
-  };
-
-  const dropProps = {
-    deleteList: deleteHandler.execute,
-    toggle: moreBtn,
-    parentRef: cardRef,
+  const deleteFn = (cb) => async () => {
+    cb();
+    await deleteHandler.execute();
   };
 
   return (
@@ -89,12 +80,7 @@ function RowList(props) {
           <>
             <header className="popup__header list__header">
               <h3 className="list__heading unselectable">{name}</h3>
-
-              <section className="list__btnSection">
-                <button className="menu__btn more__btn" onClick={moreBtn}>
-                  <img src={moreDots} alt="more" className="menu__ico" />
-                </button>
-              </section>
+              <ListDropDown parentRef={cardRef} deleteFn={deleteFn} />
             </header>
 
             <section className="list__body">
@@ -105,7 +91,6 @@ function RowList(props) {
             </section>
           </>
         )}
-        {isDropDown ? <ListDropDown {...dropProps} /> : null}
       </section>
     </>
   );

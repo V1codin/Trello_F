@@ -32,9 +32,9 @@
 .list_drop {
   position: absolute;
   background-color: var(--black-aqua);
-  top: 50px;
+  top: 35px;
   right: 0;
-  left: 225px;
+  left: 215px;
   width: 304px;
 }
 
