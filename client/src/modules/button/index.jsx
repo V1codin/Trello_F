@@ -12,7 +12,9 @@ function Button(props) {
   };
 
   return (
-    <section className="progress__btn__section">
+    <section
+      className={`progress__btn__section ${props?.classList?.join(" ")}`}
+    >
       <button
         className="innerCreate__btn sec__btn card_design"
         onClick={submit}

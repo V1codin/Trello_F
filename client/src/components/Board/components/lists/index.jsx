@@ -37,7 +37,10 @@ function RowListsWrapper(props) {
   const { loading } = useAsync(
     async (id) => {
       try {
-        const result = await Promise.all([list.find(id), card.find(id)]);
+        const result = await Promise.all([
+          list.find(id, dispatch),
+          card.find(id, dispatch),
+        ]);
         const [lists, cards] = result;
 
         dispatch({

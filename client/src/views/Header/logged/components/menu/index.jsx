@@ -5,7 +5,7 @@ import { AddBoardDrop } from "../dropdowns/Add";
 import { InfoBoardDrop } from "../dropdowns/Info";
 import { NoteBoardDrop } from "../dropdowns/Note";
 import { AccountDrop } from "../dropdowns/Account";
-import { AddBoardOverlay } from "../../../../Overlays/AddBoards";
+import { AddBoardOverlay } from "../../../../../components/Overlays/AddBoards";
 
 import plus from "../../../../../assets/plus.svg";
 import info from "../../../../../assets/info.svg";
