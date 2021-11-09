@@ -6,6 +6,7 @@ import {
   LIST_DELETED,
   CARD_DELETED,
   NEW_CARD_CREATED,
+  CARD_PATCHED,
 } from "../utils/actions.types";
 
 const isLink = (background) => {
@@ -91,6 +92,13 @@ const addListenersForServerChanges = (store) => {
   cardsService.on("created", (payload) => {
     store.dispatch({
       type: NEW_CARD_CREATED,
+      payload,
+    });
+  });
+
+  cardsService.on("patched", (payload) => {
+    store.dispatch({
+      type: CARD_PATCHED,
       payload,
     });
   });

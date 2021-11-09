@@ -6,7 +6,6 @@
 }
 
 .board__card {
-  /* padding: 15px; */
   position: relative;
   margin: 10px 0 0 15px;
   overflow: auto;
@@ -39,6 +38,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+
+  top: 5px;
+  right: 7px;
 }
 
 .close__btn:hover,
@@ -58,16 +61,17 @@
   transform: rotate(45deg);
 }
 
-.close__btn {
-  position: absolute;
-  top: 3px;
-  right: 5px;
-}
-
 .btn_static {
   position: static;
 }
 
 .btn_ml10 {
   margin-left: 10px;
+}
+
+.close__btn:hover {
+  box-shadow: none;
+}
+.close__btn:hover img {
+  transform: rotate(45deg) scale(1.1);
 }

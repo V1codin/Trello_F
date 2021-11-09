@@ -1,6 +1,7 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
 
-import { Overlay } from "../../modules/overlay";
+import { card } from "../../api/card.api";
+
 import { EditSection } from "./EditSection";
 
 import edit from "../../assets/edit.svg";
@@ -10,17 +11,41 @@ import "./Card.css";
 function Card(props) {
   const {
     removeCard,
-    card: { name },
+    card: { name, _id },
   } = props;
 
   const [isOverlay, setOverlay] = useState(false);
   const spanRef = useRef(null);
 
-  const textAreaHeight = spanRef?.current?.scrollHeight + 15;
+  const patchCard = useCallback(
+    async (newName) => {
+      try {
+        const patchedCard = await card.patch(
+          { ...props.card, name: newName },
+          _id
+        );
+        setOverlay(false);
 
-  const saveFn = () => {
+        return patchedCard;
+      } catch (e) {
+        console.log("card edit error", e);
+      }
+    },
+    [props.card, _id]
+  );
+
+  const textAreaHeight = spanRef?.current?.scrollHeight + 20;
+
+  const toggleOverlay = () => {
     setOverlay((prev) => !prev);
-    // removeCard()
+  };
+
+  const editProps = {
+    textAreaHeight,
+    name,
+    toggleOverlay,
+    removeCard,
+    patchCard,
   };
 
   return (
@@ -28,18 +53,17 @@ function Card(props) {
       <section className="card">
         {isOverlay ? (
           <>
-            <Overlay renderBody={() => null} />
-            <EditSection {...{ textAreaHeight, name, saveFn }} />
+            <EditSection {...editProps} />
           </>
         ) : (
           <>
-            <span className="card__text" ref={spanRef}>
+            <span className="card__text unselectable" ref={spanRef}>
               {name}
             </span>
             <button
               className="menu__btn edit__btn"
               title="Edit the card"
-              onClick={saveFn}
+              onClick={toggleOverlay}
             >
               <img src={edit} alt="edit" className="menu__ico edit__ico" />
             </button>

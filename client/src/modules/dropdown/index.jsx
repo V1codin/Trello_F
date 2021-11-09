@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import closeIco from "../../assets/plus.svg";
 import "./DropDown.css";
 
@@ -17,7 +19,8 @@ function DropDown(props) {
             src={closeIco}
             alt="close"
             className="menu__ico board__ico"
-            title="Close the popup"
+            title="Close the dropdown"
+            draggable={false}
           />
         </button>
       </header>
@@ -25,5 +28,19 @@ function DropDown(props) {
     </section>
   );
 }
+
+DropDown.defaultProps = {
+  toggle: () => null,
+  heading: "Heading",
+  popupBody: null,
+  classList: [],
+};
+
+DropDown.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  heading: PropTypes.string.isRequired,
+  popupBody: PropTypes.object,
+  classList: PropTypes.arrayOf(PropTypes.string),
+};
 
 export { DropDown };

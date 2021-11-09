@@ -42,10 +42,12 @@ function RowLogin(props) {
     confirmPassword: "",
     displayName: "",
     email: "",
+    className: "",
   };
 
   const [form, setForm] = useState(formDefault);
   const [warn, setWarn] = useState(formDefault);
+
   const type = "login";
 
   const changeHandler = (e) => {

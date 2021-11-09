@@ -1,10 +1,14 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const { setField } = require("feathers-authentication-hooks");
+const {
+  getOwnAndSubscribedBoards,
+} = require("../../hooks/getOwnAndSubscribedBoards");
 
-const setUserId = setField({
+const setUserIdToQuery = setField({
   from: "params.user._id",
   as: "params.query.ownerId",
 });
+
 const setUserForCreation = setField({
   from: "params.user._id",
   as: "data.ownerId",
@@ -13,12 +17,12 @@ const setUserForCreation = setField({
 module.exports = {
   before: {
     all: [authenticate("jwt")],
-    find: [setUserId],
-    get: [setUserId],
+    find: [getOwnAndSubscribedBoards],
+    get: [setUserIdToQuery],
     create: [setUserForCreation],
-    update: [setUserId],
-    patch: [setUserId],
-    remove: [setUserId],
+    update: [setUserIdToQuery],
+    patch: [setUserIdToQuery],
+    remove: [setUserIdToQuery],
   },
 
   after: {

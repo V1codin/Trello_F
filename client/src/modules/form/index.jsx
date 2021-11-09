@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { memo } from "react";
 
 import { FormInputs } from "./forms";
@@ -48,5 +50,27 @@ const Form = memo((props) => {
     </>
   );
 });
+
+Form.defaultProps = {
+  type: "",
+  heading: "",
+  btnText: "Button",
+  form: { className: "", bg: "", link: "" },
+  changeHandler: () => null,
+  submit: () => null,
+};
+
+Form.propTypes = {
+  type: PropTypes.string.isRequired,
+  heading: PropTypes.string.isRequired,
+  form: PropTypes.object.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+  submit: PropTypes.func.isRequired,
+  error: PropTypes.object,
+  warn: PropTypes.objectOf(PropTypes.string),
+  btnText: PropTypes.string,
+
+  containerAttrs: PropTypes.any,
+};
 
 export { Form };

@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import Ava from "react-avatar";
 
 import "./Avatar.css";
@@ -28,5 +30,15 @@ function Avatar(props) {
     </>
   );
 }
+
+Avatar.defaultProps = {
+  imgLink: "",
+  name: "",
+};
+
+Avatar.propTypes = {
+  imgLink: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+};
 
 export { Avatar };

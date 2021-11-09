@@ -51,6 +51,7 @@ function BoardCard(props) {
           alt="delete"
           className="menu__ico board__ico"
           title="Delete the board"
+          draggable={false}
         />
       </button>
       <button

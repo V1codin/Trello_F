@@ -1,3 +1,5 @@
+import AwesomeDebouncePromise from "awesome-debounce-promise";
+
 import { useDispatch } from "react-redux";
 import { useAsyncCallback } from "react-async-hook";
 
@@ -30,7 +32,9 @@ function AddForm(props) {
     }
   };
 
-  const { execute, loading } = useAsyncCallback(createListsHandler);
+  const debouncedRequest = AwesomeDebouncePromise(createListsHandler, 1000);
+
+  const { execute, loading } = useAsyncCallback(debouncedRequest);
 
   const formProps = {
     type: "add_form",

@@ -42,7 +42,7 @@ function FormInputs(props) {
           ) : null}
 
           <button className="form__btn" onClick={submit}>
-            {btnText || ""}
+            {btnText}
           </button>
           <NavLink to="/signup" className="form__link">
             Sign up for an account
@@ -219,6 +219,7 @@ function FormInputs(props) {
                 alt="close"
                 className="menu__ico board__ico"
                 title="close"
+                draggable={false}
               />
             </button>
           </section>

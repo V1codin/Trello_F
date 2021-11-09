@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { connect } from "react-redux";
 import { useAsyncCallback } from "react-async-hook";
 
@@ -42,8 +41,6 @@ function RowList(props) {
     cards,
   } = props;
 
-  const cardRef = useRef(null);
-
   const deleteList = async () => {
     try {
       await list.delete(_id, dispatch);
@@ -69,14 +66,13 @@ function RowList(props) {
 
   return (
     <>
-      <section className="card_design list" ref={cardRef}>
+      <section className="card_design list">
         {deleteHandler.loading ? (
           <Process isShown={deleteHandler.loading} />
         ) : (
           <>
             <header className="popup__header list__header">
               <h3 className="list__heading unselectable">{name}</h3>
-              <ListDropDown parentRef={cardRef} deleteFn={deleteFn} />
             </header>
 
             <section className="list__body">
@@ -88,6 +84,7 @@ function RowList(props) {
           </>
         )}
       </section>
+      <ListDropDown deleteFn={deleteFn} />
     </>
   );
 }

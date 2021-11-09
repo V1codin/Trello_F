@@ -14,7 +14,7 @@ module.exports = function (app) {
       archived: { type: Boolean, required: true, default: false },
       listId: { type: Schema.Types.ObjectId, ref: "lists" },
       boardId: { type: Schema.Types.ObjectId, ref: "boards" },
-      members: [{ type: Schema.Types.ObjectId, ref: "users" }],
+      // members: [{ type: Schema.Types.ObjectId, ref: "users" }],
     },
     {
       timestamps: true,

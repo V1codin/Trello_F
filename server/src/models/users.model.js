@@ -16,6 +16,8 @@ const schemaProps = {
 
   email: { type: String, unique: true, require },
 
+  subs: [{ type: Schema.Types.ObjectId, ref: "boards" }],
+
   imageURL: {
     type: String,
     default: "",

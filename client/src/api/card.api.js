@@ -47,6 +47,18 @@ class Card extends ErrorHandler {
       throw errorFromHandler;
     }
   };
+
+  patch = async (data, id, dispatch) => {
+    try {
+      const patchedCard = await cardsService.patch(id, data);
+
+      return patchedCard;
+    } catch (e) {
+      console.log("patch card error", e);
+      const errorFromHandler = this.handleError(e, dispatch);
+      throw errorFromHandler;
+    }
+  };
 }
 
 const card = new Card();

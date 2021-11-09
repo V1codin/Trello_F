@@ -11,7 +11,9 @@ module.exports = function (app) {
       title: { type: String, required: true },
       bg: { type: String, required: true },
       ownerId: { type: Schema.Types.ObjectId, ref: "users" },
-      memberIds: [{ type: Schema.Types.ObjectId, ref: "users" }],
+      // ? prev
+      // ? memberIds: [{ type: Schema.Types.ObjectId, ref: "users" }],
+      memberIds: [{ type: String }],
     },
     {
       timestamps: true,

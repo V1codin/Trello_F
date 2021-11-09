@@ -38,8 +38,13 @@ function Menu(props) {
 
   return (
     <>
-      <button className="menu__btn" name="add" onClick={clickHandler}>
-        <img src={plus} alt="add board" className="menu__ico" name="add" />
+      <button
+        className="menu__btn"
+        name="add"
+        onClick={clickHandler}
+        title="Create"
+      >
+        <img src={plus} alt="add" className="menu__ico" name="add" />
       </button>
       {state.add ? (
         <AddBoardDrop
@@ -48,7 +53,12 @@ function Menu(props) {
         />
       ) : null}
 
-      <button className="menu__btn" name="info" onClick={clickHandler}>
+      <button
+        className="menu__btn"
+        name="info"
+        onClick={clickHandler}
+        title="Information"
+      >
         <img src={info} alt="info" className="menu__ico" name="info" />
       </button>
       {state.info ? (
@@ -57,7 +67,12 @@ function Menu(props) {
         />
       ) : null}
 
-      <button className="menu__btn" name="note" onClick={clickHandler}>
+      <button
+        className="menu__btn"
+        name="note"
+        onClick={clickHandler}
+        title="Notifications"
+      >
         <img src={note} alt="notification" className="menu__ico" name="note" />
       </button>
       {state.note ? (

@@ -46,6 +46,7 @@ function RowSignup(props) {
     confirmPassword: "",
     displayName: "",
     email: "",
+    className: "",
   };
 
   const [form, setForm] = useState(formDefault);

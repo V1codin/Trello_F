@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useOuterCLick } from "../../../../hooks/hooks";
 import { DropDown } from "../../../../modules/dropdown";
@@ -22,9 +22,11 @@ const PopupBody = (props) => {
 };
 
 function ListDropDown(props) {
-  const { parentRef, deleteFn } = props;
+  const { deleteFn } = props;
 
   const [isDropDown, setDropDown] = useState(false);
+
+  const parentRef = useRef(null);
 
   const toggle = () => {
     setDropDown((prev) => !prev);
@@ -41,12 +43,17 @@ function ListDropDown(props) {
 
   return (
     <>
-      <section className="list__btnSection">
+      <section className="list__btnSection" ref={parentRef}>
         <button className="menu__btn more__btn" onClick={toggle}>
-          <img src={moreDots} alt="more" className="menu__ico" />
+          <img
+            src={moreDots}
+            alt="more"
+            className="menu__ico"
+            title="List actions"
+          />
         </button>
+        {isDropDown ? <DropDown {...dropProps} /> : null}
       </section>
-      {isDropDown ? <DropDown {...dropProps} /> : null}
     </>
   );
 }

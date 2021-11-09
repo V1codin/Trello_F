@@ -32,6 +32,11 @@ module.exports = function (app) {
       // If the user has joined e.g. chat rooms
       // if(Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(connection));
 
+      if (Array.isArray(user.subs))
+        user.subs.forEach((room) =>
+          app.channel(`rooms/${room}`).join(connection)
+        );
+
       // Easily organize users by email and userid for things like messaging
       app.channel(`emails/${user.email}`).join(connection);
       // app.channel(`userIds/${user.id}`).join(connection);
@@ -41,19 +46,34 @@ module.exports = function (app) {
   app.on("logout", (payload, { connection }) => {
     if (connection) {
       // Join the channels a logged out connection should be in
+      if (Array.isArray(payload.subs))
+        payload.subs.forEach((room) => app.channel(`rooms/${room}`).leave());
+
       app.channel("anonymous").join(connection);
     }
   });
 
   // eslint-disable-next-line no-unused-vars
   app.publish((data, hook) => {
+    const customChannel = `rooms/${data.boardId}`;
+
+    const getCombinedChannel = (...channels) => {
+      return app.channel(...channels, customChannel);
+    };
+
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
     app.publish("created", (data, second) => {
+      return getCombinedChannel(`emails/${second.params.user.email}`).send({
+        ...data,
+      });
+
+      /*
       return app
         .channel(`emails/${second.params.user.email}`)
         .send({ ...data });
+        */
     });
 
     app.publish("removed", (data, second) => {

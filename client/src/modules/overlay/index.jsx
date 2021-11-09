@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./Overlay.css";
 
 function Overlay(props) {
@@ -8,5 +10,15 @@ function Overlay(props) {
     </section>
   );
 }
+
+Overlay.defaultProps = {
+  renderBody: () => null,
+  classList: [],
+};
+
+Overlay.propTypes = {
+  renderBody: PropTypes.func.isRequired,
+  classList: PropTypes.arrayOf(PropTypes.string),
+};
 
 export { Overlay };

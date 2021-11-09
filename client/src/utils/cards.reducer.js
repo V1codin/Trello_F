@@ -4,6 +4,7 @@ import {
   CARD_DELETED,
   LIST_DELETED,
   NEW_LIST_CREATED,
+  CARD_PATCHED,
 } from "./actions.types";
 
 import { isPropInObject } from "./helpers";
@@ -12,6 +13,18 @@ const init = {};
 
 function cards(state = init, { type, payload, cards }) {
   switch (type) {
+    case CARD_PATCHED:
+      const updatedList = state[payload.listId].map((card) => {
+        if (card._id === payload._id) return payload;
+
+        return card;
+      });
+
+      return {
+        ...state,
+        [payload.listId]: updatedList,
+      };
+
     case NEW_LIST_CREATED:
       return {
         ...state,

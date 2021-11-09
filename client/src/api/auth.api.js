@@ -51,9 +51,8 @@ class Auth extends ErrorHandler {
   };
 
   create = async (props) => {
-    props.strategy = STRATEGY;
     try {
-      const res = await userService.create(props);
+      const res = await userService.create({...props, strategy : STRATEGY});
 
       return res;
     } catch (e) {
