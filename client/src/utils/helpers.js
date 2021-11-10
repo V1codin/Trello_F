@@ -40,7 +40,7 @@ const getDataFromClipBoard = async () => {
 
 const isPropInObject = (prop, obj) => prop in obj;
 
-const addListenersForServerChanges = (store) => {
+const addListenersForServerChanges = (dispatch) => {
   // ? if on the server delete  app.channel(user.email).join(connection);
   // ? and app.publish("created" , () => {})
   // ? that would cause to re render after any creation of any user
@@ -48,28 +48,28 @@ const addListenersForServerChanges = (store) => {
   // ? events for updating data in case of subscription
 
   boardsService.on("created", (payload) => {
-    store.dispatch({
+    dispatch({
       type: NEW_BOARD_CREATED,
       payload,
     });
   });
 
   boardsService.on("removed", ({ _id }) => {
-    store.dispatch({
+    dispatch({
       type: BOARD_DELETED,
       payload: _id,
     });
   });
 
   listsService.on("created", (payload) => {
-    store.dispatch({
+    dispatch({
       type: NEW_LIST_CREATED,
       payload,
     });
   });
 
   listsService.on("removed", ({ _id }) => {
-    store.dispatch({
+    dispatch({
       type: LIST_DELETED,
       payload: _id,
     });
@@ -83,21 +83,21 @@ const addListenersForServerChanges = (store) => {
   */
 
   cardsService.on("removed", ({ _id, listId }) => {
-    store.dispatch({
+    dispatch({
       type: CARD_DELETED,
       payload: { _id, listId },
     });
   });
 
   cardsService.on("created", (payload) => {
-    store.dispatch({
+    dispatch({
       type: NEW_CARD_CREATED,
       payload,
     });
   });
 
   cardsService.on("patched", (payload) => {
-    store.dispatch({
+    dispatch({
       type: CARD_PATCHED,
       payload,
     });

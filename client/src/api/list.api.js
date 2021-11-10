@@ -1,7 +1,7 @@
-import { ErrorHandler } from "./error.api";
+import { Service } from "./service.api";
 import { listsService } from "./feathers.api";
 
-class List extends ErrorHandler {
+class List extends Service {
   create = async (props, dispatch, ...callbacks) => {
     try {
       const payload = await listsService.create(props);

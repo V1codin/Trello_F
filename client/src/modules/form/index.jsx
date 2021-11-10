@@ -42,6 +42,10 @@ const Form = memo((props) => {
       <form
         className={formClasses}
         style={customBgStyle}
+        // ? for firefox (AwesomeDebouncePromise doesn't fire preventDefault in firefox)
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         {...props?.containerAttrs}
       >
         {res.error ? <ErrorBlock {...res.error} /> : null}

@@ -64,6 +64,14 @@
   position: relative;
 }
 
+/* !experemental board info */
+
+.header__boardInfo {
+  width: 250px;
+  border: 2px solid red;
+  padding: 15px;
+}
+
 .log__btn:hover {
   text-decoration: underline;
 }

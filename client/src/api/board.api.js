@@ -1,8 +1,8 @@
-import { ErrorHandler } from "./error.api";
+import { Service } from "./service.api";
 import { boardsService } from "./feathers.api";
 //import { NEW_BOARD_CREATED, BOARD_DELETED } from "../utils/actions.types";
 
-class Board extends ErrorHandler {
+class Board extends Service {
   create = async (props, dispatch, ...callbacks) => {
     try {
       const { form } = props;

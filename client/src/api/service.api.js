@@ -1,6 +1,6 @@
 import { LOGOUT_ACTION } from "../utils/actions.types";
 
-class ErrorHandler {
+class Service {
   handleError(error, dispatch) {
     const { code } = error;
     switch (code) {
@@ -34,4 +34,4 @@ class ErrorHandler {
   }
 }
 
-export { ErrorHandler };
+export { Service };

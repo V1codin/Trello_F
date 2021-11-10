@@ -1,11 +1,11 @@
-import { ErrorHandler } from "./error.api";
+import { Service } from "./service.api";
 import { client, userService } from "./feathers.api";
 
 import { board } from "./board.api";
 import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
 import { STRATEGY } from "../utils/constants";
 
-class Auth extends ErrorHandler {
+class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
     try {
       const [payload, { data }] = await Promise.all([
@@ -52,7 +52,7 @@ class Auth extends ErrorHandler {
 
   create = async (props) => {
     try {
-      const res = await userService.create({...props, strategy : STRATEGY});
+      const res = await userService.create({ ...props, strategy: STRATEGY });
 
       return res;
     } catch (e) {

@@ -15,6 +15,7 @@ const HeaderView = memo((props) => {
       <NavLink to="/" className="header__link">
         <h1 className="header__article">TrelloF</h1>
       </NavLink>
+      <section className="header__boardInfo"></section>
       {isLogged === false ? (
         <div className="header__log">
           <NavLink to="/login" className="log__link" ref={loginLink}></NavLink>

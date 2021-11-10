@@ -21,7 +21,7 @@ function RowApp(props) {
   const { loading } = useAsync(auth.loginFromCache, [dispatch]);
 
   return (
-    <div className="app">
+    <>
       {loading ? (
         <Process isShown={loading} />
       ) : (
@@ -30,7 +30,7 @@ function RowApp(props) {
           <main>{<Router />}</main>
         </>
       )}
-    </div>
+    </>
   );
 }
 

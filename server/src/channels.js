@@ -32,71 +32,106 @@ module.exports = function (app) {
       // If the user has joined e.g. chat rooms
       // if(Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(connection));
 
-      if (Array.isArray(user.subs))
+      if (Array.isArray(user.subs) && user.subs.length > 0)
         user.subs.forEach((room) =>
           app.channel(`rooms/${room}`).join(connection)
         );
 
       // Easily organize users by email and userid for things like messaging
-      app.channel(`emails/${user.email}`).join(connection);
-      // app.channel(`userIds/${user.id}`).join(connection);
+      //app.channel(`emails/${user.email}`).join(connection);
+      app.channel(`userIds/${user._id.toString()}`).join(connection);
     }
   });
 
   app.on("logout", (payload, { connection }) => {
     if (connection) {
       // Join the channels a logged out connection should be in
-      if (Array.isArray(payload.subs))
-        payload.subs.forEach((room) => app.channel(`rooms/${room}`).leave());
+      if (Array.isArray(payload.subs) && payload.subs.length > 0)
+        payload.subs.forEach((room) =>
+          app.channel(`rooms/${room}`).leave(connection)
+        );
 
       app.channel("anonymous").join(connection);
     }
   });
 
-  // eslint-disable-next-line no-unused-vars
-  app.publish((data, hook) => {
-    const customChannel = `rooms/${data.boardId}`;
+  app.on("disconnect", (payload) => {
+    if (payload.user) {
+      // Join the channels a logged out connection should be in
+      if (Array.isArray(payload.user.subs) && payload.user.subs.length > 0)
+        payload.user.subs.forEach((room) =>
+          app.channel(`rooms/${room}`).leave()
+        );
 
-    const getCombinedChannel = (...channels) => {
-      return app.channel(...channels, customChannel);
-    };
+      app.channel("anonymous").join();
+    }
+  });
+
+  // eslint-disable-next-line no-unused-vars
+  app.publish(async (data, hook) => {
+    /*
+    ! experimental
+
+    const ownerId = await app.service("boards").getOwner(data.boardId);
+
+    if (ownerId.toString() !== hook.params.user._id.toString()) {
+      customChannels = `rooms/${data.boardId.toString()}`;
+    }
+    */
 
     // Here you can add event publishers to channels set up in `channels.js`
     // To publish only for a specific event use `app.publish(eventname, () => {})`
 
-    app.publish("created", (data, second) => {
-      return getCombinedChannel(`emails/${second.params.user.email}`).send({
-        ...data,
+    /*
+    app.service("cards").publish(async (card, second) => {
+      const room = `rooms/${data.boardId.toString()}`;
+
+      const owner = await ownerId.toString();
+
+      if (app.channels.includes(room)) {
+        return [app.channel(`userIds/${owner}`), app.channel(`rooms/${room}`)];
+      }
+
+      return [app.channel(`userIds/${owner}`)];
+      console.log("test card: ");
+      return getCustomChannels().send({
+        ...card,
       });
+    });
+    */
 
-      /*
-      return app
-        .channel(`emails/${second.params.user.email}`)
-        .send({ ...data });
-        */
+    /*
+    app.service("cards").publish("created", (card, second) => {
+      console.log("created card: ");
+      return customChannels.send({
+        ...card,
+      });
     });
 
-    app.publish("removed", (data, second) => {
-      return app
-        .channel(`emails/${second.params.user.email}`)
-        .send({ ...data });
+    app.service("cards").publish("removed", (card, second) => {
+      return customChannels.send({
+        ...card,
+      });
     });
 
-    app.publish("updated", (data, second) => {
-      return app
-        .channel(`emails/${second.params.user.email}`)
-        .send({ ...data });
+    app.service("cards").publish("updated", (card, second) => {
+      return customChannels.send({
+        ...card,
+      });
     });
 
-    app.publish("patched", (data, second) => {
-      return app
-        .channel(`emails/${second.params.user.email}`)
-        .send({ ...data });
+    app.service("cards").publish("patched", (card, second) => {
+      return customChannels.send({
+        ...card,
+      });
     });
+    */
 
+    /*
     console.log(
       "Publishing all events to all authenticated users. See `channels.js` and https://docs.feathersjs.com/api/channels.html for more information."
     ); // eslint-disable-line
+    */
 
     // e.g. to publish all service events to all authenticated users use
     return app.channel("authenticated");

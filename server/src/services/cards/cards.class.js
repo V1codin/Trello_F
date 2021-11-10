@@ -12,11 +12,24 @@ exports.Cards = class Cards extends Service {
 
       return payload;
     } catch (e) {
-      /*
-      TODO
-      return error { code: /some code/, message : "Invalid Board" etc}
-      */
-      throw new Error("Invalid Board");
+      return Promise.reject(new Error("Invalid Board"));
+    }
+  }
+  async remove(id, params) {
+    if (id) {
+      try {
+        const removedById = await super._remove(id);
+        return removedById;
+      } catch (e) {
+        return Promise.reject(new Error("Invalid List"));
+      }
+    } else {
+      try {
+        const removedByQuery = await super._remove(null, { query: params });
+        return removedByQuery;
+      } catch (e) {
+        return Promise.reject(new Error("Invalid List"));
+      }
     }
   }
 };

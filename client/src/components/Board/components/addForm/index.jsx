@@ -21,9 +21,10 @@ function AddForm(props) {
 
   const dispatch = useDispatch();
 
-  const createListsHandler = async (e) => {
+  const createListHandler = async (e) => {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
     if (formState.name === "" || formState.name === " ") return;
+
     try {
       await list.create(formState, dispatch);
       formToggle();
@@ -32,7 +33,7 @@ function AddForm(props) {
     }
   };
 
-  const debouncedRequest = AwesomeDebouncePromise(createListsHandler, 1000);
+  const debouncedRequest = AwesomeDebouncePromise(createListHandler, 1000);
 
   const { execute, loading } = useAsyncCallback(debouncedRequest);
 

@@ -28,7 +28,7 @@ const combineProviders = (providers) =>
 const Providers = combineProviders([Provider, BrowserRouter]);
 
 const store = createStore(reducer, composeWithDevTools());
-addListenersForServerChanges(store);
+addListenersForServerChanges(store.dispatch);
 
 ReactDOM.render(
   <StrictMode>

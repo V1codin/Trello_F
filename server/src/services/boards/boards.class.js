@@ -6,6 +6,15 @@ exports.Boards = class Boards extends Service {
     this.app = app;
   }
 
+  async getOwner(id) {
+    const board = await super._find({ query: { _id: id } });
+
+    const ownerId = await board.data[0].ownerId;
+
+    return ownerId;
+  }
+
+  // TODO remove method that removes a board and related lists and cards
   /*
 
   // ! DEV for imitate server load

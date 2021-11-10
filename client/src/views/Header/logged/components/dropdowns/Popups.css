@@ -28,7 +28,7 @@
   text-align: start;
 }
 
-*:focus {
-  border: 1px dashed var(--pale-blue);
+button:focus {
+  border: 1px dashed var(--pale-blue) !important;
   box-shadow: none;
 }
