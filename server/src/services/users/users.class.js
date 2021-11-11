@@ -18,4 +18,17 @@ exports.Users = class Users extends Service {
     return payload;
   }
   */
+
+  async find(props) {
+    const { query } = props;
+    if (!query) return Promise.reject(new Error("Invalid Login"));
+
+    try {
+      const payload = await super._find({ query });
+
+      return payload;
+    } catch (e) {
+      return Promise.reject(new Error("Invalid Login"));
+    }
+  }
 };

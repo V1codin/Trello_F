@@ -32,6 +32,51 @@
   background-color: #42a185;
   color: #fff;
 }
+
+.header__wrapper {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  box-shadow: none;
+  position: fixed;
+  right: 40px;
+  top: 67px;
+  z-index: 6000;
+}
+
+.invite__btn {
+  padding: 5px;
+  border: 1px dashed transparent;
+}
+
+.subsSection {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  max-width: 90px;
+  margin-left: 5px;
+  padding: 5px 5px 5px 0;
+  height: 35px;
+}
+
+.avatar__container {
+  position: relative;
+}
+
+.avatar__ico {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.invite {
+  margin-left: 5px;
+  width: 65px;
+}
+
 .innerCreate__btn:active {
   background-color: var(--aqua-active);
 }

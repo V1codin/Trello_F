@@ -29,6 +29,7 @@
 .list__heading {
   word-break: break-word;
   padding: 2px;
+  max-width: 200px;
 }
 
 .more__btn {

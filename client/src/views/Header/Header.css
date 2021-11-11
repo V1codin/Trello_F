@@ -1,8 +1,4 @@
 .header {
-  background-color: var(--black-aqua_hard_op);
-
-  position: fixed;
-  top: 0;
   z-index: 6000;
   min-height: 65px;
 
@@ -42,34 +38,24 @@
   color: var(--yellow);
   padding: 10px;
   margin-right: 5px;
-  border-radius: 20px;
 }
 .log__btn_sign {
   color: #ffffff;
   margin-right: 0;
+  border-radius: 7px;
+  border: 1px dashed transparent;
   transition: 0.3s;
 }
 .log__link {
   display: none;
 }
 
-.activeLink {
-  background-color: #9eff43;
-}
-
 .userSection {
   display: flex;
   align-items: center;
-  margin-right: 15px;
-  position: relative;
-}
-
-/* !experemental board info */
-
-.header__boardInfo {
-  width: 250px;
-  border: 2px solid red;
-  padding: 15px;
+  position: fixed;
+  right: 40px;
+  z-index: 7000;
 }
 
 .log__btn:hover {

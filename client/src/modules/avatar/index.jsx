@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 
-import Ava from "react-avatar";
+import { createAvatarComponent, SrcSource, ValueSource } from "react-avatar";
+// import Ava from "react-avatar";
 
 import "./Avatar.css";
 
+const Ava = createAvatarComponent({ sources: [SrcSource, ValueSource] });
 function Avatar(props) {
-  const { imgLink, name } = props;
+  const { imgLink, name, size, classList } = props;
 
   return (
     <>
@@ -14,8 +16,9 @@ function Avatar(props) {
           alt="avatar"
           round={true}
           name={name}
-          className="avatar colored unselectable"
-          size={40}
+          className={`avatar colored unselectable ${classList.join(" ")}`}
+          size={size}
+          maxInitials={2}
         />
       ) : (
         <Ava
@@ -23,8 +26,9 @@ function Avatar(props) {
           round={true}
           src={imgLink}
           name={name}
-          className="avatar"
-          size={40}
+          className={`avatar ${classList.join(" ")}`}
+          size={size}
+          maxInitials={2}
         />
       )}
     </>
@@ -34,11 +38,15 @@ function Avatar(props) {
 Avatar.defaultProps = {
   imgLink: "",
   name: "",
+  size: 40,
+  classList: [],
 };
 
 Avatar.propTypes = {
   imgLink: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  classList: PropTypes.arrayOf(PropTypes.string),
 };
 
 export { Avatar };

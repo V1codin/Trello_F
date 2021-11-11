@@ -8,6 +8,7 @@ exports.Lists = class Lists extends Service {
   }
   async find(props) {
     const boardId = props.query.props;
+    if (!boardId) return Promise.reject(new Error("Invalid Board"));
 
     try {
       const payload = await super.find({ query: { boardId } });

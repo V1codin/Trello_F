@@ -1,5 +1,7 @@
 import { ListsWrapper } from "./components/lists";
 import { AddForm } from "./components/addForm";
+import { BoardHeader } from "./components/boardHeader";
+
 import "./Board.css";
 
 function Board(props) {
@@ -10,10 +12,14 @@ function Board(props) {
   } = props;
 
   return (
-    <div className="container">
-      <ListsWrapper _boardId={id} />
-      <AddForm _boardId={id} />
-    </div>
+    <section className="boards">
+      <BoardHeader _boardId={id} />
+
+      <div className="container">
+        <ListsWrapper _boardId={id} />
+        <AddForm _boardId={id} />
+      </div>
+    </section>
   );
 }
 

@@ -8,8 +8,6 @@
 
 .popup__header {
   position: relative;
-  display: grid;
-  grid-template-columns: 0fr 5fr 0fr;
 
   padding: 5px;
   text-align: center;
