@@ -55,20 +55,24 @@ function RowAddBoardOverlay(props) {
   };
 
   const { execute, loading, error, status } = useAsyncCallback(submit);
+  console.log("test");
 
   const changeHandler = async (e) => {
     if (e && typeof e.preventDefault === "function") e.preventDefault();
 
     const { name, value } = e.target;
-
     if (name === "link") {
-      const res = await getDataFromClipBoard();
-      setForm({
-        ...form,
-        bg: "",
-        link: res,
-      });
-      return;
+      try {
+        const res = await getDataFromClipBoard();
+
+        setForm({
+          ...form,
+          bg: "",
+          link: res,
+        });
+      } catch (error) {
+        console.log("error: ", error);
+      }
     }
 
     if (form[name] !== value) {

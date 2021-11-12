@@ -10,7 +10,8 @@ import {
 } from "../utils/actions.types";
 
 const isLink = (background) => {
-  return /\/{1,}/g.test(background);
+  //return /\/{1,}/g.test(background);
+  return /^https:\/\/images\.unsplash\.com\/.{1,}/g.test(background);
 };
 
 const isImage = (src) => {
@@ -21,7 +22,7 @@ const isImage = (src) => {
     img.onload = () => resolve(src);
 
     img.onerror = (e) => {
-      reject({ error: true, message: "Your link has no image" });
+      reject("Your link has no image");
     };
   });
 };
@@ -29,12 +30,13 @@ const isImage = (src) => {
 const getDataFromClipBoard = async () => {
   try {
     const link = await navigator.clipboard.readText();
-    if (!isLink(link)) return "";
+    if (!isLink(link)) return Promise.reject("Your link has no image");
+
     const result = await isImage(link);
     return result;
   } catch (e) {
-    console.log("clipboard error", e);
-    return "";
+    console.log("e: ", e);
+    throw e;
   }
 };
 

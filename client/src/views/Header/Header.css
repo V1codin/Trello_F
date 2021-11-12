@@ -25,6 +25,7 @@
 
   /* * gradient for text */
   background: -webkit-linear-gradient(var(--blue), var(--yellow));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
