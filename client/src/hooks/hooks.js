@@ -1,4 +1,8 @@
+import AwesomeDebouncePromise from "awesome-debounce-promise";
+import useConstant from "use-constant";
+
 import { useCallback, useState, useEffect } from "react";
+import { useAsyncAbortable } from "react-async-hook";
 import { isLink } from "../utils/helpers";
 import { BG_IMAGE, BODY_REF } from "../utils/constants";
 
@@ -97,4 +101,39 @@ const useAddForm = (defaultFormState) => {
   };
 };
 
-export { useToggle, useOuterCLick, useBodyColor, useAddForm };
+const useDebouncedFetch = (fetchFn) => {
+  const [inputText, setInputText] = useState("");
+
+  const debouncedSearch = useConstant(() =>
+    AwesomeDebouncePromise(fetchFn, 2000)
+  );
+
+  const search = useAsyncAbortable(
+    async (_, text) => {
+      let res;
+
+      if (text.length === 0) {
+        res = [];
+      } else {
+        res = await debouncedSearch(text);
+      }
+
+      return res;
+    },
+    [inputText]
+  );
+
+  return {
+    inputText,
+    setInputText,
+    search,
+  };
+};
+
+export {
+  useToggle,
+  useOuterCLick,
+  useBodyColor,
+  useAddForm,
+  useDebouncedFetch,
+};

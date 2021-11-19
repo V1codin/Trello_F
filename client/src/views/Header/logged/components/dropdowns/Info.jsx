@@ -6,13 +6,13 @@ import { useOuterCLick } from "../../../../../hooks/hooks";
 import { DropDown } from "../../../../../modules/dropdown";
 import { images } from "./images";
 
-import "./Popups.css";
+import "./DropDowns.css";
 
 const PopupBody = (props) => {
   const { url, changeTip, title, changeTipTitle } = props;
   return (
     <>
-      <li>
+      <li className="list__body_li">
         <div className="popup__body__el">
           <img
             src={url}
@@ -22,10 +22,10 @@ const PopupBody = (props) => {
           />
         </div>
       </li>
-      <li>
+      <li className="list__body_li">
         <span className="el__span">{title}</span>
       </li>
-      <li>
+      <li className="list__body_li">
         <button className="popup__body__el" onClick={changeTip}>
           <span className="el__span">{changeTipTitle}</span>
         </button>

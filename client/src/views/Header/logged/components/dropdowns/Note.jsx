@@ -8,7 +8,7 @@ import { DropDown } from "../../../../../modules/dropdown";
 const PopupBody = () => {
   return (
     <>
-      <li>
+      <li className="list__body_li">
         <div className="popup__body__el">
           <span className="el__span">
             First element of list of notifications from server

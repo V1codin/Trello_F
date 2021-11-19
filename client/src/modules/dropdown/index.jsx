@@ -6,12 +6,10 @@ import "./DropDown.css";
 function DropDown(props) {
   const { toggle, heading, popupBody } = props;
 
-  const containerClasses = `board_popup card_design ${props?.classList?.join(
-    " "
-  )}`;
-
   return (
-    <section className={containerClasses}>
+    <section
+      className={`board_popup card_design ${props.classList?.join(" ")}`}
+    >
       <header className="popup__header">
         <h4 className="popup__article unselectable">{heading}</h4>
         <button className="close__btn" onClick={toggle}>

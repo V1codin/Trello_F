@@ -5,7 +5,7 @@ import { useOuterCLick } from "../../../../../hooks/hooks";
 
 import { DropDown } from "../../../../../modules/dropdown";
 
-import "./Popups.css";
+import "./DropDowns.css";
 
 const PopupBody = (props) => {
   const { initBoardCreationForm } = props;

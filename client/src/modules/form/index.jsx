@@ -8,7 +8,15 @@ import { ErrorBlock } from "../error";
 import "./Form.css";
 
 const Form = memo((props) => {
-  const { type, heading, form, changeHandler, submit, ...res } = props;
+  const {
+    type,
+    heading,
+    form,
+    changeHandler,
+    submit,
+    additionalBody,
+    ...res
+  } = props;
 
   const formProps = {
     type,
@@ -17,6 +25,7 @@ const Form = memo((props) => {
     warns: props?.warn,
     changeHandler,
     submit,
+    additionalBody,
     ...res,
   };
 
@@ -62,6 +71,7 @@ Form.defaultProps = {
   form: { className: "", bg: "", link: "" },
   changeHandler: () => null,
   submit: () => null,
+  additionalBody: () => null,
 };
 
 Form.propTypes = {
@@ -74,6 +84,7 @@ Form.propTypes = {
   warn: PropTypes.objectOf(PropTypes.string),
   btnText: PropTypes.string,
 
+  additionalBody: PropTypes.func,
   containerAttrs: PropTypes.any,
 };
 

@@ -55,7 +55,6 @@ function RowAddBoardOverlay(props) {
   };
 
   const { execute, loading, error, status } = useAsyncCallback(submit);
-  console.log("test");
 
   const changeHandler = async (e) => {
     if (e && typeof e.preventDefault === "function") e.preventDefault();

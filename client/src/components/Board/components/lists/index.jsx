@@ -41,6 +41,7 @@ function RowListsWrapper(props) {
           list.find(id, dispatch),
           card.find(id, dispatch),
         ]);
+
         const [lists, cards] = result;
 
         dispatch({

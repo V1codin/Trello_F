@@ -22,6 +22,8 @@ const schemaProps = {
     type: String,
     default: "",
   },
+
+  nameAlias: { type: String, require },
 };
 
 module.exports = function (app) {

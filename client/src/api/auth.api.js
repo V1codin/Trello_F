@@ -98,6 +98,25 @@ class Auth extends Service {
       throw errorFromHandler;
     }
   };
+
+  getUsersFromRegex = async (regex = "", ...callbacks) => {
+    try {
+      const { data } = await userService.find({
+        query: { nameAlias: { $regex: regex, $options: "gi" } },
+      });
+
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(data);
+        }
+      });
+
+      return data;
+    } catch (e) {
+      const errorFromHandler = this.handleError(e);
+      throw errorFromHandler;
+    }
+  };
 }
 
 const auth = new Auth();

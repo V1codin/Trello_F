@@ -13,6 +13,9 @@ function RowAccount(props) {
   const { imgLink, displayName, click } = props;
 
   const accountMenuToggle = (e) => {
+    // ? in click function -> [name] : !dropDownState[name]
+    // ? for closing one drop when open another
+    // ? if it's clicked to inner avatar components instead of the button
     e.target.name = "account";
     click(e);
   };

@@ -12,7 +12,8 @@ const HeaderView = memo((props) => {
 
   return (
     <header className="header unselectable">
-      <NavLink to="/" className="header__link">
+      {/* // ? active = '' because there is class active with background color */}
+      <NavLink to="/" className="header__link" activeClassName="">
         <h1 className="header__article">TrelloF</h1>
       </NavLink>
       {isLogged === false ? (

@@ -40,9 +40,13 @@
   font-size: 1em;
   color: #fff;
   cursor: pointer;
-  margin-top: 5px;
   padding: 10px;
 }
+
+.list__body_li {
+  margin-top: 5px;
+}
+
 .el__span {
   font-size: 1.1em;
   font-weight: 700;

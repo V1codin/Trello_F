@@ -10,7 +10,6 @@ import {
 } from "../utils/actions.types";
 
 const isLink = (background) => {
-  //return /\/{1,}/g.test(background);
   return /^https:\/\/images\.unsplash\.com\/.{1,}/g.test(background);
 };
 

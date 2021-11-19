@@ -52,7 +52,6 @@ function Menu(props) {
           initBoardCreationForm={initBoardCreationForm}
         />
       ) : null}
-
       <button
         className="menu__btn"
         name="info"
@@ -66,7 +65,6 @@ function Menu(props) {
           toggle={() => setState({ ...defState, info: !state.info })}
         />
       ) : null}
-
       <button
         className="menu__btn"
         name="note"
@@ -87,7 +85,6 @@ function Menu(props) {
           toggle={() => setState({ ...defState, account: !state.account })}
         />
       ) : null}
-
       {overlay ? <AddBoardOverlay overlayHandler={setOverlay} /> : null}
     </>
   );

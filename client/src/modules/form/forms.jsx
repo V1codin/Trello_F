@@ -8,7 +8,22 @@ import closeIco from "../../assets/plus.svg";
 import colors from "./colors.json";
 
 function FormInputs(props) {
-  const { type, heading, state, warns, changeHandler, submit, btnText } = props;
+  const {
+    type,
+    heading,
+    state,
+    warns,
+    changeHandler,
+    submit,
+    btnText,
+    closeFn,
+    inputPlaceholder,
+    loading,
+    btnClassList,
+    classList,
+    additionalBody,
+  } = props;
+
   switch (type) {
     case "login":
       return (
@@ -40,7 +55,7 @@ function FormInputs(props) {
           {warns.password ? (
             <span className="form__warning">{warns.password}</span>
           ) : null}
-
+          {additionalBody()}
           <button className="form__btn" onClick={submit}>
             {btnText}
           </button>
@@ -123,7 +138,7 @@ function FormInputs(props) {
           {warns.email ? (
             <span className="form__warning">{warns.email}</span>
           ) : null}
-
+          {additionalBody()}
           <button className="form__btn" onClick={submit}>
             {btnText || ""}
           </button>
@@ -185,6 +200,7 @@ function FormInputs(props) {
               />
             </li>
           </ul>
+          {additionalBody()}
           <button
             className="form__btn"
             onClick={submit}
@@ -197,7 +213,6 @@ function FormInputs(props) {
         </>
       );
     case "add_form":
-      const { closeFn, inputPlaceholder, loading } = props;
       return (
         <>
           <input
@@ -209,7 +224,10 @@ function FormInputs(props) {
             autoFocus
           />
           <section className="add__list__btns">
-            <Button {...{ submit, btnText, loading }} />
+            {additionalBody()}
+            <Button
+              {...{ submit, btnText, loading, btnClassList, classList }}
+            />
             <button
               className="close__btn btn_static btn_ml10"
               onClick={closeFn}
@@ -223,6 +241,23 @@ function FormInputs(props) {
               />
             </button>
           </section>
+        </>
+      );
+
+    case "invite":
+      return (
+        <>
+          <input
+            type="text"
+            name="invite"
+            className="form__input add__list__input"
+            placeholder={inputPlaceholder}
+            onChange={changeHandler}
+            value={state.value}
+            autoFocus
+          />
+          {additionalBody()}
+          <Button {...{ submit, btnText, loading, btnClassList, classList }} />
         </>
       );
     default:

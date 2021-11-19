@@ -20,6 +20,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "socket.io-client": "2.4.0",
+    "use-constant": "^1.1.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

@@ -10,9 +10,10 @@ import ownerIco from "../../../../assets/owner.svg";
 
 const mapStateToProps = (state, props) => {
   const { _boardId } = props;
+  const localBoard = state.boards.find((item) => item._id === _boardId) || {};
 
   return {
-    localBoard: state.boards.find((item) => item._id === _boardId),
+    localBoard,
   };
 };
 
@@ -44,20 +45,25 @@ const SubscribersSection = (props) => {
 
 function RowBoardHeader(props) {
   const {
-    localBoard: { title, memberIds, ownerId },
+    localBoard,
+    localBoard: { title, memberIds, ownerId, _id },
   } = props;
 
   const [subs, setSubs] = useState([]);
 
   useEffect(() => {
-    auth.getBoardMembersInfo([ownerId, ...memberIds], (data) => {
-      setSubs((prev) => [...data, ...prev]);
-    });
+    if (memberIds && ownerId) {
+      auth.getBoardMembersInfo([ownerId, ...memberIds], (data) => {
+        setSubs((prev) => [...data, ...prev]);
+      });
+    }
 
     return () => setSubs([]);
 
     // eslint-disable-next-line
   }, [memberIds]);
+
+  if (!localBoard) return null;
 
   return (
     <section className="board__header">
@@ -68,7 +74,7 @@ function RowBoardHeader(props) {
         <span className="span_divider"></span>
         <SubscribersSection subs={subs} ownerId={ownerId} />
         <span className="span_divider"></span>
-        <Invite />
+        <Invite ownerId={ownerId} boardId={_id} />
       </div>
     </section>
   );

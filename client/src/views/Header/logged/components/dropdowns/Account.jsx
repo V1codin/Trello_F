@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { ParentRefContext } from "../../";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 
+import { ParentRefContext } from "../../";
 import { auth } from "../../../../../api/auth.api";
 import { useOuterCLick } from "../../../../../hooks/hooks";
 
+import { UserInfo } from "../../../../../modules/userInfo";
 import { DropDown } from "../../../../../modules/dropdown";
-import { Avatar } from "../../../../../modules/avatar";
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -21,19 +22,14 @@ const mapStateToProps = (state) => {
 };
 
 const PopupBody = (props) => {
-  const { imageURL, displayName, email, logoutHandler } = props;
+  const { logoutHandler, ...res } = props;
+
   return (
     <>
-      <li>
-        <div className="popup__body__el body_row">
-          <Avatar imgLink={imageURL} name={displayName} />
-          <div className="account__el">
-            <span className="el__span">{displayName}</span>
-            <span className="span_email">{email}</span>
-          </div>
-        </div>
+      <li className="list__body_li">
+        <UserInfo {...res} />
       </li>
-      <li>
+      <li className="list__body_li">
         <button
           className="popup__body__el btn_textAlign"
           onClick={logoutHandler}
@@ -47,7 +43,14 @@ const PopupBody = (props) => {
 
 function RowAccountDrop(props) {
   const { toggle, dispatch, userInfo } = props;
+
   const parentRef = useContext(ParentRefContext);
+  const history = useHistory();
+
+  const click = () => {
+    history.push("/");
+    toggle();
+  };
 
   useOuterCLick(parentRef, toggle);
 
@@ -63,7 +66,7 @@ function RowAccountDrop(props) {
     toggle,
     heading: "Account",
     classList: ["account"],
-    popupBody: PopupBody({ ...userInfo, logoutHandler }),
+    popupBody: PopupBody({ ...userInfo, click, logoutHandler }),
   };
 
   return <DropDown {...dropProps} />;
