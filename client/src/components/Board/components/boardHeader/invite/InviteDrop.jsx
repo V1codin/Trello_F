@@ -13,6 +13,8 @@ import { useEffect } from "react";
 // TODO to avoid many re-renders make decompose
 // TODO create redux state for checkbox values
 
+// ! TO DO SUBMIT BUTTON
+
 const PopupBody = (props) => {
   const {
     changeHandler,
