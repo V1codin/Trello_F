@@ -66,7 +66,7 @@ function RowBoardHeader(props) {
   if (!localBoard) return null;
 
   return (
-    <section className="board__header">
+    <section className="boards__header">
       <div className="header__wrapper card_design">
         <h4 className="unselectable" title="Board name">
           {title}

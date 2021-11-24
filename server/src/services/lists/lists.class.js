@@ -6,6 +6,7 @@ exports.Lists = class Lists extends Service {
     super(opts, app);
     this.app = app;
   }
+
   async find(props) {
     const boardId = props.query.props;
     if (!boardId) return Promise.reject(new Error("Invalid Board"));
@@ -19,6 +20,7 @@ exports.Lists = class Lists extends Service {
       return Promise.reject(new Error("Invalid Board"));
     }
   }
+
   async remove(props) {
     const listId = props._id;
     try {

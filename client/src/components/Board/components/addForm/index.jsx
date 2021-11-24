@@ -1,14 +1,46 @@
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 
+import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { useAsyncCallback } from "react-async-hook";
 
 import { useAddForm } from "../../../../hooks/hooks";
 import { list } from "../../../../api/list.api";
 
-import { Form } from "../../../../modules/form";
+import { FormWrapper } from "../../../../modules/formWrapper";
+import { Button } from "../../../../modules/button";
 
 import plus from "../../../../assets/plus.svg";
+
+const FormBody = memo((props) => {
+  const {
+    inputPlaceholder,
+    changeHandler,
+    submit,
+    closeFn,
+    btnText,
+    loading,
+    btnClassList,
+    classList,
+  } = props;
+
+  return (
+    <>
+      <input
+        type="text"
+        name="list_name"
+        className="form__input add__list__input"
+        placeholder={inputPlaceholder}
+        onChange={changeHandler}
+        autoFocus
+      />
+      <section className="add__list__btns">
+        <Button {...{ submit, btnText, loading, btnClassList, classList }} />
+        <Button {...{ type: "closeBtn", submit: closeFn }} />
+      </section>
+    </>
+  );
+});
 
 function AddForm(props) {
   const { _boardId } = props;
@@ -37,15 +69,13 @@ function AddForm(props) {
 
   const { execute, loading } = useAsyncCallback(debouncedRequest);
 
-  const formProps = {
-    type: "add_form",
-    form: formState,
+  const bodyProps = {
+    inputPlaceholder: "Enter list title",
     changeHandler,
     submit: execute,
     closeFn: formToggle,
-    loading,
     btnText: "Add list",
-    inputPlaceholder: "Enter list title",
+    loading,
   };
 
   return (
@@ -61,7 +91,9 @@ function AddForm(props) {
           Add another list
         </button>
       ) : (
-        <Form {...formProps} />
+        <FormWrapper form={formState}>
+          <FormBody {...bodyProps} />
+        </FormWrapper>
       )}
     </section>
   );

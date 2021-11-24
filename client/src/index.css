@@ -169,6 +169,25 @@ button {
   animation-fill-mode: forwards;
 }
 
+.centeredContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*  * notes info / etc */
+.info {
+  color: #fff;
+}
+
+.mt_10 {
+  margin-top: 10%;
+}
+
+.jc_sb {
+  justify-content: space-between;
+}
+
 button:disabled {
   cursor: not-allowed;
   color: #ffffff49;

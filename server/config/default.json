@@ -17,7 +17,7 @@
         "typ": "access"
       },
       "audience": "https://yourdomain.com",
-      "issuer": "feathers",
+      "issuer": "http://localhost:3030",
       "algorithm": "HS256",
       "expiresIn": "30m"
     },

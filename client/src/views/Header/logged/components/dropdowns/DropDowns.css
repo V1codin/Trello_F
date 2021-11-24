@@ -3,8 +3,17 @@
   min-width: 300px;
 }
 .note {
-  min-width: 450px;
-  min-height: 300px;
+  width: 450px;
+  height: 300px;
+
+  overflow: auto;
+}
+
+.note > header {
+  position: sticky;
+  top: 0;
+  background-color: var(--monokai);
+  z-index: 500;
 }
 
 .info__image {
@@ -24,8 +33,8 @@
   align-items: center;
 }
 
-.btn_textAlign > * {
-  text-align: start;
+.ta_center {
+  text-align: center;
 }
 
 button:focus {

@@ -11,7 +11,7 @@ const PopupBody = (props) => {
   const { initBoardCreationForm } = props;
   return (
     <>
-      <li className="body_add">
+      <li className="list__body_mt5">
         <button className="popup__body__el" onClick={initBoardCreationForm}>
           <span className="el__span">Create a board</span>
           <p className="el__article">
@@ -20,7 +20,7 @@ const PopupBody = (props) => {
           </p>
         </button>
       </li>
-      <li className="body_add">
+      <li className="list__body_mt5">
         <button className="popup__body__el">
           <span className="el__span">Start with template</span>
           <p className="el__article">
@@ -29,7 +29,7 @@ const PopupBody = (props) => {
           </p>
         </button>
       </li>
-      <li className="body_add">
+      <li className="list__body_mt5">
         <button className="popup__body__el">
           <span className="el__span">Create a workspace</span>
           <p className="el__article">

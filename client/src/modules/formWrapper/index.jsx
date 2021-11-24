@@ -1,16 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { useState, useEffect } from "react";
+
+import { errorDisplay } from "../../utils/helpers";
+
 import { ErrorBlock } from "../error";
 import { Process } from "../process";
 
+import "./Form.css";
+
 function FormWrapper(props) {
-  const { children, form, error, loading } = props;
+  const { children, form, loading, error } = props;
+  const [localError, setError] = useState(null);
 
   const formClasses =
-    form?.className !== ""
-      ? `form card_design ${form.className}`
-      : "form card_design";
+    form.className && form.className !== ""
+      ? `form ${!loading ? "card_design" : "loading"} ${form.className}`
+      : `form ${!loading ? "card_design" : "loading"}`;
 
   const customBgStyle =
     props?.form?.bg !== ""
@@ -25,6 +32,12 @@ function FormWrapper(props) {
         }
       : null;
 
+  useEffect(() => {
+    if (error) {
+      return errorDisplay(setError, 3000, error);
+    }
+  }, [error]);
+
   return (
     <form
       className={formClasses}
@@ -35,7 +48,7 @@ function FormWrapper(props) {
       }}
       {...props?.containerAttrs}
     >
-      {error ? <ErrorBlock {...error} /> : null}
+      {localError ? <ErrorBlock {...localError} /> : null}
       {loading ? <Process isShown={loading} /> : children}
     </form>
   );
@@ -43,10 +56,16 @@ function FormWrapper(props) {
 
 FormWrapper.defaultProps = {
   children: {},
+  loading: false,
+  error: null,
 };
+
 FormWrapper.propTypes = {
   children: PropTypes.object.isRequired,
   containerAttrs: PropTypes.any,
   form: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
+
+  error: PropTypes.object,
 };
 export { FormWrapper };

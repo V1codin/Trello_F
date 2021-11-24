@@ -8,6 +8,11 @@
   text-align: center;
 }
 
+.loading {
+  padding: 0;
+  border-radius: 50%;
+}
+
 .form__heading {
   font-size: 1.2em;
 }
@@ -60,6 +65,8 @@
 .colorPicker__el {
   cursor: pointer;
   padding: 15px;
+
+  border: 1px dashed transparent;
 }
 
 .add__list__btns {

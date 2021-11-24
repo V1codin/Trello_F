@@ -3,9 +3,11 @@ import React from "react";
 import { useState } from "react";
 
 import { useDebouncedFetch } from "../../../../../hooks/hooks";
+
 import { auth } from "../../../../../api/auth.api";
 
-import { Form } from "../../../../../modules/form";
+import { Button } from "../../../../../modules/button";
+import { FormWrapper } from "../../../../../modules/formWrapper";
 import { DropDown } from "../../../../../modules/dropdown";
 import { InnerList } from "./InnerList";
 import { useEffect } from "react";
@@ -22,17 +24,13 @@ const PopupBody = (props) => {
     loading,
     ownerId,
     boardId,
-    requestUsersState: { users },
+    requestUsersState: { users, value },
   } = props;
 
   const [checks, setChecks] = useState({});
 
-  const formProps = {
-    type: "invite",
-    inputPlaceholder: "Email or name",
-    form: requestUsersState,
+  const buttonProps = {
     submit: () => console.log(checks),
-    changeHandler,
     btnText: "SEND INVITATION",
     loading,
     btnClassList: ["w_100pr"],
@@ -41,7 +39,7 @@ const PopupBody = (props) => {
 
   return (
     <>
-      {users.length > 0 ? (
+      {users.length > 0 && (
         <InnerList
           users={users}
           boardId={boardId}
@@ -49,9 +47,23 @@ const PopupBody = (props) => {
           setChecks={setChecks}
           checks={checks}
         />
-      ) : null}
+      )}
+
       <li className="list__body_li">
-        <Form {...formProps} />
+        <FormWrapper form={requestUsersState}>
+          <>
+            <input
+              type="text"
+              name="invite"
+              className="form__input add__list__input"
+              placeholder="Email or name"
+              onChange={changeHandler}
+              value={value}
+              autoFocus
+            />
+            <Button {...buttonProps} />
+          </>
+        </FormWrapper>
       </li>
     </>
   );

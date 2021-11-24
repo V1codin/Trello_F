@@ -23,7 +23,9 @@ function RowApp(props) {
   return (
     <>
       {loading ? (
-        <Process isShown={loading} />
+        <div className="centeredContainer mt_10">
+          <Process isShown={loading} />
+        </div>
       ) : (
         <>
           <Header />

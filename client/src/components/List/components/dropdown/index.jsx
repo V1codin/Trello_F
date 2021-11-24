@@ -11,7 +11,7 @@ const PopupBody = (props) => {
   const { deleteList } = props;
   return (
     <>
-      <li className="body_add">
+      <li className="list__body_mt5">
         <button className="popup__body__el" onClick={deleteList}>
           <span className="el__span">Delete the list</span>
           <p className="el__article">Deleting this list</p>
@@ -52,7 +52,7 @@ function ListDropDown(props) {
             title="List actions"
           />
         </button>
-        {isDropDown ? <DropDown {...dropProps} /> : null}
+        {isDropDown && <DropDown {...dropProps} />}
       </section>
     </>
   );

@@ -68,7 +68,9 @@ function RowList(props) {
     <>
       <section className="card_design list">
         {deleteHandler.loading ? (
-          <Process isShown={deleteHandler.loading} />
+          <div className="centeredContainer">
+            <Process isShown={deleteHandler.loading} />
+          </div>
         ) : (
           <>
             <header className="popup__header list__header">

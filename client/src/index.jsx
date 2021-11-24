@@ -38,3 +38,7 @@ ReactDOM.render(
   </StrictMode>,
   document.getElementById("root")
 );
+
+window.onerror = (e) => {
+  console.log("window error", e.message);
+};

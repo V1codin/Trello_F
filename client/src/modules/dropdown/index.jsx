@@ -37,7 +37,7 @@ DropDown.defaultProps = {
 DropDown.propTypes = {
   toggle: PropTypes.func.isRequired,
   heading: PropTypes.string.isRequired,
-  popupBody: PropTypes.object,
+  popupBody: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   classList: PropTypes.arrayOf(PropTypes.string),
 };
 

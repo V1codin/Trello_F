@@ -6,12 +6,12 @@
   min-height: 110px;
 }
 .add__form {
-  /* margin-left: 15px; */
+  margin-left: 15px;
   max-width: 250px;
 }
 
 .add__form_wd {
-  /* margin-left: 15px; */
+  margin-left: 15px;
   width: 165px;
 }
 
@@ -39,7 +39,7 @@
   padding: 5px;
   box-shadow: none;
   position: fixed;
-  right: 40px;
+  right: 55px;
   top: 67px;
   z-index: 6000;
 }
@@ -82,7 +82,7 @@
   padding: 0;
   margin-top: 5px;
   min-height: 150px;
-  /* trelo height min-height: 400px; */
+  /* trello height min-height: 400px; */
   justify-content: space-between;
 }
 

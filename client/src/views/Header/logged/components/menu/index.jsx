@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { connect } from "react-redux";
+
 import { Account } from "../../../../../components/Account";
 import { AddBoardDrop } from "../dropdowns/Add";
 import { InfoBoardDrop } from "../dropdowns/Info";
@@ -13,7 +15,15 @@ import note from "../../../../../assets/notification.svg";
 
 import "./Menu.css";
 
-function Menu(props) {
+const mapStateToProps = (state) => {
+  return {
+    notifications: state.notes,
+  };
+};
+
+function RowMenu(props) {
+  const { notifications } = props;
+
   const defState = {
     add: false,
     info: false,
@@ -46,12 +56,12 @@ function Menu(props) {
       >
         <img src={plus} alt="add" className="menu__ico" name="add" />
       </button>
-      {state.add ? (
+      {state.add && (
         <AddBoardDrop
           toggle={() => setState({ ...defState, add: !state.add })}
           initBoardCreationForm={initBoardCreationForm}
         />
-      ) : null}
+      )}
       <button
         className="menu__btn"
         name="info"
@@ -60,34 +70,42 @@ function Menu(props) {
       >
         <img src={info} alt="info" className="menu__ico" name="info" />
       </button>
-      {state.info ? (
+      {state.info && (
         <InfoBoardDrop
           toggle={() => setState({ ...defState, info: !state.info })}
         />
-      ) : null}
+      )}
       <button
         className="menu__btn"
         name="note"
         onClick={clickHandler}
         title="Notifications"
       >
+        {notifications.length > 0 ? (
+          <div className="badges">
+            {notifications.length >= 99 ? 99 : notifications.length}
+          </div>
+        ) : null}
         <img src={note} alt="notification" className="menu__ico" name="note" />
       </button>
-      {state.note ? (
+      {state.note && (
         <NoteBoardDrop
           toggle={() => setState({ ...defState, note: !state.note })}
+          notes={notifications}
         />
-      ) : null}
+      )}
 
       <Account click={clickHandler} />
-      {state.account ? (
+      {state.account && (
         <AccountDrop
           toggle={() => setState({ ...defState, account: !state.account })}
         />
-      ) : null}
-      {overlay ? <AddBoardOverlay overlayHandler={setOverlay} /> : null}
+      )}
+      {overlay && <AddBoardOverlay overlayHandler={setOverlay} />}
     </>
   );
 }
+
+const Menu = connect(mapStateToProps, null)(RowMenu);
 
 export { Menu };

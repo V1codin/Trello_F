@@ -2,30 +2,34 @@ import { Service } from "./service.api";
 import { client, userService } from "./feathers.api";
 
 import { board } from "./board.api";
+import { note } from "./notification.api";
+
 import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
 import { STRATEGY } from "../utils/constants";
 
 class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
     try {
-      const [payload, { data }] = await Promise.all([
+      const [payload, boards, notes] = await Promise.all([
         client.authenticate({
           ...loginPayload,
           strategy: STRATEGY,
         }),
         board.find(),
+        note.find(),
       ]);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
-          cb(payload, data);
+          cb(payload, boards.data);
         }
       });
 
       dispatch({
         type: LOGIN_ACTION,
         payload,
-        data,
+        boards: boards.data,
+        notes: notes.data,
       });
 
       return payload;
@@ -66,15 +70,17 @@ class Auth extends Service {
 
     if (typeof token === "string" && token.length > 0) {
       try {
-        const [payload, { data }] = await Promise.all([
+        const [payload, boards, notes] = await Promise.all([
           client.reAuthenticate(),
           board.find(),
+          note.find(),
         ]);
 
         dispatch({
           type: LOGIN_ACTION,
           payload,
-          data,
+          boards: boards.data,
+          notes: notes.data,
         });
       } catch (e) {
         console.log(this.handleError(e));

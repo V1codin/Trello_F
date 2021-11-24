@@ -1,10 +1,10 @@
 import { Service } from "./service.api";
-import { boardsService } from "./feathers.api";
+import { notificationsService } from "./feathers.api";
 
-class Board extends Service {
+class Notification extends Service {
   create = async (props, dispatch, ...callbacks) => {
     try {
-      const payload = await boardsService.create(props);
+      const payload = await notificationsService.create(props);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
@@ -14,7 +14,7 @@ class Board extends Service {
 
       return payload;
     } catch (e) {
-      console.log("create a board error", e);
+      console.log("create a notification error", e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -22,25 +22,25 @@ class Board extends Service {
 
   find = async (props = {}, dispatch, ...callbacks) => {
     try {
-      const boards = await boardsService.find(props);
+      const notes = await notificationsService.find(props);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
-          cb(boards);
+          cb(notes);
         }
       });
 
-      return boards;
+      return notes;
     } catch (e) {
       const errorFromHandler = this.handleError(e, dispatch);
-      console.log("find boards error", errorFromHandler);
+      console.log("find notifications error", errorFromHandler);
       throw errorFromHandler;
     }
   };
 
   delete = async (props = "", dispatch, ...callbacks) => {
     try {
-      const { _id } = await boardsService.remove(props);
+      const { _id } = await notificationsService.remove(props);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
@@ -57,6 +57,6 @@ class Board extends Service {
   };
 }
 
-const board = new Board();
+const note = new Notification();
 
-export { board };
+export { note };

@@ -12,7 +12,7 @@ const PopupBody = (props) => {
   const { url, changeTip, title, changeTipTitle } = props;
   return (
     <>
-      <li className="list__body_li">
+      <li className="list__body_mt5">
         <div className="popup__body__el">
           <img
             src={url}
@@ -22,11 +22,11 @@ const PopupBody = (props) => {
           />
         </div>
       </li>
-      <li className="list__body_li">
+      <li className="list__body_mt5">
         <span className="el__span">{title}</span>
       </li>
-      <li className="list__body_li">
-        <button className="popup__body__el" onClick={changeTip}>
+      <li className="list__body_mt5">
+        <button className="popup__body__el ta_center" onClick={changeTip}>
           <span className="el__span">{changeTipTitle}</span>
         </button>
       </li>

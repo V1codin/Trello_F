@@ -1,26 +1,25 @@
-import { useContext } from "react";
+import { useContext, Children } from "react";
 import { ParentRefContext } from "../../";
 
 import { useOuterCLick } from "../../../../../hooks/hooks";
 
+import { Note } from "../../../../../components/Notification";
 import { DropDown } from "../../../../../modules/dropdown";
 
-const PopupBody = () => {
-  return (
-    <>
-      <li className="list__body_li">
-        <div className="popup__body__el">
-          <span className="el__span">
-            First element of list of notifications from server
-          </span>
-        </div>
-      </li>
-    </>
-  );
+const PopupBody = (props) => {
+  const { notes } = props;
+
+  return notes.length > 0
+    ? Children.toArray(
+        notes.map((note) => {
+          return <Note {...note} />;
+        })
+      )
+    : null;
 };
 
 function NoteBoardDrop(props) {
-  const { toggle } = props;
+  const { toggle, notes } = props;
   const parentRef = useContext(ParentRefContext);
 
   useOuterCLick(parentRef, toggle);
@@ -29,8 +28,13 @@ function NoteBoardDrop(props) {
     toggle,
     heading: "Notifications",
     classList: ["note"],
-    popupBody: PopupBody(),
+    popupBody: PopupBody({ notes }),
   };
+
+  // note.create({
+  //   text: "Test!",
+  //   recipient: "6151a7f0d2093c3ba032ba21",
+  // });
 
   return <DropDown {...dropProps} />;
 }

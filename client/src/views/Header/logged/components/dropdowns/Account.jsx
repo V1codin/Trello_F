@@ -26,14 +26,11 @@ const PopupBody = (props) => {
 
   return (
     <>
-      <li className="list__body_li">
+      <li className="list__body_mt5">
         <UserInfo {...res} />
       </li>
-      <li className="list__body_li">
-        <button
-          className="popup__body__el btn_textAlign"
-          onClick={logoutHandler}
-        >
+      <li className="list__body_mt5">
+        <button className="popup__body__el" onClick={logoutHandler}>
           <span className="el__span">Log out</span>
         </button>
       </li>

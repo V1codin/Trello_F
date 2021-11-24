@@ -32,10 +32,11 @@ module.exports = function (app) {
       // If the user has joined e.g. chat rooms
       // if(Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(connection));
 
-      if (Array.isArray(user.subs) && user.subs.length > 0)
+      if (Array.isArray(user.subs) && user.subs.length > 0) {
         user.subs.forEach((room) =>
           app.channel(`rooms/${room}`).join(connection)
         );
+      }
 
       // Easily organize users by email and userid for things like messaging
       //app.channel(`emails/${user.email}`).join(connection);
@@ -69,63 +70,24 @@ module.exports = function (app) {
 
   // eslint-disable-next-line no-unused-vars
   app.publish(async (data, hook) => {
-    /*
-    ! experimental
+    const initiatorId = hook.params.user._id;
 
-    const ownerId = await app.service("boards").getOwner(data.boardId);
-
-    if (ownerId.toString() !== hook.params.user._id.toString()) {
-      customChannels = `rooms/${data.boardId.toString()}`;
-    }
-    */
-
-    // Here you can add event publishers to channels set up in `channels.js`
-    // To publish only for a specific event use `app.publish(eventname, () => {})`
-
-    /*
-    app.service("cards").publish(async (card, second) => {
+    if (hook.path === "boards" || hook.path === "notifications") {
+      // ? create/remove boards and notes only for owners
+      return app.channel(`userIds/${initiatorId.toString()}`);
+    } else {
+      const ownerId = await app.service("boards").getOwner(data.boardId);
       const room = `rooms/${data.boardId.toString()}`;
 
-      const owner = await ownerId.toString();
-
       if (app.channels.includes(room)) {
-        return [app.channel(`userIds/${owner}`), app.channel(`rooms/${room}`)];
+        return [
+          app.channel(`userIds/${ownerId.toString()}`),
+          app.channel(room),
+        ];
       }
 
-      return [app.channel(`userIds/${owner}`)];
-      console.log("test card: ");
-      return getCustomChannels().send({
-        ...card,
-      });
-    });
-    */
-
-    /*
-    app.service("cards").publish("created", (card, second) => {
-      console.log("created card: ");
-      return customChannels.send({
-        ...card,
-      });
-    });
-
-    app.service("cards").publish("removed", (card, second) => {
-      return customChannels.send({
-        ...card,
-      });
-    });
-
-    app.service("cards").publish("updated", (card, second) => {
-      return customChannels.send({
-        ...card,
-      });
-    });
-
-    app.service("cards").publish("patched", (card, second) => {
-      return customChannels.send({
-        ...card,
-      });
-    });
-    */
+      return [app.channel(`userIds/${ownerId.toString()}`)];
+    }
 
     /*
     console.log(
@@ -134,7 +96,7 @@ module.exports = function (app) {
     */
 
     // e.g. to publish all service events to all authenticated users use
-    return app.channel("authenticated");
+    // return app.channel("authenticated");
   });
 
   app.service("users").on("removed", (user) => {

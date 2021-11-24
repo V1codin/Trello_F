@@ -1,4 +1,9 @@
-import { boardsService, listsService, cardsService } from "../api/feathers.api";
+import {
+  boardsService,
+  listsService,
+  cardsService,
+  notificationsService,
+} from "../api/feathers.api";
 import {
   NEW_BOARD_CREATED,
   BOARD_DELETED,
@@ -7,6 +12,7 @@ import {
   CARD_DELETED,
   NEW_CARD_CREATED,
   CARD_PATCHED,
+  NOTE_DISMISSED,
 } from "../utils/actions.types";
 
 const isLink = (background) => {
@@ -42,11 +48,27 @@ const getDataFromClipBoard = async () => {
 const isPropInObject = (prop, obj) => prop in obj;
 
 const addListenersForServerChanges = (dispatch) => {
-  // ? if on the server delete  app.channel(user.email).join(connection);
-  // ? and app.publish("created" , () => {})
-  // ? that would cause to re render after any creation of any user
+  /*
+  ? server has channels for publish events below
+  ? every user joins to his own channel (by user id)
+  ? and channels (if there are some) from users SUBS
+  ? after login
+  */
+
+  // ? avoiding re render after any creation of any user
 
   // ? events for updating data in case of subscription
+
+  notificationsService.on("created", (payload) => {
+    console.log("note created");
+  });
+
+  notificationsService.on("removed", (payload) => {
+    dispatch({
+      type: NOTE_DISMISSED,
+      payload,
+    });
+  });
 
   boardsService.on("created", (payload) => {
     dispatch({
@@ -69,10 +91,10 @@ const addListenersForServerChanges = (dispatch) => {
     });
   });
 
-  listsService.on("removed", ({ _id }) => {
+  listsService.on("removed", (payload) => {
     dispatch({
       type: LIST_DELETED,
-      payload: _id,
+      payload,
     });
   });
 
@@ -105,9 +127,23 @@ const addListenersForServerChanges = (dispatch) => {
   });
 };
 
+const errorDisplay = (stateFn, timer = 1000, ...args) => {
+  stateFn(...args);
+
+  const time = setTimeout(() => {
+    stateFn(null);
+  }, timer);
+
+  return () => {
+    clearTimeout(time);
+    stateFn(null);
+  };
+};
+
 export {
   isLink,
   getDataFromClipBoard,
   isPropInObject,
   addListenersForServerChanges,
+  errorDisplay,
 };

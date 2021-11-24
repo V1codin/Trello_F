@@ -18,9 +18,9 @@ function Invite(props) {
 
   return (
     <section className="invite" ref={parentRef}>
-      {isDrop ? (
+      {isDrop && (
         <InviteDrop toggle={toggle} boardId={boardId} ownerId={ownerId} />
-      ) : null}
+      )}
       <button
         className={`add__toggler card_design invite__btn ${
           isDrop ? "active" : ""

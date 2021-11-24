@@ -1,23 +1,16 @@
-// boards-model.js - A mongoose model
+// notifications-model.js - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
 module.exports = function (app) {
-  const modelName = "boards";
+  const modelName = "notifications";
   const mongooseClient = app.get("mongooseClient");
   const { Schema } = mongooseClient;
   const schema = new Schema(
     {
-      title: { type: String, required: true },
-      bg: { type: String, required: true },
-      ownerId: { type: Schema.Types.ObjectId, ref: "users" },
-      // ? prev
-      // ? memberIds: [{ type: Schema.Types.ObjectId, ref: "users" }],
-      memberIds: [{ type: String }],
-      // ! send board invite -> invited client's ID put to pending.
-      // ! agree from invited client -> ID to memberIds
-      // ! and boardId to SUBS array of the client
-      pendingMemberIds: [{ type: String }],
+      text: { type: String, required: true },
+      recipient: { type: Schema.Types.ObjectId, ref: "users", required: true },
+      type: { type: String, default: "info" },
     },
     {
       timestamps: true,

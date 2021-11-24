@@ -36,4 +36,13 @@ const boardsService = client.service("boards");
 const listsService = client.service("lists");
 const cardsService = client.service("cards");
 
-export { client, userService, boardsService, listsService, cardsService };
+const notificationsService = client.service("notifications");
+
+export {
+  client,
+  userService,
+  boardsService,
+  listsService,
+  cardsService,
+  notificationsService,
+};

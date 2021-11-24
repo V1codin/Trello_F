@@ -11,7 +11,7 @@ const warns = {
     "Your password must be 4-16 characters, and include at least one number.",
   displayName:
     "Enter your name and surname divided by space. First letters are capital :)",
-  confirmPassword: "Passwards should match",
+  confirmPassword: "Passwords should match",
   email: "Enter your email",
 };
 

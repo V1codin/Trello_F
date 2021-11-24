@@ -15,6 +15,7 @@ exports.Cards = class Cards extends Service {
       return Promise.reject(new Error("Invalid Board"));
     }
   }
+
   async remove(id, params) {
     if (id) {
       try {

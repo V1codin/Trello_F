@@ -17,7 +17,7 @@
 } */
 
 .wrapper {
-  margin: 10% auto;
+  /* margin: 10% auto; */
   display: flex;
   justify-content: center;
   align-self: center;
