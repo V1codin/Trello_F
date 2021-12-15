@@ -17,7 +17,7 @@ function Invite(props) {
   useOuterCLick(parentRef, () => setDrop(false));
 
   return (
-    <section className="invite" ref={parentRef}>
+    <section className="invite__section" ref={parentRef}>
       {isDrop && (
         <InviteDrop toggle={toggle} boardId={boardId} ownerId={ownerId} />
       )}

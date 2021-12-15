@@ -1,16 +1,16 @@
 import React from "react";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useDebouncedFetch } from "../../../../../hooks/hooks";
 
 import { auth } from "../../../../../api/auth.api";
+import { board } from "../../../../../api/board.api";
 
 import { Button } from "../../../../../modules/button";
 import { FormWrapper } from "../../../../../modules/formWrapper";
 import { DropDown } from "../../../../../modules/dropdown";
 import { InnerList } from "./InnerList";
-import { useEffect } from "react";
 
 // TODO to avoid many re-renders make decompose
 // TODO create redux state for checkbox values
@@ -19,6 +19,7 @@ import { useEffect } from "react";
 
 const PopupBody = (props) => {
   const {
+    toggle,
     changeHandler,
     requestUsersState,
     loading,
@@ -30,7 +31,24 @@ const PopupBody = (props) => {
   const [checks, setChecks] = useState({});
 
   const buttonProps = {
-    submit: () => console.log(checks),
+    submit: async () => {
+      const members = Object.entries(checks).reduce((ac, item) => {
+        const [id, isOn] = item;
+        if (isOn) ac.push(id);
+
+        return ac;
+      }, []);
+      if (!members.length) return;
+
+      try {
+        const data = { members, type: "subscribe" };
+
+        await board.patch({ boardId, data });
+        toggle();
+      } catch (e) {
+        console.log("invite drop component error", e);
+      }
+    },
     btnText: "SEND INVITATION",
     loading,
     btnClassList: ["w_100pr"],
@@ -107,6 +125,7 @@ function InviteDrop(props) {
       requestUsersState,
       boardId,
       loading,
+      toggle,
     }),
   };
 

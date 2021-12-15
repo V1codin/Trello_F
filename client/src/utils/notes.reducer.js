@@ -1,4 +1,9 @@
-import { LOGIN_ACTION, LOGOUT_ACTION, NOTE_DISMISSED } from "./actions.types";
+import {
+  LOGIN_ACTION,
+  LOGOUT_ACTION,
+  NOTE_DISMISSED,
+  NOTE_RECEIVED,
+} from "./actions.types";
 
 const init = [];
 
@@ -11,6 +16,8 @@ function notes(state = init, { type, payload, notes = [] }) {
 
     case NOTE_DISMISSED:
       return state.filter(({ _id }) => _id !== payload._id);
+    case NOTE_RECEIVED:
+      return [...state, payload];
     default:
       return state;
   }

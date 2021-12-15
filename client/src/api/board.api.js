@@ -55,6 +55,25 @@ class Board extends Service {
       throw errorFromHandler;
     }
   };
+
+  patch = async (props, dispatch, ...callbacks) => {
+    try {
+      const { boardId, data } = props;
+      const payload = await boardsService.patch(boardId, data);
+
+      callbacks.forEach((cb) => {
+        if (typeof cb === "function") {
+          cb(payload);
+        }
+      });
+
+      return new Promise((res) => res("done"));
+    } catch (e) {
+      console.log("patch a board error", e);
+      const errorFromHandler = this.handleError(e, dispatch);
+      throw errorFromHandler;
+    }
+  };
 }
 
 const board = new Board();

@@ -9,6 +9,7 @@ function UserInfoBody(props) {
         type="checkbox"
         name="invited"
         onChange={inputChange}
+        onClick={inputChange}
         className="userInfo__check"
         checked={value}
       />

@@ -1,10 +1,11 @@
 import ReactDOM from "react-dom";
-import { StrictMode } from "react";
 
+import { StrictMode } from "react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { BrowserRouter } from "react-router-dom";
+
 import { reducer } from "./utils/main.reducer";
 
 import { addListenersForServerChanges } from "./utils/helpers";

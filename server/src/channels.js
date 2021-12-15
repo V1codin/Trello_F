@@ -99,6 +99,10 @@ module.exports = function (app) {
     // return app.channel("authenticated");
   });
 
+  app.service("notifications").publish("created", (data) => {
+    return [app.channel(`userIds/${data.recipient.toString()}`)];
+  });
+
   app.service("users").on("removed", (user) => {
     app.channel(app.channels).leave((connection) => {
       return user._id === connection.user._id;

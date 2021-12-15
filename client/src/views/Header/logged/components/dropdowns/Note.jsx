@@ -31,11 +31,6 @@ function NoteBoardDrop(props) {
     popupBody: PopupBody({ notes }),
   };
 
-  // note.create({
-  //   text: "Test!",
-  //   recipient: "6151a7f0d2093c3ba032ba21",
-  // });
-
   return <DropDown {...dropProps} />;
 }
 

@@ -14,6 +14,7 @@ module.exports = function (app) {
       // ? prev
       // ? memberIds: [{ type: Schema.Types.ObjectId, ref: "users" }],
       memberIds: [{ type: String }],
+
       // ! send board invite -> invited client's ID put to pending.
       // ! agree from invited client -> ID to memberIds
       // ! and boardId to SUBS array of the client

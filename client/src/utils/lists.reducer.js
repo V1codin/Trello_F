@@ -21,7 +21,10 @@ function lists(state = init, { type, payload, lists }) {
       return [...lists];
     case NEW_LIST_CREATED:
       // ? avoid re-renders if a list is created from non active board
-      if (state[0] && state[0].boardId === payload.boardId) {
+      if (
+        (state[0] && state[0].boardId === payload.boardId) ||
+        state.length === 0
+      ) {
         return [...state, payload];
       }
 

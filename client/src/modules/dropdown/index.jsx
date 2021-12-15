@@ -22,7 +22,7 @@ function DropDown(props) {
           />
         </button>
       </header>
-      <ul className="popup__body body_shape">{popupBody}</ul>
+      {popupBody && <ul className="popup__body body_shape">{popupBody}</ul>}
     </section>
   );
 }

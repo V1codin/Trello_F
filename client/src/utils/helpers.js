@@ -7,12 +7,14 @@ import {
 import {
   NEW_BOARD_CREATED,
   BOARD_DELETED,
+  BOARD_PATCHED,
   NEW_LIST_CREATED,
   LIST_DELETED,
   CARD_DELETED,
   NEW_CARD_CREATED,
   CARD_PATCHED,
   NOTE_DISMISSED,
+  NOTE_RECEIVED,
 } from "../utils/actions.types";
 
 const isLink = (background) => {
@@ -60,12 +62,22 @@ const addListenersForServerChanges = (dispatch) => {
   // ? events for updating data in case of subscription
 
   notificationsService.on("created", (payload) => {
-    console.log("note created");
+    dispatch({
+      type: NOTE_RECEIVED,
+      payload,
+    });
   });
 
   notificationsService.on("removed", (payload) => {
     dispatch({
       type: NOTE_DISMISSED,
+      payload,
+    });
+  });
+
+  boardsService.on("patched", (payload) => {
+    dispatch({
+      type: BOARD_PATCHED,
       payload,
     });
   });

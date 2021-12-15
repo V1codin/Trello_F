@@ -34,10 +34,10 @@ const FormBody = memo((props) => {
         onChange={changeHandler}
         autoFocus
       />
-      <section className="add__list__btns">
+      <div className="add__list__btns">
         <Button {...{ submit, btnText, loading, btnClassList, classList }} />
         <Button {...{ type: "closeBtn", submit: closeFn }} />
-      </section>
+      </div>
     </>
   );
 });
@@ -79,7 +79,7 @@ function AddForm(props) {
   };
 
   return (
-    <section className={isAddForm ? "add__form" : "add__form_wd"}>
+    <div className={isAddForm ? "add__form" : "add__form_wd"}>
       {!isAddForm ? (
         <button className="add__toggler card_design" onClick={formToggle}>
           <img
@@ -95,7 +95,7 @@ function AddForm(props) {
           <FormBody {...bodyProps} />
         </FormWrapper>
       )}
-    </section>
+    </div>
   );
 }
 

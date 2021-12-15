@@ -50,7 +50,7 @@ function Card(props) {
 
   return (
     <>
-      <section className="card">
+      <div className="card">
         {isOverlay ? (
           <>
             <EditSection {...editProps} />
@@ -69,7 +69,7 @@ function Card(props) {
             </button>
           </>
         )}
-      </section>
+      </div>
     </>
   );
 }

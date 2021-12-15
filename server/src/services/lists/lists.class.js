@@ -1,6 +1,14 @@
 const { Service } = require("feathers-mongoose");
 const mongoose = require("mongoose");
 
+/*
+? Model
+* name: { type: String, required: true },
+* order: { type: Number, required: true, default: 0 },
+* archived: { type: Boolean, required: true, default: false },
+* boardId: { type: Schema.Types.ObjectId, ref: "boards" },
+*/
+
 exports.Lists = class Lists extends Service {
   constructor(opts, app) {
     super(opts, app);

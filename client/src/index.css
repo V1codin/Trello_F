@@ -94,6 +94,14 @@ button {
   animation-fill-mode: forwards;
 }
 
+.list__body_li {
+  margin-top: 5px;
+}
+
+.list__body_li:first-of-type {
+  margin-top: 0;
+}
+
 .form__container {
   max-width: 330px;
   margin: 30px auto;
@@ -173,11 +181,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/*  * notes info / etc */
-.info {
-  color: #fff;
 }
 
 .mt_10 {

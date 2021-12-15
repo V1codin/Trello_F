@@ -11,9 +11,11 @@ import ownerIco from "../../../../assets/owner.svg";
 const mapStateToProps = (state, props) => {
   const { _boardId } = props;
   const localBoard = state.boards.find((item) => item._id === _boardId) || {};
+  const currentUser = state.auth.user._id;
 
   return {
     localBoard,
+    currentUser,
   };
 };
 
@@ -45,6 +47,7 @@ const SubscribersSection = (props) => {
 
 function RowBoardHeader(props) {
   const {
+    currentUser,
     localBoard,
     localBoard: { title, memberIds, ownerId, _id },
   } = props;
@@ -74,7 +77,9 @@ function RowBoardHeader(props) {
         <span className="span_divider"></span>
         <SubscribersSection subs={subs} ownerId={ownerId} />
         <span className="span_divider"></span>
-        <Invite ownerId={ownerId} boardId={_id} />
+        {currentUser === ownerId ? (
+          <Invite ownerId={ownerId} boardId={_id} />
+        ) : null}
       </div>
     </section>
   );

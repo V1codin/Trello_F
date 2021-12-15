@@ -5,6 +5,18 @@ exports.Users = class Users extends Service {
     super(opts, app);
   }
 
+  async getName(id) {
+    try {
+      const {
+        data: [{ displayName }],
+      } = await super._find({ query: { _id: id } });
+
+      return displayName;
+    } catch (e) {
+      return Promise.reject(new Error("Invalid id"));
+    }
+  }
+
   /*
     // ! DEV for imitate server load
   async get(...props) {

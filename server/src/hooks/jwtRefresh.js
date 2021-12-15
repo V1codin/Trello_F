@@ -1,15 +1,10 @@
 module.exports = function (props) {
   if (!props) return false;
 
-  const {
-    authentication: {
-      payload: { exp },
-    },
-  } = props;
   const now = Math.floor(Date.now() / 1000);
-  const tokenLeftMin = Math.floor((exp - now) / 60);
+  const tokenLeftMin = Math.floor((props - now) / 60);
 
-  const isExpired = tokenLeftMin > 0 && tokenLeftMin <= 2;
+  const isExpired = tokenLeftMin < 5;
 
   return isExpired;
 };

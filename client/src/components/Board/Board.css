@@ -72,9 +72,8 @@
   height: 15px;
 }
 
-.invite {
+.invite__section {
   margin-left: 5px;
-  width: 65px;
 }
 
 .invite__form {

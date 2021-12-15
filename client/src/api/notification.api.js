@@ -2,6 +2,7 @@ import { Service } from "./service.api";
 import { notificationsService } from "./feathers.api";
 
 class Notification extends Service {
+  // ! create only for dev so far
   create = async (props, dispatch, ...callbacks) => {
     try {
       const payload = await notificationsService.create(props);
