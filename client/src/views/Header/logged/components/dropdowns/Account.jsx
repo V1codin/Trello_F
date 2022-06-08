@@ -1,23 +1,23 @@
-import { useContext } from "react";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useContext } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
-import { ParentRefContext } from "../../";
-import { auth } from "../../../../../api/auth.api";
-import { useOuterCLick } from "../../../../../hooks/hooks";
+import { ParentRefContext } from '../../';
+import { auth } from '../../../../../api/auth.api';
+import { useOuterCLick } from '../../../../../hooks/hooks';
 
-import { UserInfo } from "../../../../../modules/userInfo";
-import { DropDown } from "../../../../../modules/dropdown";
+import { UserInfo } from '../../../../../modules/userInfo';
+import { DropDown } from '../../../../../modules/dropdown';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    dispatch
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    userInfo: state.auth.user,
+    userInfo: state.auth.user
   };
 };
 
@@ -45,7 +45,7 @@ function RowAccountDrop(props) {
   const history = useHistory();
 
   const click = () => {
-    history.push("/");
+    history.push('/');
     toggle();
   };
 
@@ -55,15 +55,15 @@ function RowAccountDrop(props) {
     try {
       await auth.logout(dispatch);
     } catch (e) {
-      console.log("Logout error", e);
+      console.log('Logout error', e);
     }
   };
 
   const dropProps = {
     toggle,
-    heading: "Account",
-    classList: ["account"],
-    popupBody: PopupBody({ ...userInfo, click, logoutHandler }),
+    heading: 'Account',
+    classList: ['account'],
+    popupBody: PopupBody({ ...userInfo, click, logoutHandler })
   };
 
   return <DropDown {...dropProps} />;

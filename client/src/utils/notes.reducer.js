@@ -1,9 +1,4 @@
-import {
-  LOGIN_ACTION,
-  LOGOUT_ACTION,
-  NOTE_DISMISSED,
-  NOTE_RECEIVED,
-} from "./actions.types";
+import { LOGIN_ACTION, LOGOUT_ACTION, NOTE_DISMISSED, NOTE_RECEIVED } from './actions.types';
 
 const init = [];
 

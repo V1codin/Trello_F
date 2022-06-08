@@ -1,8 +1,8 @@
-import { useRef, memo } from "react";
-import { NavLink } from "react-router-dom";
-import { LoggedHeader } from "./logged";
+import { useRef, memo } from 'react';
+import { NavLink } from 'react-router-dom';
+import { LoggedHeader } from './logged';
 
-import "./Header.css";
+import './Header.css';
 
 const HeaderView = memo((props) => {
   const { isLogged } = props;

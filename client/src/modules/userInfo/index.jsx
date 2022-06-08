@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { memo } from "react";
+import { memo } from 'react';
 
-import { Avatar } from "../avatar";
+import { Avatar } from '../avatar';
 
 const UserInfo = memo((props) => {
   const {
@@ -12,13 +12,13 @@ const UserInfo = memo((props) => {
     click,
     isDisabled,
     classList,
-    innerBody,
+    innerBody
   } = props;
 
   return (
     <>
       <button
-        className={`popup__body__el body_row userInfo ${classList.join(" ")}`}
+        className={`popup__body__el body_row userInfo ${classList.join(' ')}`}
         onClick={click}
         disabled={isDisabled}
       >
@@ -34,13 +34,13 @@ const UserInfo = memo((props) => {
 });
 
 UserInfo.defaultProps = {
-  imageURL: "",
-  displayName: "",
-  email: "",
+  imageURL: '',
+  displayName: '',
+  email: '',
   click: () => {},
   isDisabled: false,
   classList: [],
-  innerBody: () => null,
+  innerBody: () => null
 };
 
 UserInfo.propTypes = {
@@ -51,7 +51,7 @@ UserInfo.propTypes = {
 
   innerBody: PropTypes.func,
   classList: PropTypes.arrayOf(PropTypes.string),
-  click: PropTypes.func,
+  click: PropTypes.func
 };
 
 export { UserInfo };

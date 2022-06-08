@@ -1,34 +1,34 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { errorDisplay } from "../../utils/helpers";
+import { errorDisplay } from '../../utils/helpers';
 
-import { ErrorBlock } from "../error";
-import { Process } from "../process";
+import { ErrorBlock } from '../error';
+import { Process } from '../process';
 
-import "./Form.css";
+import './Form.css';
 
 function FormWrapper(props) {
   const { children, form, loading, error } = props;
   const [localError, setError] = useState(null);
 
   const formClasses =
-    form.className && form.className !== ""
-      ? `form ${!loading ? "card_design" : "loading"} ${form.className}`
-      : `form ${!loading ? "card_design" : "loading"}`;
+    form.className && form.className !== ''
+      ? `form ${!loading ? 'card_design' : 'loading'} ${form.className}`
+      : `form ${!loading ? 'card_design' : 'loading'}`;
 
   const customBgStyle =
-    props?.form?.bg !== ""
+    props?.form?.bg !== ''
       ? {
-          backgroundColor: props?.form?.bg,
+          backgroundColor: props?.form?.bg
         }
-      : props.form.link !== ""
+      : props.form.link !== ''
       ? {
           backgroundImage: `url(${props.form.link})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
         }
       : null;
 
@@ -57,7 +57,7 @@ function FormWrapper(props) {
 FormWrapper.defaultProps = {
   children: {},
   loading: false,
-  error: null,
+  error: null
 };
 
 FormWrapper.propTypes = {
@@ -66,6 +66,6 @@ FormWrapper.propTypes = {
   form: PropTypes.object.isRequired,
   loading: PropTypes.bool,
 
-  error: PropTypes.object,
+  error: PropTypes.object
 };
 export { FormWrapper };

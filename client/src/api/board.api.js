@@ -1,5 +1,5 @@
-import { Service } from "./service.api";
-import { boardsService } from "./feathers.api";
+import { Service } from './service.api';
+import { boardsService } from './feathers.api';
 
 class Board extends Service {
   create = async (props, dispatch, ...callbacks) => {
@@ -7,14 +7,14 @@ class Board extends Service {
       const payload = await boardsService.create(props);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(payload);
         }
       });
 
       return payload;
     } catch (e) {
-      console.log("create a board error", e);
+      console.log('create a board error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -25,7 +25,7 @@ class Board extends Service {
       const boards = await boardsService.find(props);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(boards);
         }
       });
@@ -33,24 +33,24 @@ class Board extends Service {
       return boards;
     } catch (e) {
       const errorFromHandler = this.handleError(e, dispatch);
-      console.log("find boards error", errorFromHandler);
+      console.log('find boards error', errorFromHandler);
       throw errorFromHandler;
     }
   };
 
-  delete = async (props = "", dispatch, ...callbacks) => {
+  delete = async (props = '', dispatch, ...callbacks) => {
     try {
       const { _id } = await boardsService.remove(props);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(_id);
         }
       });
 
-      return new Promise((res) => res("done"));
+      return new Promise((res) => res('done'));
     } catch (e) {
-      console.log("delete a board error", e);
+      console.log('delete a board error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -62,14 +62,14 @@ class Board extends Service {
       const payload = await boardsService.patch(boardId, data);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(payload);
         }
       });
 
-      return new Promise((res) => res("done"));
+      return new Promise((res) => res('done'));
     } catch (e) {
-      console.log("patch a board error", e);
+      console.log('patch a board error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }

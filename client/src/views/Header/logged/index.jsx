@@ -1,7 +1,7 @@
-import { createContext } from "react";
-import { useRef } from "react";
+import { createContext } from 'react';
+import { useRef } from 'react';
 
-import { Menu } from "./components/menu";
+import { Menu } from './components/menu';
 
 const ParentRefContext = createContext(null);
 

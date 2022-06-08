@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { useDebouncedFetch } from "../../../../../hooks/hooks";
+import { useDebouncedFetch } from '../../../../../hooks/hooks';
 
-import { auth } from "../../../../../api/auth.api";
-import { board } from "../../../../../api/board.api";
+import { auth } from '../../../../../api/auth.api';
+import { board } from '../../../../../api/board.api';
 
-import { Button } from "../../../../../modules/button";
-import { FormWrapper } from "../../../../../modules/formWrapper";
-import { DropDown } from "../../../../../modules/dropdown";
-import { InnerList } from "./InnerList";
+import { Button } from '../../../../../modules/button';
+import { FormWrapper } from '../../../../../modules/formWrapper';
+import { DropDown } from '../../../../../modules/dropdown';
+import { InnerList } from './InnerList';
 
 // TODO to avoid many re-renders make decompose
 // TODO create redux state for checkbox values
@@ -25,7 +25,7 @@ const PopupBody = (props) => {
     loading,
     ownerId,
     boardId,
-    requestUsersState: { users, value },
+    requestUsersState: { users, value }
   } = props;
 
   const [checks, setChecks] = useState({});
@@ -38,21 +38,22 @@ const PopupBody = (props) => {
 
         return ac;
       }, []);
+
       if (!members.length) return;
 
       try {
-        const data = { members, type: "subscribe" };
+        const data = { members, type: 'subscribe' };
 
         await board.patch({ boardId, data });
         toggle();
       } catch (e) {
-        console.log("invite drop component error", e);
+        console.log('invite drop component error', e);
       }
     },
-    btnText: "SEND INVITATION",
+    btnText: 'SEND INVITATION',
     loading,
-    btnClassList: ["w_100pr"],
-    classList: ["w_100pr"],
+    btnClassList: ['w_100pr'],
+    classList: ['w_100pr']
   };
 
   return (
@@ -95,7 +96,7 @@ function InviteDrop(props) {
   const {
     setInputText,
     inputText,
-    search: { loading, result },
+    search: { loading, result }
   } = useDebouncedFetch(async (text) => auth.getUsersFromRegex(text));
 
   const changeHandler = async (e) => {
@@ -111,22 +112,22 @@ function InviteDrop(props) {
 
   const requestUsersState = {
     value: inputText,
-    className: "invite__form",
-    users,
+    className: 'invite__form',
+    users
   };
 
   const dropProps = {
     toggle,
-    heading: "Invite to board",
-    classList: ["add"],
+    heading: 'Invite to board',
+    classList: ['add'],
     popupBody: PopupBody({
       ownerId,
       changeHandler,
       requestUsersState,
       boardId,
       loading,
-      toggle,
-    }),
+      toggle
+    })
   };
 
   return <DropDown {...dropProps} />;

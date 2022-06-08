@@ -1,32 +1,32 @@
-import { Redirect } from "react-router-dom";
-import { useState, memo } from "react";
-import { connect } from "react-redux";
-import { useAsyncCallback } from "react-async-hook";
+import { Redirect } from 'react-router-dom';
+import { useState, memo } from 'react';
+import { connect } from 'react-redux';
+import { useAsyncCallback } from 'react-async-hook';
 
-import { FormWrapper } from "../../modules/formWrapper";
+import { FormWrapper } from '../../modules/formWrapper';
 
 import {
   formValidation,
   inputValidation,
-  confirmValidation,
-} from "../../utils/auth.form.validation";
+  confirmValidation
+} from '../../utils/auth.form.validation';
 
 // ? type for validation fn
-import { authFormTypeSignup as type } from "../../utils/constants";
+import { authFormTypeSignup as type } from '../../utils/constants';
 
-import { auth } from "../../api/auth.api";
+import { auth } from '../../api/auth.api';
 
-import "./Signup.css";
+import './Signup.css';
 
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged,
+    isLogged: state.auth.isLogged
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    dispatch
   };
 };
 
@@ -123,12 +123,12 @@ function RowSignup(props) {
   const { execute, loading, error, status } = useAsyncCallback(sendRequest);
 
   const formDefault = {
-    username: "",
-    password: "",
-    confirmPassword: "",
-    displayName: "",
-    email: "",
-    className: "",
+    username: '',
+    password: '',
+    confirmPassword: '',
+    displayName: '',
+    email: '',
+    className: ''
   };
 
   const [form, setForm] = useState(formDefault);
@@ -144,18 +144,18 @@ function RowSignup(props) {
     if (!isValidated) {
       setWarn({
         ...warn,
-        [name]: message,
+        [name]: message
       });
     } else {
       setWarn({
         ...warn,
-        [name]: "",
+        [name]: ''
       });
     }
 
     setForm({
       ...form,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -163,7 +163,7 @@ function RowSignup(props) {
     const {
       name,
       value,
-      dataset: { validatefor },
+      dataset: { validatefor }
     } = e.target;
 
     // * onblur validation with toggling warnings by update local warnings state.
@@ -175,30 +175,30 @@ function RowSignup(props) {
     if (!isValidated) {
       setWarn({
         ...warn,
-        [name]: message,
+        [name]: message
       });
     } else {
       setWarn({
         ...warn,
-        [name]: "",
+        [name]: ''
       });
     }
   };
 
   const submit = (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
     const { data, isValidated } = formValidation(form, type);
 
     // * validation passed and there is no warnings
-    if (isValidated && Object.values(warn).every((message) => message === "")) {
+    if (isValidated && Object.values(warn).every((message) => message === '')) {
       execute?.(data);
       setForm(formDefault);
     }
     return;
   };
 
-  if (isLogged === true || status === "success")
+  if (isLogged === true || status === 'success')
     return <Redirect to="/profile" />;
 
   const bodyProps = { confirmBlur, warn, form, changeHandler, submit };

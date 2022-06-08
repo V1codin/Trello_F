@@ -1,34 +1,34 @@
-import { LOGOUT_ACTION } from "../utils/actions.types";
+import { LOGOUT_ACTION } from '../utils/actions.types';
 
 class Service {
   handleError(error, dispatch) {
     const { code } = error;
     switch (code) {
       case 401:
-        if (typeof dispatch === "function") dispatch({ type: LOGOUT_ACTION });
+        if (typeof dispatch === 'function') dispatch({ type: LOGOUT_ACTION });
         return {
-          message: "Invalid username or password",
-          errorClass: error.className || "",
+          message: 'Invalid username or password',
+          errorClass: error.className || ''
         };
       case 408:
-        if (typeof dispatch === "function") {
-          console.log("need dispatch in Error Handler");
+        if (typeof dispatch === 'function') {
+          console.log('need dispatch in Error Handler');
         }
         return {
           message: "Server doesn't respond",
-          errorClass: error.className || "",
+          errorClass: error.className || ''
         };
 
       case 409:
         return {
-          message: "User with this parameters already exists",
-          errorClass: error.className || "",
+          message: 'User with this parameters already exists',
+          errorClass: error.className || ''
         };
 
       default:
         return {
-          message: "Unexpected error",
-          errorClass: "",
+          message: 'Unexpected error',
+          errorClass: ''
         };
     }
   }

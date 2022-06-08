@@ -1,14 +1,14 @@
-import { LOGIN_ACTION, LOGOUT_ACTION } from "./actions.types";
+import { LOGIN_ACTION, LOGOUT_ACTION } from './actions.types';
 
 const checker = false;
 
 const init = {
   isLogged: checker,
-  accessToken: "",
+  accessToken: '',
   authentication: {},
   user: {
-    imageURL: "",
-  },
+    imageURL: ''
+  }
 };
 
 function auth(state = init, { type, payload }) {
@@ -17,7 +17,7 @@ function auth(state = init, { type, payload }) {
       return {
         ...state,
         ...payload,
-        isLogged: true,
+        isLogged: true
       };
 
     case LOGOUT_ACTION:

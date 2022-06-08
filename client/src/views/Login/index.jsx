@@ -1,31 +1,31 @@
-import { Redirect } from "react-router-dom";
-import { useState, memo } from "react";
-import { connect } from "react-redux";
-import { useAsyncCallback } from "react-async-hook";
-import { NavLink } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
+import { useState, memo } from 'react';
+import { connect } from 'react-redux';
+import { useAsyncCallback } from 'react-async-hook';
+import { NavLink } from 'react-router-dom';
 
-import { FormWrapper } from "../../modules/formWrapper";
+import { FormWrapper } from '../../modules/formWrapper';
 import {
   formValidation,
-  inputValidation,
-} from "../../utils/auth.form.validation";
+  inputValidation
+} from '../../utils/auth.form.validation';
 
 // ? type for validation function
-import { authFormTypeLogin as type } from "../../utils/constants";
+import { authFormTypeLogin as type } from '../../utils/constants';
 
-import { auth } from "../../api/auth.api";
+import { auth } from '../../api/auth.api';
 
-import "./Login.css";
+import './Login.css';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    dispatch
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged,
+    isLogged: state.auth.isLogged
   };
 };
 
@@ -75,12 +75,12 @@ function RowLogin(props) {
   const { dispatch, isLogged } = props;
 
   const formDefault = {
-    username: "",
-    password: "",
-    confirmPassword: "",
-    displayName: "",
-    email: "",
-    className: "",
+    username: '',
+    password: '',
+    confirmPassword: '',
+    displayName: '',
+    email: '',
+    className: ''
   };
 
   const [form, setForm] = useState(formDefault);
@@ -106,32 +106,32 @@ function RowLogin(props) {
     if (!isValidated) {
       setWarn({
         ...warn,
-        [name]: message,
+        [name]: message
       });
     } else {
       setWarn({
         ...warn,
-        [name]: "",
+        [name]: ''
       });
     }
 
     setForm({
       ...form,
-      [name]: value,
+      [name]: value
     });
   };
 
   const submit = (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
     const { data, isValidated } = formValidation(form, type);
 
     // * validation passed and there is no warnings
-    if (isValidated && Object.values(warn).every((message) => message === "")) {
+    if (isValidated && Object.values(warn).every((message) => message === '')) {
       execute(data);
       setForm({
         ...formDefault,
-        username: form.username,
+        username: form.username
       });
     }
     return;
@@ -143,7 +143,7 @@ function RowLogin(props) {
     warn,
     form,
     changeHandler,
-    submit,
+    submit
   };
 
   return (

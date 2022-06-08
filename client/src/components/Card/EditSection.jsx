@@ -1,10 +1,10 @@
-import React from "react";
-import { useRef, useState } from "react";
-import { useAsyncCallback } from "react-async-hook";
+import React from 'react';
+import { useRef, useState } from 'react';
+import { useAsyncCallback } from 'react-async-hook';
 
-import { useOuterCLick } from "../../hooks/hooks";
+import { useOuterCLick } from '../../hooks/hooks';
 
-import { Button } from "../../modules/button";
+import { Button } from '../../modules/button';
 
 function EditSection(props) {
   const { textAreaHeight, name, toggleOverlay, removeCard, patchCard } = props;
@@ -22,7 +22,7 @@ function EditSection(props) {
 
     setCardState({
       textAreaHeight: height,
-      name: value,
+      name: value
     });
   };
 
@@ -30,7 +30,7 @@ function EditSection(props) {
 
   const patchHandler = useAsyncCallback(async () => {
     const { name } = cardState;
-    if (name !== "" && name !== " ") {
+    if (name !== '' && name !== ' ') {
       await patchCard(name);
     }
   });
@@ -41,7 +41,7 @@ function EditSection(props) {
         <textarea
           onChange={changeHandler}
           onKeyPress={(e) => {
-            if (e.key === "Enter") e.preventDefault();
+            if (e.key === 'Enter') e.preventDefault();
           }}
           className="card__text card_textarea"
           defaultValue={cardState.name}
@@ -53,9 +53,9 @@ function EditSection(props) {
           <Button
             {...{
               submit: removeCard,
-              btnText: "Remove",
+              btnText: 'Remove',
               loading: false,
-              btnClassList: ["control__btn"],
+              btnClassList: ['control__btn']
             }}
           />
         </section>
@@ -64,9 +64,9 @@ function EditSection(props) {
       <Button
         {...{
           submit: patchHandler.execute,
-          btnText: "Save",
+          btnText: 'Save',
           loading: patchHandler.loading,
-          classList: ["edit__submit__section"],
+          classList: ['edit__submit__section']
         }}
       />
     </section>

@@ -2,8 +2,8 @@ import {
   boardsService,
   listsService,
   cardsService,
-  notificationsService,
-} from "../api/feathers.api";
+  notificationsService
+} from '../api/feathers.api';
 import {
   NEW_BOARD_CREATED,
   BOARD_DELETED,
@@ -14,8 +14,8 @@ import {
   NEW_CARD_CREATED,
   CARD_PATCHED,
   NOTE_DISMISSED,
-  NOTE_RECEIVED,
-} from "../utils/actions.types";
+  NOTE_RECEIVED
+} from '../utils/actions.types';
 
 const isLink = (background) => {
   return /^https:\/\/images\.unsplash\.com\/.{1,}/g.test(background);
@@ -23,13 +23,13 @@ const isLink = (background) => {
 
 const isImage = (src) => {
   return new Promise((resolve, reject) => {
-    const img = document.createElement("img");
+    const img = document.createElement('img');
     img.src = src;
 
     img.onload = () => resolve(src);
 
     img.onerror = (e) => {
-      reject("Your link has no image");
+      reject('Your link has no image');
     };
   });
 };
@@ -37,12 +37,12 @@ const isImage = (src) => {
 const getDataFromClipBoard = async () => {
   try {
     const link = await navigator.clipboard.readText();
-    if (!isLink(link)) return Promise.reject("Your link has no image");
+    if (!isLink(link)) return Promise.reject('Your link has no image');
 
     const result = await isImage(link);
     return result;
   } catch (e) {
-    console.log("e: ", e);
+    console.log('e: ', e);
     throw e;
   }
 };
@@ -61,52 +61,52 @@ const addListenersForServerChanges = (dispatch) => {
 
   // ? events for updating data in case of subscription
 
-  notificationsService.on("created", (payload) => {
+  notificationsService.on('created', (payload) => {
     dispatch({
       type: NOTE_RECEIVED,
-      payload,
+      payload
     });
   });
 
-  notificationsService.on("removed", (payload) => {
+  notificationsService.on('removed', (payload) => {
     dispatch({
       type: NOTE_DISMISSED,
-      payload,
+      payload
     });
   });
 
-  boardsService.on("patched", (payload) => {
+  boardsService.on('patched', (payload) => {
     dispatch({
       type: BOARD_PATCHED,
-      payload,
+      payload
     });
   });
 
-  boardsService.on("created", (payload) => {
+  boardsService.on('created', (payload) => {
     dispatch({
       type: NEW_BOARD_CREATED,
-      payload,
+      payload
     });
   });
 
-  boardsService.on("removed", ({ _id }) => {
+  boardsService.on('removed', ({ _id }) => {
     dispatch({
       type: BOARD_DELETED,
-      payload: _id,
+      payload: _id
     });
   });
 
-  listsService.on("created", (payload) => {
+  listsService.on('created', (payload) => {
     dispatch({
       type: NEW_LIST_CREATED,
-      payload,
+      payload
     });
   });
 
-  listsService.on("removed", (payload) => {
+  listsService.on('removed', (payload) => {
     dispatch({
       type: LIST_DELETED,
-      payload,
+      payload
     });
   });
 
@@ -117,24 +117,24 @@ const addListenersForServerChanges = (dispatch) => {
   ? instead of
   */
 
-  cardsService.on("removed", ({ _id, listId }) => {
+  cardsService.on('removed', ({ _id, listId }) => {
     dispatch({
       type: CARD_DELETED,
-      payload: { _id, listId },
+      payload: { _id, listId }
     });
   });
 
-  cardsService.on("created", (payload) => {
+  cardsService.on('created', (payload) => {
     dispatch({
       type: NEW_CARD_CREATED,
-      payload,
+      payload
     });
   });
 
-  cardsService.on("patched", (payload) => {
+  cardsService.on('patched', (payload) => {
     dispatch({
       type: CARD_PATCHED,
-      payload,
+      payload
     });
   });
 };
@@ -152,10 +152,4 @@ const errorDisplay = (stateFn, timer = 1000, ...args) => {
   };
 };
 
-export {
-  isLink,
-  getDataFromClipBoard,
-  isPropInObject,
-  addListenersForServerChanges,
-  errorDisplay,
-};
+export { isLink, getDataFromClipBoard, isPropInObject, addListenersForServerChanges, errorDisplay };

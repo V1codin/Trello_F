@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import { memo } from "react";
+import { memo } from 'react';
 
-import "./Error.css";
+import './Error.css';
 
 const ErrorBlock = memo((props) => {
   const { message, errorClass } = props;
@@ -15,13 +15,13 @@ const ErrorBlock = memo((props) => {
 });
 
 ErrorBlock.defaultProps = {
-  message: "Unhandled Error",
-  errorClass: "",
+  message: 'Unhandled Error',
+  errorClass: ''
 };
 
 ErrorBlock.propTypes = {
   message: PropTypes.string.isRequired,
-  errorClass: PropTypes.string.isRequired,
+  errorClass: PropTypes.string.isRequired
 };
 
 export { ErrorBlock };

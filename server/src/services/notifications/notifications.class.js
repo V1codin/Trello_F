@@ -1,4 +1,5 @@
 const { Service } = require("feathers-mongoose");
+const { ObjectId } = require("mongodb");
 
 /*
 ? Model
@@ -18,7 +19,7 @@ exports.Notifications = class Notifications extends Service {
     return `${ownerName} has invited you to ${boardName}`;
   }
 
-  async subscribingNote(props, members) {
+  async subscribingNote(props, members, boardId) {
     try {
       const { ownerName, name } = props;
 
@@ -30,6 +31,7 @@ exports.Notifications = class Notifications extends Service {
             text,
             recipient: member,
             type: "invite",
+            inviteToBoardId: boardId,
           };
 
           // ? use create instead of _create
@@ -41,6 +43,25 @@ exports.Notifications = class Notifications extends Service {
       return result;
     } catch (e) {
       console.log("sub note err", e);
+      return Promise.reject(new Error("Invalid data for subscribe"));
+    }
+  }
+
+  async clearNotesAcceptedClients(boardId, userId) {
+    try {
+      const { data } = await this._find({
+        query: { inviteToBoardId: boardId, recipient: new ObjectId(userId) },
+      });
+
+      const updatedNotes = await Promise.all(
+        data.map(async ({ _id }) => {
+          return this.remove(_id);
+        })
+      );
+
+      return updatedNotes;
+    } catch (e) {
+      console.log("remove accepted note err", e);
       return Promise.reject(new Error("Invalid data for subscribe"));
     }
   }

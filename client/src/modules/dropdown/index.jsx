@@ -1,15 +1,13 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import closeIco from "../../assets/plus.svg";
-import "./DropDown.css";
+import closeIco from '../../assets/plus.svg';
+import './DropDown.css';
 
 function DropDown(props) {
   const { toggle, heading, popupBody } = props;
 
   return (
-    <section
-      className={`board_popup card_design ${props.classList?.join(" ")}`}
-    >
+    <section className={`board_popup card_design ${props.classList?.join(' ')}`}>
       <header className="popup__header">
         <h4 className="popup__article unselectable">{heading}</h4>
         <button className="close__btn" onClick={toggle}>
@@ -29,16 +27,16 @@ function DropDown(props) {
 
 DropDown.defaultProps = {
   toggle: () => null,
-  heading: "Heading",
+  heading: 'Heading',
   popupBody: null,
-  classList: [],
+  classList: []
 };
 
 DropDown.propTypes = {
   toggle: PropTypes.func.isRequired,
   heading: PropTypes.string.isRequired,
   popupBody: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  classList: PropTypes.arrayOf(PropTypes.string),
+  classList: PropTypes.arrayOf(PropTypes.string)
 };
 
 export { DropDown };

@@ -1,12 +1,12 @@
-import { Children } from "react";
-import { connect } from "react-redux";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Children } from 'react';
+import { connect } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { publicRoutes, authenticatedRoutes } from "./routes.js";
+import { publicRoutes, authenticatedRoutes } from './routes.js';
 
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged,
+    isLogged: state.auth.isLogged
   };
 };
 

@@ -1,25 +1,25 @@
-import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { Children } from "react";
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { Children } from 'react';
 
-import { useBodyColor } from "../../hooks/hooks";
-import { BoardCard } from "./BoardCard";
-import { isLink } from "../../utils/helpers";
+import { useBodyColor } from '../../hooks/hooks';
+import { BoardCard } from './BoardCard';
+import { isLink } from '../../utils/helpers';
 
-import deleteIco from "../../assets/plus.svg";
+import deleteIco from '../../assets/plus.svg';
 
-import "./Profile.css";
+import './Profile.css';
 
 const mapStateToProps = (state) => {
   return {
     isLogged: state.auth.isLogged,
-    boards: state.boards,
+    boards: state.boards
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch,
+    dispatch
   };
 };
 
@@ -39,7 +39,7 @@ function RowProfile(props) {
             ...board,
             deleteIco,
             bgChecker,
-            dispatch,
+            dispatch
           };
           return <BoardCard {...boardProps} />;
         })

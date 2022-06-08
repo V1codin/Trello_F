@@ -1,11 +1,11 @@
-import { Service } from "./service.api";
-import { client, userService } from "./feathers.api";
+import { Service } from './service.api';
+import { client, userService } from './feathers.api';
 
-import { board } from "./board.api";
-import { note } from "./notification.api";
+import { board } from './board.api';
+import { note } from './notification.api';
 
-import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
-import { STRATEGY } from "../utils/constants";
+import { LOGIN_ACTION, LOGOUT_ACTION } from '../utils/actions.types';
+import { STRATEGY } from '../utils/constants';
 
 class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
@@ -13,14 +13,14 @@ class Auth extends Service {
       const [payload, boards, notes] = await Promise.all([
         client.authenticate({
           ...loginPayload,
-          strategy: STRATEGY,
+          strategy: STRATEGY
         }),
         board.find(),
-        note.find(),
+        note.find()
       ]);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(payload, boards.data);
         }
       });
@@ -29,7 +29,7 @@ class Auth extends Service {
         type: LOGIN_ACTION,
         payload,
         boards: boards.data,
-        notes: notes.data,
+        notes: notes.data
       });
 
       return payload;
@@ -44,7 +44,7 @@ class Auth extends Service {
       const res = await client.logout();
 
       dispatch({
-        type: LOGOUT_ACTION,
+        type: LOGOUT_ACTION
       });
 
       return res;
@@ -66,21 +66,21 @@ class Auth extends Service {
   };
 
   loginFromCache = async (dispatch) => {
-    const token = window.localStorage.getItem("feathers-jwt");
+    const token = window.localStorage.getItem('feathers-jwt');
 
-    if (typeof token === "string" && token.length > 0) {
+    if (typeof token === 'string' && token.length > 0) {
       try {
         const [payload, boards, notes] = await Promise.all([
           client.reAuthenticate(),
           board.find(),
-          note.find(),
+          note.find()
         ]);
 
         dispatch({
           type: LOGIN_ACTION,
           payload,
           boards: boards.data,
-          notes: notes.data,
+          notes: notes.data
         });
       } catch (e) {
         console.log(this.handleError(e));
@@ -93,7 +93,7 @@ class Auth extends Service {
       const { data } = await userService.find({ query: { _id: { $in: arr } } });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(data);
         }
       });
@@ -105,14 +105,14 @@ class Auth extends Service {
     }
   };
 
-  getUsersFromRegex = async (regex = "", ...callbacks) => {
+  getUsersFromRegex = async (regex = '', ...callbacks) => {
     try {
       const { data } = await userService.find({
-        query: { nameAlias: { $regex: regex, $options: "gi" } },
+        query: { nameAlias: { $regex: regex, $options: 'gi' } }
       });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(data);
         }
       });

@@ -39,7 +39,7 @@ class MyJwtStrategy extends JWTStrategy {
 }
 
 module.exports = (app) => {
-  const authentication = new CustomAuth(app, (configKey = "authentication"));
+  const authentication = new CustomAuth(app, "authentication");
 
   const myJwtStrategy = new MyJwtStrategy();
 

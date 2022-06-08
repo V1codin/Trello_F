@@ -23,7 +23,7 @@ exports.Boards = class Boards extends Service {
     return ownerId;
   }
 
-  async subscribe(boardId, members) {
+  async initSubscription(boardId, members) {
     try {
       const {
         data: [board],
@@ -43,7 +43,7 @@ exports.Boards = class Boards extends Service {
 
       await this.app
         .service("notifications")
-        .subscribingNote(noteProps, members);
+        .subscribingNote(noteProps, members, boardId);
 
       return patchedBoard;
     } catch (e) {
@@ -52,8 +52,38 @@ exports.Boards = class Boards extends Service {
     }
   }
 
-  async patch(id, data) {
-    const { type } = data;
+  async acceptSubscription(boardId, accepterId) {
+    try {
+      const {
+        data: [board],
+      } = await super._find({ query: { _id: boardId } });
+
+      const newPendingMembers = board.pendingMemberIds.filter(
+        (item) => item !== accepterId
+      );
+
+      const newMembers = [...new Set([...board.memberIds, accepterId])];
+
+      const patchedBoard = await Promise.all([
+        super._patch(boardId, {
+          pendingMemberIds: newPendingMembers,
+          memberIds: newMembers,
+        }),
+        this.app.service("users").addBoardToUser(boardId, accepterId),
+        this.app
+          .service("notifications")
+          .clearNotesAcceptedClients(boardId, accepterId),
+      ]);
+
+      return patchedBoard[0];
+    } catch (e) {
+      console.log("e: ", e);
+      return Promise.reject(new Error("Invalid data for accept"));
+    }
+  }
+
+  async patch(boardId, dataFromClient) {
+    const { type } = dataFromClient;
 
     if (type === "subscribe") {
       // * patching board for subscribing users to the board
@@ -63,9 +93,21 @@ exports.Boards = class Boards extends Service {
       // ? and moves the user id from pendingMemberIds array to members array
 
       try {
-        const { members } = data;
+        const { members } = dataFromClient;
 
-        const patchedBoard = await this.subscribe(id, members);
+        const patchedBoard = await this.initSubscription(boardId, members);
+
+        return patchedBoard;
+      } catch (e) {
+        return Promise.reject(new Error("Invalid Board"));
+      }
+    }
+
+    if (type === "accept") {
+      try {
+        const { accepterId } = dataFromClient;
+
+        const patchedBoard = await this.acceptSubscription(boardId, accepterId);
 
         return patchedBoard;
       } catch (e) {

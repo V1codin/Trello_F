@@ -1,41 +1,42 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import { Account } from "../../../../../components/Account";
-import { AddBoardDrop } from "../dropdowns/Add";
-import { InfoBoardDrop } from "../dropdowns/Info";
-import { NoteBoardDrop } from "../dropdowns/Note";
-import { AccountDrop } from "../dropdowns/Account";
-import { AddBoardOverlay } from "../../../../../components/Overlays/AddBoards";
+import { Account } from '../../../../../components/Account';
+import { AddBoardDrop } from '../dropdowns/Add';
+import { InfoBoardDrop } from '../dropdowns/Info';
+import { NoteBoardDrop } from '../dropdowns/Note';
+import { AccountDrop } from '../dropdowns/Account';
+import { AddBoardOverlay } from '../../../../../components/Overlays/AddBoards';
 
-import plus from "../../../../../assets/plus.svg";
-import info from "../../../../../assets/info.svg";
-import note from "../../../../../assets/notification.svg";
+import plus from '../../../../../assets/plus.svg';
+import info from '../../../../../assets/info.svg';
+import note from '../../../../../assets/notification.svg';
 
-import "./Menu.css";
+import './Menu.css';
 
 const mapStateToProps = (state) => {
   return {
     notifications: state.notes,
+    userId: state.auth.user._id
   };
 };
 
 function RowMenu(props) {
-  const { notifications } = props;
+  const { notifications, userId } = props;
 
   const defState = {
     add: false,
     info: false,
     note: false,
-    account: false,
+    account: false
   };
   const [state, setState] = useState(defState);
   const [overlay, setOverlay] = useState(false);
 
   const clickHandler = (e) => {
     const {
-      target: { name },
+      target: { name }
     } = e;
 
     setState({ ...defState, [name]: !state[name] });
@@ -92,6 +93,7 @@ function RowMenu(props) {
         <NoteBoardDrop
           toggle={() => setState({ ...defState, note: !state.note })}
           notes={notifications}
+          userId={userId}
         />
       )}
 

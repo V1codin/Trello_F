@@ -1,5 +1,5 @@
-import { cardsService } from "./feathers.api";
-import { Service } from "./service.api";
+import { cardsService } from './feathers.api';
+import { Service } from './service.api';
 
 class Card extends Service {
   create = async (props, dispatch, ...callbacks) => {
@@ -7,14 +7,14 @@ class Card extends Service {
       const payload = await cardsService.create(props);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(payload);
         }
       });
 
       return payload;
     } catch (e) {
-      console.log("create a card error", e);
+      console.log('create a card error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -24,14 +24,14 @@ class Card extends Service {
       const { data } = await cardsService.find({ query: { props } });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(data);
         }
       });
 
       return data;
     } catch (e) {
-      console.log("find a card error", e);
+      console.log('find a card error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -42,7 +42,7 @@ class Card extends Service {
 
       return id;
     } catch (e) {
-      console.log("delete card error", e);
+      console.log('delete card error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -54,7 +54,7 @@ class Card extends Service {
 
       return patchedCard;
     } catch (e) {
-      console.log("patch card error", e);
+      console.log('patch card error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }

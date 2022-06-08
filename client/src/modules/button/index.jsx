@@ -1,22 +1,16 @@
-import PropTypes from "prop-types";
-import { memo } from "react";
+import PropTypes from 'prop-types';
+import { memo } from 'react';
 
-import { Process } from "../process";
-import plus from "../../assets/plus.svg";
+import { Process } from '../process';
+import plus from '../../assets/plus.svg';
 
-import "./Button.css";
+import './Button.css';
 
 const CloseBtn = memo((props) => {
   const { closeFn } = props;
   return (
     <button className="close__btn btn_static btn_ml10" onClick={closeFn}>
-      <img
-        src={plus}
-        alt="close"
-        className="board__ico"
-        title="close"
-        draggable={false}
-      />
+      <img src={plus} alt="close" className="board__ico" title="close" draggable={false} />
     </button>
   );
 });
@@ -24,22 +18,18 @@ const CloseBtn = memo((props) => {
 function Button(props) {
   const { submit, btnText, loading, type } = props;
 
-  if (type === "closeBtn") return <CloseBtn closeFn={submit} />;
+  if (type === 'closeBtn') return <CloseBtn closeFn={submit} />;
 
   const progressStyles = {
     margin: 0,
     width: 35,
-    height: 35,
+    height: 35
   };
 
   return (
-    <section
-      className={`progress__btn__section ${props?.classList?.join(" ")}`}
-    >
+    <section className={`progress__btn__section ${props?.classList?.join(' ')}`}>
       <button
-        className={`innerCreate__btn sec__btn card_design ${props?.btnClassList?.join(
-          " "
-        )}`}
+        className={`innerCreate__btn sec__btn card_design ${props?.btnClassList?.join(' ')}`}
         onClick={submit}
         disabled={loading}
       >
@@ -55,12 +45,12 @@ function Button(props) {
 
 Button.defaultProps = {
   submit: () => null,
-  btnText: "Button",
+  btnText: 'Button',
   loading: false,
   classList: [],
   btnClassList: [],
 
-  type: "btn",
+  type: 'btn'
 };
 
 Button.propTypes = {
@@ -70,7 +60,7 @@ Button.propTypes = {
   classList: PropTypes.arrayOf(PropTypes.string),
   btnClassList: PropTypes.arrayOf(PropTypes.string),
 
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired
 };
 
 export { Button };

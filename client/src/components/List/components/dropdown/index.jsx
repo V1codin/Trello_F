@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 
-import { useOuterCLick } from "../../../../hooks/hooks";
-import { DropDown } from "../../../../modules/dropdown";
+import { useOuterCLick } from '../../../../hooks/hooks';
+import { DropDown } from '../../../../modules/dropdown';
 
-import moreDots from "../../../../assets/more.svg";
+import moreDots from '../../../../assets/more.svg';
 
 const PopupBody = (props) => {
   const { deleteList } = props;
@@ -36,9 +36,9 @@ function ListDropDown(props) {
 
   const dropProps = {
     toggle,
-    heading: "List actions",
+    heading: 'List actions',
     popupBody: PopupBody({ deleteList: deleteFn(() => setDropDown(false)) }),
-    classList: ["list_drop"],
+    classList: ['list_drop']
   };
 
   return (

@@ -2,8 +2,8 @@ import {
   LIST_DELETED,
   NEW_LIST_CREATED,
   GET_LISTS,
-  GET_LISTS_AND_CARDS,
-} from "../utils/actions.types";
+  GET_LISTS_AND_CARDS
+} from '../utils/actions.types';
 
 const init = [];
 
@@ -21,10 +21,7 @@ function lists(state = init, { type, payload, lists }) {
       return [...lists];
     case NEW_LIST_CREATED:
       // ? avoid re-renders if a list is created from non active board
-      if (
-        (state[0] && state[0].boardId === payload.boardId) ||
-        state.length === 0
-      ) {
+      if ((state[0] && state[0].boardId === payload.boardId) || state.length === 0) {
         return [...state, payload];
       }
 

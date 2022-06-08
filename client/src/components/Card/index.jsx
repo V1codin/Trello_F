@@ -1,17 +1,17 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from 'react';
 
-import { card } from "../../api/card.api";
+import { card } from '../../api/card.api';
 
-import { EditSection } from "./EditSection";
+import { EditSection } from './EditSection';
 
-import edit from "../../assets/edit.svg";
+import edit from '../../assets/edit.svg';
 
-import "./Card.css";
+import './Card.css';
 
 function Card(props) {
   const {
     removeCard,
-    card: { name, _id },
+    card: { name, _id }
   } = props;
 
   const [isOverlay, setOverlay] = useState(false);
@@ -28,7 +28,7 @@ function Card(props) {
 
         return patchedCard;
       } catch (e) {
-        console.log("card edit error", e);
+        console.log('card edit error', e);
       }
     },
     [props.card, _id]
@@ -45,7 +45,7 @@ function Card(props) {
     name,
     toggleOverlay,
     removeCard,
-    patchCard,
+    patchCard
   };
 
   return (

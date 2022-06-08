@@ -11,6 +11,10 @@ module.exports = function (app) {
       text: { type: String, required: true },
       recipient: { type: Schema.Types.ObjectId, ref: "users", required: true },
       type: { type: String, default: "info" },
+      inviteToBoardId: {
+        type: String,
+        required: true,
+      },
     },
     {
       timestamps: true,

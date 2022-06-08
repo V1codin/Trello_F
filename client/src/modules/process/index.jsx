@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 // ? import svg as react component for render row svg
-import { ReactComponent as Spinner } from "../../assets/pulse.svg";
+import { ReactComponent as Spinner } from '../../assets/pulse.svg';
 
-import "./Process.css";
+import './Process.css';
 
 function Process(props) {
   const { isShown } = props;
@@ -21,12 +21,12 @@ function Process(props) {
 }
 
 Process.defaultProps = {
-  isShown: false,
+  isShown: false
 };
 
 Process.propTypes = {
   isShown: PropTypes.bool.isRequired,
-  wrapperStyles: PropTypes.object,
+  wrapperStyles: PropTypes.object
 };
 
 export { Process };

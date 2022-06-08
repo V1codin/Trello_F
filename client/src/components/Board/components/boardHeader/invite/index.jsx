@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef } from 'react';
 
-import { useOuterCLick } from "../../../../../hooks/hooks";
+import { useOuterCLick } from '../../../../../hooks/hooks';
 
-import { InviteDrop } from "./InviteDrop";
+import { InviteDrop } from './InviteDrop';
 
 function Invite(props) {
   const { boardId, ownerId } = props;
@@ -23,7 +23,7 @@ function Invite(props) {
       )}
       <button
         className={`add__toggler card_design invite__btn ${
-          isDrop ? "active" : ""
+          isDrop ? 'active' : ''
         }`}
         onClick={toggle}
       >

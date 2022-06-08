@@ -3,8 +3,8 @@ import {
   BOARD_DELETED,
   LOGIN_ACTION,
   LOGOUT_ACTION,
-  BOARD_PATCHED,
-} from "./actions.types";
+  BOARD_PATCHED
+} from './actions.types';
 
 const init = [];
 

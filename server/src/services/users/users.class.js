@@ -1,4 +1,5 @@
 const { Service } = require("feathers-mongoose");
+const { ObjectId } = require("mongodb");
 
 exports.Users = class Users extends Service {
   constructor(opts, app) {
@@ -14,6 +15,27 @@ exports.Users = class Users extends Service {
       return displayName;
     } catch (e) {
       return Promise.reject(new Error("Invalid id"));
+    }
+  }
+
+  async addBoardToUser(boardId, userId) {
+    try {
+      const _id = new ObjectId(userId);
+
+      const { data } = await this._find({
+        query: { _id },
+      });
+
+      const user = data[0];
+      const subs = [...new Set([...user.subs, boardId])];
+
+      const result = await this.patch(_id, {
+        subs,
+      });
+
+      return result;
+    } catch (e) {
+      return Promise.reject(new Error("Add board to user failed"));
     }
   }
 

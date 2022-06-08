@@ -1,18 +1,18 @@
-import ReactDOM from "react-dom";
+import ReactDOM from 'react-dom';
 
-import { StrictMode } from "react";
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { BrowserRouter } from 'react-router-dom';
 
-import { reducer } from "./utils/main.reducer";
+import { reducer } from './utils/main.reducer';
 
-import { addListenersForServerChanges } from "./utils/helpers";
+import { addListenersForServerChanges } from './utils/helpers';
 
-import "./index.css";
+import './index.css';
 
-import { App } from "./views/App";
+import { App } from './views/App';
 
 const combineProviders = (providers) =>
   providers.reduce((Ac, Prov) => {
@@ -37,9 +37,9 @@ ReactDOM.render(
       <App />
     </Providers>
   </StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );
 
 window.onerror = (e) => {
-  console.log("window error", e.message);
+  console.log('window error', e.message);
 };

@@ -103,6 +103,10 @@ module.exports = function (app) {
     return [app.channel(`userIds/${data.recipient.toString()}`)];
   });
 
+  app.service("notifications").publish("removed", (data) => {
+    return [app.channel(`userIds/${data.recipient.toString()}`)];
+  });
+
   app.service("users").on("removed", (user) => {
     app.channel(app.channels).leave((connection) => {
       return user._id === connection.user._id;

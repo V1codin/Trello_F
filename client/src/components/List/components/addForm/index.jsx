@@ -1,16 +1,16 @@
-import AwesomeDebouncePromise from "awesome-debounce-promise";
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
-import { memo } from "react";
-import { useDispatch } from "react-redux";
-import { useAsyncCallback } from "react-async-hook";
+import { memo } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAsyncCallback } from 'react-async-hook';
 
-import { useAddForm } from "../../../../hooks/hooks";
-import { card } from "../../../../api/card.api";
+import { useAddForm } from '../../../../hooks/hooks';
+import { card } from '../../../../api/card.api';
 
-import { FormWrapper } from "../../../../modules/formWrapper";
-import { Button } from "../../../../modules/button";
+import { FormWrapper } from '../../../../modules/formWrapper';
+import { Button } from '../../../../modules/button';
 
-import plus from "../../../../assets/plus.svg";
+import plus from '../../../../assets/plus.svg';
 
 const FormBody = memo((props) => {
   const {
@@ -21,7 +21,7 @@ const FormBody = memo((props) => {
     btnText,
     loading,
     btnClassList,
-    classList,
+    classList
   } = props;
 
   return (
@@ -36,7 +36,7 @@ const FormBody = memo((props) => {
       />
       <div className="add__list__btns">
         <Button {...{ submit, btnText, loading, btnClassList, classList }} />
-        <Button {...{ type: "closeBtn", submit: closeFn }} />
+        <Button {...{ type: 'closeBtn', submit: closeFn }} />
       </div>
     </>
   );
@@ -46,23 +46,23 @@ function AddForm(props) {
   const { _id, boardId } = props;
 
   const { isAddForm, formToggle, changeHandler, formState } = useAddForm({
-    className: "p_5",
-    name: "",
+    className: 'p_5',
+    name: '',
     listId: _id,
-    boardId,
+    boardId
   });
 
   const dispatch = useDispatch();
 
   const createCardsHandler = async (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
-    if (formState.name === "" || formState.name === " ") return;
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    if (formState.name === '' || formState.name === ' ') return;
 
     try {
       await card.create(formState, dispatch);
       formToggle();
     } catch (e) {
-      console.log("create card error", e);
+      console.log('create card error', e);
       throw e;
     }
   };
@@ -72,12 +72,12 @@ function AddForm(props) {
   const { execute, loading } = useAsyncCallback(debouncedRequest);
 
   const bodyProps = {
-    inputPlaceholder: "Enter a title for the card",
+    inputPlaceholder: 'Enter a title for the card',
     changeHandler,
     submit: execute,
     closeFn: formToggle,
-    btnText: "Add card",
-    loading,
+    btnText: 'Add card',
+    loading
   };
 
   return (

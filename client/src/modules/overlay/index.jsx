@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
-import "./Overlay.css";
+import './Overlay.css';
 
 function Overlay(props) {
   const { renderBody } = props;
   return (
-    <section className={`overlay ${props?.classList?.join(" ")}`}>
+    <section className={`overlay ${props?.classList?.join(' ')}`}>
       {renderBody()}
     </section>
   );
@@ -13,12 +13,12 @@ function Overlay(props) {
 
 Overlay.defaultProps = {
   renderBody: () => null,
-  classList: [],
+  classList: []
 };
 
 Overlay.propTypes = {
   renderBody: PropTypes.func.isRequired,
-  classList: PropTypes.arrayOf(PropTypes.string),
+  classList: PropTypes.arrayOf(PropTypes.string)
 };
 
 export { Overlay };

@@ -1,14 +1,14 @@
-import { ListsWrapper } from "./components/lists";
-import { AddForm } from "./components/addForm";
-import { BoardHeader } from "./components/boardHeader";
+import { ListsWrapper } from './components/lists';
+import { AddForm } from './components/addForm';
+import { BoardHeader } from './components/boardHeader';
 
-import "./Board.css";
+import './Board.css';
 
 function Board(props) {
   const {
     match: {
-      params: { id },
-    },
+      params: { id }
+    }
   } = props;
 
   return (

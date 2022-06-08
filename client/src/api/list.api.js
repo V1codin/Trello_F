@@ -1,5 +1,5 @@
-import { Service } from "./service.api";
-import { listsService } from "./feathers.api";
+import { Service } from './service.api';
+import { listsService } from './feathers.api';
 
 class List extends Service {
   create = async (props, dispatch, ...callbacks) => {
@@ -7,14 +7,14 @@ class List extends Service {
       const payload = await listsService.create(props);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(payload);
         }
       });
 
       return payload;
     } catch (e) {
-      console.log("create a list error", e);
+      console.log('create a list error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -24,14 +24,14 @@ class List extends Service {
       const { data } = await listsService.find({ query: { props } });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(data);
         }
       });
 
       return data;
     } catch (e) {
-      console.log("find a list error", e);
+      console.log('find a list error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }
@@ -41,14 +41,14 @@ class List extends Service {
       await listsService.remove({ _id: id });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === "function") {
+        if (typeof cb === 'function') {
           cb(id);
         }
       });
 
       return id;
     } catch (e) {
-      console.log("delete list error", e);
+      console.log('delete list error', e);
       const errorFromHandler = this.handleError(e, dispatch);
       throw errorFromHandler;
     }

@@ -1,20 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { useAsyncCallback } from "react-async-hook";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { note } from "../../api/notification.api";
+import { useAsyncCallback } from 'react-async-hook';
 
-import { Button } from "../../modules/button";
+import { note } from '../../api/notification.api';
+import { board } from '../../api/board.api';
 
-import "./Note.css";
+import { Button } from '../../modules/button';
+
+import './Note.css';
 
 const ButtonSection = (props) => {
   const { type, submitProps, closeFn } = props;
 
   switch (type) {
-    case "info":
+    case 'info':
       return <Button submit={closeFn} type="closeBtn" />;
-    case "invite":
+    case 'invite':
       return (
         <section className="note__btns">
           <Button {...submitProps} />
@@ -28,27 +30,37 @@ const ButtonSection = (props) => {
 };
 
 function Note(props) {
-  const { type, text, _id } = props;
+  const { type, text, _id, inviteToBoardId, userId, toggle } = props;
 
   const deleteNote = async () => {
     try {
       await note.delete(_id, null);
     } catch (e) {
-      console.log("delete note error", e);
+      console.log('delete note error', e);
+    }
+  };
+
+  const acceptNote = async () => {
+    try {
+      await board.patch({ boardId: inviteToBoardId, data: { type: 'accept', accepterId: userId } });
+      toggle();
+    } catch (e) {
+      console.log('accept invitation to board', e);
     }
   };
 
   const dismissNote = useAsyncCallback(deleteNote);
+  const acceptInvite = useAsyncCallback(acceptNote);
 
   const btnProps = {
     type,
     submitProps: {
-      btnText: "Agree",
-      btnClassList: ["btn_small"],
-      submit: dismissNote.execute,
-      loading: dismissNote.loading,
+      btnText: 'Agree',
+      btnClassList: ['btn_small'],
+      submit: acceptInvite.execute,
+      loading: acceptInvite.loading
     },
-    closeFn: dismissNote.execute,
+    closeFn: dismissNote.execute
   };
 
   return (
@@ -66,9 +78,9 @@ ButtonSection.defaultProps = {
   submitProps: {
     submit: () => null,
     loading: false,
-    btnText: "Agree",
-    btnClassList: ["btn_small"],
-  },
+    btnText: 'Agree',
+    btnClassList: ['btn_small']
+  }
 };
 
 ButtonSection.propTypes = {
@@ -77,20 +89,20 @@ ButtonSection.propTypes = {
     submit: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     btnText: PropTypes.string.isRequired,
-    btnClassList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
+    btnClassList: PropTypes.arrayOf(PropTypes.string).isRequired
+  }).isRequired
 };
 
 Note.defaultProps = {
-  type: "info",
-  text: "Unhandled notification",
-  _id: "",
+  type: 'info',
+  text: 'Unhandled notification',
+  _id: ''
 };
 
 Note.propTypes = {
   type: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired
 };
 
 export { Note };

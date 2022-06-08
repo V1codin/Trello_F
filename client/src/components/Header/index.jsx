@@ -1,9 +1,9 @@
-import { HeaderView } from "../../views/Header";
-import { connect } from "react-redux";
+import { HeaderView } from '../../views/Header';
+import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged,
+    isLogged: state.auth.isLogged
   };
 };
 

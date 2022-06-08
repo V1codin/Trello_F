@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import { useEffect, Children } from "react";
+import { useEffect, Children } from 'react';
 
-import { UserInfo } from "../../../../../modules/userInfo";
-import { UserInfoBody } from "./UserInfoBody";
+import { UserInfo } from '../../../../../modules/userInfo';
+import { UserInfoBody } from './UserInfoBody';
 
 function InnerList(props) {
   const { users, boardId, ownerId, setChecks, checks } = props;

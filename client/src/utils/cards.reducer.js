@@ -4,10 +4,10 @@ import {
   CARD_DELETED,
   LIST_DELETED,
   NEW_LIST_CREATED,
-  CARD_PATCHED,
-} from "./actions.types";
+  CARD_PATCHED
+} from './actions.types';
 
-import { isPropInObject } from "./helpers";
+import { isPropInObject } from './helpers';
 
 const init = {};
 
@@ -22,13 +22,13 @@ function cards(state = init, { type, payload, cards }) {
 
       return {
         ...state,
-        [payload.listId]: updatedList,
+        [payload.listId]: updatedList
       };
 
     case NEW_LIST_CREATED:
       return {
         ...state,
-        [payload._id]: [],
+        [payload._id]: []
       };
 
     case LIST_DELETED:
@@ -40,17 +40,12 @@ function cards(state = init, { type, payload, cards }) {
       const deletedId = payload._id;
 
       // ? switch case is bs cause of no creating scopes
-      const isListOfDeletedCardInState = isPropInObject(
-        deletedCardListId,
-        state
-      );
+      const isListOfDeletedCardInState = isPropInObject(deletedCardListId, state);
 
       if (isListOfDeletedCardInState) {
         return {
           ...state,
-          [deletedCardListId]: state[deletedCardListId].filter(
-            ({ _id }) => _id !== deletedId
-          ),
+          [deletedCardListId]: state[deletedCardListId].filter(({ _id }) => _id !== deletedId)
         };
       }
 
@@ -60,20 +55,17 @@ function cards(state = init, { type, payload, cards }) {
       const cardCreatedListId = payload.listId;
 
       // ? switch case is bs cause of no creating scopes
-      const isListOfCreatedCardInState = isPropInObject(
-        cardCreatedListId,
-        state
-      );
+      const isListOfCreatedCardInState = isPropInObject(cardCreatedListId, state);
 
       if (isListOfCreatedCardInState) {
         return {
           ...state,
-          [cardCreatedListId]: [...state[cardCreatedListId], payload],
+          [cardCreatedListId]: [...state[cardCreatedListId], payload]
         };
       }
       return {
         ...state,
-        [cardCreatedListId]: [payload],
+        [cardCreatedListId]: [payload]
       };
 
     case GET_LISTS_AND_CARDS:
@@ -90,7 +82,7 @@ function cards(state = init, { type, payload, cards }) {
 
       return {
         ...state,
-        ...additionalCards,
+        ...additionalCards
       };
     default:
       return state;

@@ -1,9 +1,9 @@
-import { useRef } from "react";
-import { NavLink } from "react-router-dom";
-import { useAsyncCallback } from "react-async-hook";
-import { board } from "../../api/board.api";
+import { useRef } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useAsyncCallback } from 'react-async-hook';
+import { board } from '../../api/board.api';
 
-import { Process } from "../../modules/process";
+import { Process } from '../../modules/process';
 
 function BoardCard(props) {
   const { _id, bg, deleteIco, title, bgChecker, dispatch } = props;
@@ -14,7 +14,7 @@ function BoardCard(props) {
       const { name } = e.target;
       await board.delete(name, dispatch);
     } catch (e) {
-      console.log("delete board err ", e);
+      console.log('delete board err ', e);
     }
   };
 
@@ -36,8 +36,8 @@ function BoardCard(props) {
         bgChecker
           ? {
               backgroundImage: `url(${bg})`,
-              backgroundRepeat: "no-repeat",
-              backgroundSize: "cover",
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover'
             }
           : { background: bg }
       }

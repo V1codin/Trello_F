@@ -1,16 +1,16 @@
-import AwesomeDebouncePromise from "awesome-debounce-promise";
-import useConstant from "use-constant";
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import useConstant from 'use-constant';
 
-import { useCallback, useState, useEffect } from "react";
-import { useAsyncAbortable } from "react-async-hook";
-import { isLink } from "../utils/helpers";
-import { BG_IMAGE, BODY_REF } from "../utils/constants";
+import { useCallback, useState, useEffect } from 'react';
+import { useAsyncAbortable } from 'react-async-hook';
+import { isLink } from '../utils/helpers';
+import { BG_IMAGE, BODY_REF } from '../utils/constants';
 
 const useToggle = (initialState = false) => {
   const [state, setState] = useState(initialState);
 
   const toggle = useCallback((newS) => {
-    if (typeof newS === "boolean") {
+    if (typeof newS === 'boolean') {
       setState(newS);
     } else {
       setState((state) => !state);
@@ -24,8 +24,8 @@ const useOuterCLick = (parentRef, ...callbacks) => {
   const click = useCallback(
     (e) => {
       if (
-        (e.type === "click" && !parentRef.current?.contains(e.target)) ||
-        (e.type === "keydown" && e.code === "Escape")
+        (e.type === 'click' && !parentRef.current?.contains(e.target)) ||
+        (e.type === 'keydown' && e.code === 'Escape')
       ) {
         callbacks.forEach((callback) => callback());
       }
@@ -34,13 +34,13 @@ const useOuterCLick = (parentRef, ...callbacks) => {
   );
 
   useEffect(() => {
-    document.addEventListener("click", click, { capture: true });
+    document.addEventListener('click', click, { capture: true });
 
-    document.addEventListener("keydown", click);
+    document.addEventListener('keydown', click);
 
     return () => {
-      document.removeEventListener("click", click, { capture: true });
-      document.removeEventListener("keydown", click);
+      document.removeEventListener('click', click, { capture: true });
+      document.removeEventListener('keydown', click);
     };
     // eslint-disable-next-line
   }, []);
@@ -52,20 +52,20 @@ const useBodyColor = (background = BG_IMAGE) => {
 
   useEffect(() => {
     if (!linkChecker) {
-      bodyRef.style.backgroundImage = "none";
+      bodyRef.style.backgroundImage = 'none';
       bodyRef.style.background = background;
     } else {
-      bodyRef.style.background = "";
-      bodyRef.style.backgroundRepeat = "no-repeat";
-      bodyRef.style.backgroundSize = "cover";
+      bodyRef.style.background = '';
+      bodyRef.style.backgroundRepeat = 'no-repeat';
+      bodyRef.style.backgroundSize = 'cover';
       bodyRef.style.backgroundImage = `url(${background})`;
     }
 
     return () => {
-      bodyRef.style.background = "";
-      bodyRef.style.backgroundRepeat = "no-repeat";
-      bodyRef.style.backgroundSize = "cover";
-      bodyRef.style.backgroundImage = "";
+      bodyRef.style.background = '';
+      bodyRef.style.backgroundRepeat = 'no-repeat';
+      bodyRef.style.backgroundSize = 'cover';
+      bodyRef.style.backgroundImage = '';
     };
   }, [background, linkChecker, bodyRef]);
 };
@@ -73,14 +73,14 @@ const useBodyColor = (background = BG_IMAGE) => {
 const useAddForm = (defaultFormState) => {
   const formDefState = {
     ...defaultFormState,
-    isAddForm: false,
+    isAddForm: false
   };
   const [formState, setFormState] = useState(formDefState);
 
   const formToggle = () => {
     setFormState({
       ...formDefState,
-      isAddForm: !formState.isAddForm,
+      isAddForm: !formState.isAddForm
     });
   };
 
@@ -88,7 +88,7 @@ const useAddForm = (defaultFormState) => {
     const { value } = e.target;
     setFormState({
       ...formState,
-      name: value,
+      name: value
     });
   };
 
@@ -97,16 +97,14 @@ const useAddForm = (defaultFormState) => {
     formToggle,
     setFormState,
     changeHandler,
-    formState,
+    formState
   };
 };
 
 const useDebouncedFetch = (fetchFn) => {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState('');
 
-  const debouncedSearch = useConstant(() =>
-    AwesomeDebouncePromise(fetchFn, 2000)
-  );
+  const debouncedSearch = useConstant(() => AwesomeDebouncePromise(fetchFn, 2000));
 
   const search = useAsyncAbortable(
     async (_, text) => {
@@ -126,14 +124,8 @@ const useDebouncedFetch = (fetchFn) => {
   return {
     inputText,
     setInputText,
-    search,
+    search
   };
 };
 
-export {
-  useToggle,
-  useOuterCLick,
-  useBodyColor,
-  useAddForm,
-  useDebouncedFetch,
-};
+export { useToggle, useOuterCLick, useBodyColor, useAddForm, useDebouncedFetch };

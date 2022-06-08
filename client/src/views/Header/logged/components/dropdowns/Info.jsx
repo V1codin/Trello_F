@@ -1,12 +1,12 @@
-import { useContext, useState } from "react";
-import { ParentRefContext } from "../../";
+import { useContext, useState } from 'react';
+import { ParentRefContext } from '../../';
 
-import { useOuterCLick } from "../../../../../hooks/hooks";
+import { useOuterCLick } from '../../../../../hooks/hooks';
 
-import { DropDown } from "../../../../../modules/dropdown";
-import { images } from "./images";
+import { DropDown } from '../../../../../modules/dropdown';
+import { images } from './images';
 
-import "./DropDowns.css";
+import './DropDowns.css';
 
 const PopupBody = (props) => {
   const { url, changeTip, title, changeTipTitle } = props;
@@ -53,8 +53,8 @@ function InfoBoardDrop(props) {
 
   const dropProps = {
     toggle,
-    heading: "Information",
-    popupBody: PopupBody({ ...images[state], changeTip }),
+    heading: 'Information',
+    popupBody: PopupBody({ ...images[state], changeTip })
   };
 
   return <DropDown {...dropProps} />;

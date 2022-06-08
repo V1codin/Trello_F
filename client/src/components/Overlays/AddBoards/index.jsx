@@ -1,19 +1,19 @@
-import { useState, useRef, memo, Children } from "react";
-import { useAsyncCallback } from "react-async-hook";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { useState, useRef, memo, Children } from 'react';
+import { useAsyncCallback } from 'react-async-hook';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import { board } from "../../../api/board.api";
-import { useOuterCLick } from "../../../hooks/hooks";
-import { addBoardColors } from "../../../utils/constants";
+import { board } from '../../../api/board.api';
+import { useOuterCLick } from '../../../hooks/hooks';
+import { addBoardColors } from '../../../utils/constants';
 
-import { getDataFromClipBoard } from "../../../utils/helpers";
-import { STANDARD_BG } from "../../../utils/constants";
+import { getDataFromClipBoard } from '../../../utils/helpers';
+import { STANDARD_BG } from '../../../utils/constants';
 
-import { FormWrapper } from "../../../modules/formWrapper";
-import { Overlay } from "../../../modules/overlay";
+import { FormWrapper } from '../../../modules/formWrapper';
+import { Overlay } from '../../../modules/overlay';
 
-import link from "../../../assets/link.svg";
+import link from '../../../assets/link.svg';
 
 const mapDispatchToProps = (dispatch) => {
   return { dispatch };
@@ -72,7 +72,7 @@ const FormBody = memo((props) => {
             className="colorPicker__el card_design"
             name="bg"
             type="color"
-            style={{ backgroundColor: "#ffffffb0" }}
+            style={{ backgroundColor: '#ffffffb0' }}
             onChange={changeHandler}
           />
         </li>
@@ -80,7 +80,7 @@ const FormBody = memo((props) => {
       <button
         className="form__btn"
         onClick={submit}
-        disabled={form.title === "" || form.title === undefined ? true : false}
+        disabled={form.title === '' || form.title === undefined ? true : false}
       >
         Create Board
       </button>
@@ -94,20 +94,20 @@ function RowAddBoardOverlay(props) {
   const parentRef = useRef(null);
 
   const containerAttrs = {
-    ref: parentRef,
+    ref: parentRef
   };
 
   useOuterCLick(parentRef, () => overlayHandler(false));
 
   const [form, setForm] = useState({
     bg: STANDARD_BG,
-    title: "",
-    link: "",
+    title: '',
+    link: ''
   });
 
   const submit = async (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
-    if (form.title !== "") {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+    if (form.title !== '') {
       form.bg = form.bg || form.link;
 
       const result = await board.create(form, dispatch, () =>
@@ -121,16 +121,16 @@ function RowAddBoardOverlay(props) {
   const { execute, loading, error, status } = useAsyncCallback(submit);
 
   const changeHandler = async (e) => {
-    if (e && typeof e.preventDefault === "function") e.preventDefault();
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
     const { name, value } = e.target;
 
-    if (name === "link") {
+    if (name === 'link') {
       const res = await getDataFromClipBoard();
       setForm({
         ...form,
-        bg: "",
-        link: res,
+        bg: '',
+        link: res
       });
       return;
     }
@@ -138,7 +138,7 @@ function RowAddBoardOverlay(props) {
     if (form[name] !== value) {
       setForm({
         ...form,
-        [name]: value,
+        [name]: value
       });
     }
   };
@@ -152,7 +152,7 @@ function RowAddBoardOverlay(props) {
       loading={loading}
       containerAttrs={containerAttrs}
     >
-      {status === "success" ? (
+      {status === 'success' ? (
         <Redirect to="/profile" />
       ) : (
         <FormBody {...bodyProps} />
