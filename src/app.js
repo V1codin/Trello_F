@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const logger = require("./logger");
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
