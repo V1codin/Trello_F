@@ -6,7 +6,7 @@ const cors = require("cors");
 const logger = require("./logger");
 
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
+  require("dotenv").config({ path: __dirname + "/.env" });
 }
 
 const feathers = require("@feathersjs/feathers");
