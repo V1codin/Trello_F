@@ -29,7 +29,7 @@
     "dev": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
     "start": "node src/",
     "jest": "jest  --forceExit",
-    "build": "npm run lint && npm run build --prefix ./client"
+    "build": "npm run build --prefix ./client"
   },
   "standard": {
     "env": [
@@ -61,8 +61,8 @@
   },
   "devDependencies": {
     "axios": "^0.21.4",
+    "babel-jest": "^26.6.0",
     "eslint": "^7.32.0",
-    "jest": "^27.2.0",
     "nodemon": "^2.0.12"
   }
 }
