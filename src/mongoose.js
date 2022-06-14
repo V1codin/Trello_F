@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 const logger = require("./logger");
 
-console.log("uri type", typeof process.env.MONGODB_URI);
 module.exports = function (app) {
   mongoose
-    .connect(process.env.MONGODB_URI, {
+    .connect(process.env.MONGO_DB_URI, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
