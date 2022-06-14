@@ -26,10 +26,10 @@
   "scripts": {
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "nodemon": "nodemon src/ --config nodemon.json",
-    "dev": "concurrently \"npm run nodemon\"  \"npm run start --prefix ../client\"",
+    "dev": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
     "start": "node src/",
     "jest": "jest  --forceExit",
-    "build": "npm run lint && npm run build --prefix ../client"
+    "build": "npm run lint && npm run build --prefix ./client"
   },
   "standard": {
     "env": [
