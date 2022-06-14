@@ -29,7 +29,8 @@
     "dev": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
     "start": "node src/",
     "jest": "jest  --forceExit",
-    "build": "npm run build --prefix ./client"
+    "build": "npm run build --prefix ./client",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "standard": {
     "env": [
