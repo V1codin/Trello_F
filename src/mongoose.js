@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const logger = require("./logger");
 
+console.log("process.env: ", process.env.MONGO_DB_URI);
+
 module.exports = function (app) {
   mongoose
     .connect(process.env.MONGODB_URI, {
