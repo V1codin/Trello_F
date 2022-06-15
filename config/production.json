@@ -1,6 +1,6 @@
 {
-  "host": "https://trello-46.herokuapp.com/",
+  "host": "HOST",
   "port": "PORT",
-  "MONGO_DB_URI": "MONGO_DB_URI",
+  "mongodb": "MONGO_DB_URI",
   "public": "../client/build/"
 }
