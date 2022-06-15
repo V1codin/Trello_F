@@ -26,11 +26,13 @@
   "scripts": {
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
     "nodemon": "nodemon src/ --config nodemon.json",
-    "dev": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
+    "develop": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
+    "dev": "concurrently \"npm run build --prefix ./client\" && nodemon src/ --config nodemon.json",
     "start": "node src/",
     "jest": "jest  --forceExit",
     "build": "npm run build --prefix ./client",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "_heroku-postbuild_": "cd client && npm install --only=dev && npm install && npm run build",
+    "heroku-postbuild": "npm install"
   },
   "standard": {
     "env": [
