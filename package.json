@@ -30,7 +30,7 @@
     "dev": "concurrently \"npm run build --prefix ./client\" && nodemon src/ --config nodemon.json",
     "start": "node src/",
     "jest": "jest  --forceExit",
-    "local_build": "npm run build --prefix ./client",
+    "lb": "npm run build --prefix ./client",
     "build": "npm install",
     "_heroku-postbuild_": "cd client && npm install --only=dev && npm install && npm run build",
     "__heroku-postbuild": "npm install"
