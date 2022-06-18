@@ -140,7 +140,7 @@ exports.Boards = class Boards extends Service {
         ),
         listsCollection.deleteMany(
           {
-            boardId: mongoose.Types.ObjectId(boardId),
+            boardId,
           },
           { session }
         ),
