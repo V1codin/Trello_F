@@ -119,15 +119,14 @@ exports.Boards = class Boards extends Service {
 
   async remove(boardId) {
     try {
-      const board = await super._remove(boardId);
-      console.log("board: ", board);
+      const result = await Promise.all([
+        super._remove(boardId),
+        this.app
+          .service("lists")
+          ._remove(null, { query: { boardId: Types.ObjectId(boardId) } }),
+      ]);
 
-      const lists = await this.app
-        .service("lists")
-        ._remove(null, { query: { boardId: Types.ObjectId(boardId) } });
-      console.log("lists: ", lists);
-
-      return board;
+      return result[0];
     } catch (e) {
       return Promise.reject(new Error("Invalid Board"));
     }
