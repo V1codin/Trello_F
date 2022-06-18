@@ -119,10 +119,12 @@ exports.Boards = class Boards extends Service {
 
   async remove(boardId) {
     try {
-      // const lists = await this.app.service("lists").remove({ query: { boardId } });
       const board = await super._remove(boardId);
+      console.log("board: ", board);
 
-      const lists = await this.app.service("lists").remove(boardId);
+      const lists = await this.app
+        .service("lists")
+        .remove({ query: { boardId } });
       console.log("lists: ", lists);
 
       return board;
