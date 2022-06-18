@@ -132,8 +132,14 @@ exports.Boards = class Boards extends Service {
         const boardsService = this.app.service("boards");
         const listsService = this.app.service("lists");
 
-        await boardsService.remove({ query: { _id: boardId } });
-        await listsService.remove({ query: { boardId } });
+        await boardsService.remove(
+          { query: { _id: boardId } },
+          { mongoose: { session } }
+        );
+        await listsService.remove(
+          { query: { boardId } },
+          { mongoose: { session } }
+        );
 
         return;
       }, transactionOptions);
