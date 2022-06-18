@@ -130,7 +130,7 @@ exports.Boards = class Boards extends Service {
     try {
       await session.withTransaction(async () => {
         const boardCollection = this.app.service("boards").Model.collection;
-        const listsCollection = this.app.service("lists").Model.collection;
+        //const listsCollection = this.app.service("lists").Model.collection;
 
         const sessionOptions = { session };
 
@@ -141,17 +141,9 @@ exports.Boards = class Boards extends Service {
           sessionOptions
         );
 
-        try {
-          listsCollection.deleteMany({ boardId }, sessionOptions);
-          // ? error
-        } catch (e) {
-          console.log(
-            "--------------------------------- delete lists error",
-            e
-          );
-
-          throw new Error("Error deleting lists");
-        }
+        await this.app
+          .service("lists")
+          .remove({ query: { boardId } }, sessionOptions);
 
         return;
       }, transactionOptions);
