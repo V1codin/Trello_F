@@ -4,7 +4,7 @@ const {
   getOwnAndSubscribedBoards,
 } = require("../../hooks/getOwnAndSubscribedBoards");
 
-const { transactionManager } = require("feathers-mongoose");
+const TransactionManager = require("feathers-mongoose").TransactionManager;
 const isTransactionEnable = process.env.TRANSACTION_ENABLE || false;
 const skipPath = ["login"];
 
@@ -29,7 +29,7 @@ module.exports = {
     remove: [
       setUserIdToQuery,
       (isTransactionEnable,
-      async (hook) => transactionManager.beginTransaction(hook, skipPath)),
+      async (hook) => TransactionManager.beginTransaction(hook, skipPath)),
     ],
   },
 
@@ -40,7 +40,12 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: [(isTransactionEnable, transactionManager.commitTransaction)],
+    remove: [
+      (isTransactionEnable,
+      async () => {
+        await TransactionManager.commitTransaction;
+      }),
+    ],
   },
 
   error: {
@@ -50,6 +55,11 @@ module.exports = {
     create: [],
     update: [],
     patch: [],
-    remove: [(isTransactionEnable, transactionManager.rollbackTransaction)],
+    remove: [
+      (isTransactionEnable,
+      async () => {
+        await TransactionManager.rollbackTransaction;
+      }),
+    ],
   },
 };
