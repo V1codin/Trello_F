@@ -125,21 +125,22 @@ exports.Boards = class Boards extends Service {
       readConcern: { level: "local" },
       writeConcern: { w: "majority" },
     };
-    //session.startTransaction(transactionOptions);
+    session.startTransaction(transactionOptions);
 
     try {
-      await session.withTransaction(async () => {
-        const boardCollection = mongoose.connection.db.collection("boards");
-        const listsCollection = mongoose.connection.db.collection("lists");
+      const boardCollection = mongoose.connection.db.collection("boards");
+      const listsCollection = mongoose.connection.db.collection("lists");
 
-        await boardCollection.deleteOne({ _id: boardId }, { session });
-        await listsCollection.deleteMany(
+      const result = await Promise.all([
+        boardCollection.deleteOne({ _id: boardId }, { session }),
+
+        listsCollection.deleteMany(
           { boardId: mongoose.Types.ObjectId(boardId) },
           { session }
-        );
-      }, transactionOptions);
+        ),
+      ]);
 
-      return { _id: boardId };
+      return result[0];
     } catch (e) {
       console.log("======================================: ", e);
       await session.abortTransaction();
