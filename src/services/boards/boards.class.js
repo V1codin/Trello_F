@@ -140,6 +140,8 @@ exports.Boards = class Boards extends Service {
         ),
       ]);
 
+      await session.commitTransaction();
+
       return result[0];
     } catch (e) {
       console.log("======================================: ", e);
