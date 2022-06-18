@@ -1,5 +1,5 @@
 const { Service } = require("feathers-mongoose");
-//const mongoose = require("mongoose");
+const { Types } = require("mongoose");
 
 /*
 ? Model
@@ -124,7 +124,7 @@ exports.Boards = class Boards extends Service {
 
       const lists = await this.app
         .service("lists")
-        .remove({ query: { boardId } });
+        .remove({ query: { boardId: Types.ObjectId(boardId) } });
       console.log("lists: ", lists);
 
       return board;
