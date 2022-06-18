@@ -142,6 +142,7 @@ exports.Boards = class Boards extends Service {
 
       await session.commitTransaction();
 
+      console.log("result: ", result);
       return result[0];
     } catch (e) {
       console.log("======================================: ", e);
