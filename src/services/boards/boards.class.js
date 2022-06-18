@@ -128,25 +128,25 @@ exports.Boards = class Boards extends Service {
     session.startTransaction(transactionOptions);
 
     try {
-      const boardCollection = mongoose.connection.db.collection("boards");
-      const listsCollection = mongoose.connection.db.collection("lists");
+      session.withTransaction(async () => {
+        const boardCollection = mongoose.connection.db.collection("boards");
+        const listsCollection = mongoose.connection.db.collection("lists");
 
-      await Promise.all([
-        boardCollection.deleteOne(
-          {
-            _id: mongoose.Types.ObjectId(boardId),
-          },
-          { session }
-        ),
-        listsCollection.deleteMany(
-          {
-            boardId,
-          },
-          { session }
-        ),
-      ]);
-
-      await session.commitTransaction();
+        await Promise.all([
+          boardCollection.deleteOne(
+            {
+              _id: mongoose.Types.ObjectId(boardId),
+            },
+            { session }
+          ),
+          listsCollection.deleteMany(
+            {
+              boardId,
+            },
+            { session }
+          ),
+        ]);
+      });
 
       return { _id: boardId };
     } catch (e) {
