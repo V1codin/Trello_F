@@ -134,7 +134,7 @@ exports.Boards = class Boards extends Service {
 
         const sessionOptions = { session };
 
-        await Promise.all([
+        const deleteResaults = await Promise.all([
           boardCollection.deleteOne(
             {
               _id: mongoose.Types.ObjectId(boardId),
@@ -149,11 +149,15 @@ exports.Boards = class Boards extends Service {
           ),
         ]);
 
+        console.log(
+          "+++++++++++++++++++++++++++++++++++++++++",
+          deleteResaults
+        );
         return;
       }, transactionOptions);
 
       console.log(
-        "+++++++++++++++++++++++++++++++++++++++++",
+        "--------------------------------------------/",
         transactionResults
       );
 
