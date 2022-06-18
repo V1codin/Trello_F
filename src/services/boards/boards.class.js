@@ -130,7 +130,7 @@ exports.Boards = class Boards extends Service {
     try {
       const transactionResults = await session.withTransaction(async () => {
         // const boardCollection = mongoose.connection.db.collection("boards");
-        const listsCollection = session.db.collection("lists");
+        const listsCollection = this.app.service("lists").Model.collection;
         console.log("listsCollection: ", listsCollection);
 
         const sessionOptions = { session };
