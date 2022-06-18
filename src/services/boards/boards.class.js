@@ -118,7 +118,7 @@ exports.Boards = class Boards extends Service {
   }
 
   async remove(boardId) {
-    const session = await mongoose.startSession();
+    const session = await mongoose.connect.startSession();
 
     const transactionOptions = {
       readPreference: "primary",
