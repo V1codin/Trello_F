@@ -129,11 +129,19 @@ exports.Boards = class Boards extends Service {
 
     try {
       const transactionResults = await session.withTransaction(async () => {
-        const boardCollection = mongoose.connection.db.collection("boards");
+        // const boardCollection = mongoose.connection.db.collection("boards");
         const listsCollection = mongoose.connection.db.collection("lists");
 
         const sessionOptions = { session };
 
+        const res = await listsCollection.deleteMany(
+          {
+            boardId,
+          },
+          sessionOptions
+        );
+        console.log("res: ", res);
+        /*
         const deleteResaults = await Promise.all([
           boardCollection.deleteOne(
             {
@@ -153,6 +161,7 @@ exports.Boards = class Boards extends Service {
           "+++++++++++++++++++++++++++++++++++++++++",
           deleteResaults
         );
+        */
         return;
       }, transactionOptions);
 
