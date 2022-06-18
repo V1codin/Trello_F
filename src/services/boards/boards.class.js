@@ -132,7 +132,7 @@ exports.Boards = class Boards extends Service {
         const boardCollection = mongoose.connection.db.collection("boards");
         const listsCollection = mongoose.connection.db.collection("lists");
 
-        await Promise.all([
+        return await Promise.all([
           boardCollection.deleteOne(
             {
               _id: mongoose.Types.ObjectId(boardId),
