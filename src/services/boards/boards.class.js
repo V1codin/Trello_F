@@ -120,10 +120,12 @@ exports.Boards = class Boards extends Service {
   async remove(boardId) {
     try {
       // const lists = await this.app.service("lists").remove({ query: { boardId } });
-      // const board = await super._remove(boardId);
+      const board = await super._remove(boardId);
 
       const lists = await this.app.service("lists").remove(boardId);
       console.log("lists: ", lists);
+
+      return board;
     } catch (e) {
       return Promise.reject(new Error("Invalid Board"));
     }
