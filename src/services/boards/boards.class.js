@@ -142,7 +142,7 @@ exports.Boards = class Boards extends Service {
         );
 
         try {
-          await listsCollection.deleteMany(null, sessionOptions);
+          listsCollection.deleteMany({ boardId }, sessionOptions);
           // ? error
         } catch (e) {
           console.log(
