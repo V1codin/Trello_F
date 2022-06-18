@@ -132,18 +132,23 @@ exports.Boards = class Boards extends Service {
         const boardCollection = mongoose.connection.db.collection("boards");
         const listsCollection = mongoose.connection.db.collection("lists");
 
-        await boardCollection.deleteOne(
-          {
-            _id: mongoose.Types.ObjectId(boardId),
-          },
-          { session }
-        );
-        await listsCollection.deleteMany(
-          {
-            boardId,
-          },
-          { session }
-        );
+        try {
+          await boardCollection.deleteOne(
+            {
+              _id: mongoose.Types.ObjectId(boardId),
+            },
+            { session }
+          );
+          await listsCollection.deleteMany(
+            {
+              boardId,
+            },
+            { session }
+          );
+        } catch (e) {
+          console.log("EEEEEEEEEEEEEEERRRRRRRRRRRRRRRRRRRRRRROR");
+          throw new Error("Error removing");
+        }
       }, transactionOptions);
 
       return { _id: boardId };
