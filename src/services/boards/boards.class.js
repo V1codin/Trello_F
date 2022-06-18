@@ -125,7 +125,7 @@ exports.Boards = class Boards extends Service {
       readConcern: { level: "local" },
       writeConcern: { w: "majority" },
     };
-    session.startTransaction(transactionOptions);
+    // session.startTransaction(transactionOptions);
 
     try {
       session.withTransaction(async () => {
@@ -146,12 +146,12 @@ exports.Boards = class Boards extends Service {
             { session }
           ),
         ]);
-      });
+      }, transactionOptions);
 
       return { _id: boardId };
     } catch (e) {
       console.log("======================================: ", e);
-      await session.abortTransaction();
+      // await session.abortTransaction();
       return Promise.reject(new Error("Invalid Board"));
     } finally {
       await session.endSession();
