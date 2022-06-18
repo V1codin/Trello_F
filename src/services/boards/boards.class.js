@@ -129,19 +129,11 @@ exports.Boards = class Boards extends Service {
 
     try {
       await session.withTransaction(async () => {
-        const boardCollection = this.app.service("boards").Model.collection;
-        //const listsCollection = this.app.service("lists").Model.collection;
+        const boardsService = this.app.service("boards");
+        const listsService = this.app.service("lists");
 
-        const sessionOptions = { session };
-
-        await boardCollection.deleteOne(
-          {
-            _id: mongoose.Types.ObjectId(boardId),
-          },
-          sessionOptions
-        );
-
-        await this.app.service("lists").remove({ query: { boardId } });
+        await boardsService.remove({ query: { _id: boardId } });
+        await listsService.remove({ query: { boardId } });
 
         return;
       }, transactionOptions);
@@ -149,7 +141,7 @@ exports.Boards = class Boards extends Service {
       await session.endSession();
       return { _id: boardId };
     } catch (e) {
-      console.log("======================================: ", e);
+      console.log("======================================: ");
 
       session.abortTransaction();
       await session.endSession();
