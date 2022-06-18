@@ -133,7 +133,10 @@ exports.Boards = class Boards extends Service {
         const listsCollection = mongoose.connection.db.collection("lists");
 
         await boardCollection.deleteOne({ _id: boardId }, { session });
-        await listsCollection.deleteMany({ boardId }, { session });
+        await listsCollection.deleteMany(
+          { boardId: mongoose.Types.ObjectId(boardId) },
+          { session }
+        );
       }, transactionOptions);
 
       return { _id: boardId };
