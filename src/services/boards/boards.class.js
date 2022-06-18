@@ -1,5 +1,4 @@
 const { Service } = require("feathers-mongoose");
-const mongoose = require("mongoose");
 
 /*
 ? Model
@@ -114,45 +113,6 @@ exports.Boards = class Boards extends Service {
       } catch (e) {
         return Promise.reject(new Error("Invalid Board"));
       }
-    }
-  }
-
-  async remove(boardId) {
-    //const session = await mongoose.startSession();
-
-    const transactionOptions = {
-      readPreference: "primary",
-      readConcern: { level: "local" },
-      writeConcern: { w: "majority" },
-    };
-    //session.startTransaction(transactionOptions);
-
-    try {
-      const boardCollection = mongoose.connection.db.collection("boards");
-      //const listsCollection = mongoose.connection.db.collection("lists");
-
-      const result = await boardCollection.deleteOne({ _id: boardId });
-      console.log("result: ", result);
-      /*
-      await Promise.all([
-        boardCollection.deleteOne({ _id: boardId }, { session }),
-
-        listsCollection.deleteMany(
-          { boardId: mongoose.Types.ObjectId(boardId) },
-          { session }
-        ),
-      ]);
-      */
-
-      //await session.commitTransaction();
-      //
-      return { _id: boardId };
-    } catch (e) {
-      console.log("======================================: ", e);
-      //await session.abortTransaction();
-      return Promise.reject(new Error("Invalid Board"));
-    } finally {
-      //session.endSession();
     }
   }
 
