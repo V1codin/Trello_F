@@ -121,7 +121,7 @@ exports.Boards = class Boards extends Service {
       const result = await Promise.all([
         super._remove(boardId),
 
-        this.app.service("lists").remove({ _id: boardId }),
+        this.app.service("lists").removeNested(boardId),
       ]);
 
       return result[0];
@@ -131,49 +131,6 @@ exports.Boards = class Boards extends Service {
   }
 
   /*
-  async remove(boardId) {
-    const session = await mongoose.connection.startSession();
-
-    const transactionOptions = {
-      readPreference: "primary",
-      readConcern: { level: "local" },
-      writeConcern: { w: "majority" },
-    };
-    // session.startTransaction(transactionOptions);
-
-    try {
-      await session.withTransaction(async () => {
-        const boardsService = this.app.service("boards");
-        const listsService = this.app.service("lists");
-
-        await boardsService.remove(
-          { query: { _id: boardId } },
-          { mongoose: { session } }
-        );
-        await listsService.remove(
-          { query: { boardId } },
-          { mongoose: { session } }
-        );
-
-        return;
-      }, transactionOptions);
-
-      await session.endSession();
-      return { _id: boardId };
-    } catch (e) {
-      console.log("======================================: ");
-
-      session.abortTransaction();
-      await session.endSession();
-      return Promise.reject(new Error("Invalid Board"));
-    }
-  }
-
-  */
-
-  // TODO remove method that removes a board and related lists and cards
-  /*
-
   // ! DEV for imitate server load
 
   async remove(params) {

@@ -29,6 +29,18 @@ exports.Lists = class Lists extends Service {
     }
   }
 
+  async removeNested(boardId) {
+    try {
+      const listsPayload = await super._remove(null, { query: { boardId } });
+
+      await this.app.service("cards").remove(null, { boardId });
+
+      return listsPayload;
+    } catch (e) {
+      return Promise.reject(new Error("Invalid board"));
+    }
+  }
+
   async remove(props) {
     const listId = props._id;
     try {
