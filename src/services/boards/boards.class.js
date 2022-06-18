@@ -118,19 +118,22 @@ exports.Boards = class Boards extends Service {
   }
 
   async remove(boardId) {
-    const session = await mongoose.startSession();
+    //const session = await mongoose.startSession();
 
     const transactionOptions = {
       readPreference: "primary",
       readConcern: { level: "local" },
       writeConcern: { w: "majority" },
     };
-    session.startTransaction(transactionOptions);
+    //session.startTransaction(transactionOptions);
 
     try {
       const boardCollection = mongoose.connection.db.collection("boards");
-      const listsCollection = mongoose.connection.db.collection("lists");
+      //const listsCollection = mongoose.connection.db.collection("lists");
 
+      const result = await boardCollection.deleteOne({ _id: boardId });
+      console.log("result: ", result);
+      /*
       await Promise.all([
         boardCollection.deleteOne({ _id: boardId }, { session }),
 
@@ -139,16 +142,17 @@ exports.Boards = class Boards extends Service {
           { session }
         ),
       ]);
+      */
 
-      await session.commitTransaction();
-
+      //await session.commitTransaction();
+      //
       return { _id: boardId };
     } catch (e) {
       console.log("======================================: ", e);
-      await session.abortTransaction();
+      //await session.abortTransaction();
       return Promise.reject(new Error("Invalid Board"));
     } finally {
-      session.endSession();
+      //session.endSession();
     }
   }
 
