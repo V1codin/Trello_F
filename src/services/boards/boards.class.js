@@ -131,7 +131,7 @@ exports.Boards = class Boards extends Service {
       const boardCollection = mongoose.connection.db.collection("boards");
       const listsCollection = mongoose.connection.db.collection("lists");
 
-      const result = await Promise.all([
+      await Promise.all([
         boardCollection.deleteOne({ _id: boardId }, { session }),
 
         listsCollection.deleteMany(
@@ -142,8 +142,7 @@ exports.Boards = class Boards extends Service {
 
       await session.commitTransaction();
 
-      console.log("result: ", result);
-      return result[0];
+      return { _id: boardId };
     } catch (e) {
       console.log("======================================: ", e);
       await session.abortTransaction();
