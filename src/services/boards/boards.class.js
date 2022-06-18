@@ -1,5 +1,5 @@
 const { Service } = require("feathers-mongoose");
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 
 /*
 ? Model
@@ -117,8 +117,9 @@ exports.Boards = class Boards extends Service {
     }
   }
 
+  /*
   async remove(boardId) {
-    const session = await mongoose.connect.startSession();
+    const session = await mongoose.startSession();
 
     const transactionOptions = {
       readPreference: "primary",
@@ -157,6 +158,7 @@ exports.Boards = class Boards extends Service {
       await session.endSession();
     }
   }
+  */
 
   // TODO remove method that removes a board and related lists and cards
   /*
