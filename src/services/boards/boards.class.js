@@ -1,5 +1,4 @@
 const { Service } = require("feathers-mongoose");
-const { Types } = require("mongoose");
 
 /*
 ? Model
@@ -119,17 +118,10 @@ exports.Boards = class Boards extends Service {
 
   async remove(boardId) {
     try {
-      const boardObject = Types.ObjectId(boardId);
       const result = await Promise.all([
         super._remove(boardId),
 
-        this.app
-          .service("lists")
-          ._remove(null, { query: { boardId: boardObject } }),
-
-        this.app
-          .service("cards")
-          ._remove(null, { query: { boardId: boardObject } }),
+        this.app.service("lists").remove({ _id: boardId }),
       ]);
 
       return result[0];
