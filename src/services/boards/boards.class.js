@@ -154,6 +154,7 @@ exports.Boards = class Boards extends Service {
       await session.abortTransaction();
       return Promise.reject(new Error("Invalid Board"));
     } finally {
+      console.log("finaly");
       session.endSession();
     }
   }
