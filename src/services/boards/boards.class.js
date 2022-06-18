@@ -131,13 +131,12 @@ exports.Boards = class Boards extends Service {
       const transactionResults = await session.withTransaction(async () => {
         // const boardCollection = mongoose.connection.db.collection("boards");
         const listsCollection = this.app.service("lists").Model.collection;
-        console.log("listsCollection: ", listsCollection);
 
         const sessionOptions = { session };
 
         const res = await listsCollection.deleteMany(
           {
-            boardId,
+            boardId: mongoose.Types.ObjectId(boardId),
           },
           sessionOptions
         );
