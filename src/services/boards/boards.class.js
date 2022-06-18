@@ -129,39 +129,25 @@ exports.Boards = class Boards extends Service {
 
     try {
       const transactionResults = await session.withTransaction(async () => {
-        // const boardCollection = mongoose.connection.db.collection("boards");
+        const boardCollection = this.app.service("boards").Model.collection;
         const listsCollection = this.app.service("lists").Model.collection;
 
         const sessionOptions = { session };
 
-        const res = await listsCollection.deleteMany(
+        await boardCollection.deleteOne(
           {
-            boardId: mongoose.Types.ObjectId(boardId),
+            _id: mongoose.Types.ObjectId(boardId),
           },
           sessionOptions
         );
-        console.log("res: ", res);
-        /*
-        const deleteResaults = await Promise.all([
-          boardCollection.deleteOne(
-            {
-              _id: mongoose.Types.ObjectId(boardId),
-            },
-            sessionOptions
-          ),
-          listsCollection.deleteMany(
-            {
-              boardId,
-            },
-            sessionOptions
-          ),
-        ]);
 
-        console.log(
-          "+++++++++++++++++++++++++++++++++++++++++",
-          deleteResaults
+        await listsCollection.deleteMany(
+          {
+            boardId,
+          },
+          sessionOptions
         );
-        */
+        // ? error
         return;
       }, transactionOptions);
 
@@ -170,12 +156,14 @@ exports.Boards = class Boards extends Service {
         transactionResults
       );
 
+      await session.endSession();
       return { _id: boardId };
     } catch (e) {
       console.log("======================================: ", e);
-      return Promise.reject(new Error("Invalid Board"));
-    } finally {
+
+      session.abortTransaction();
       await session.endSession();
+      return Promise.reject(new Error("Invalid Board"));
     }
   }
 
