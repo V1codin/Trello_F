@@ -117,6 +117,18 @@ exports.Boards = class Boards extends Service {
     }
   }
 
+  async remove(boardId) {
+    try {
+      // const lists = await this.app.service("lists").remove({ query: { boardId } });
+      // const board = await super._remove(boardId);
+
+      const lists = await this.app.service("lists").remove(boardId);
+      console.log("lists: ", lists);
+    } catch (e) {
+      return Promise.reject(new Error("Invalid Board"));
+    }
+  }
+
   /*
   async remove(boardId) {
     const session = await mongoose.connection.startSession();
