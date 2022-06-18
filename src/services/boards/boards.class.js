@@ -124,7 +124,7 @@ exports.Boards = class Boards extends Service {
 
       const lists = await this.app
         .service("lists")
-        .remove(null, { query: { boardId: Types.ObjectId(boardId) } });
+        ._remove(null, { query: { boardId: Types.ObjectId(boardId) } });
       console.log("lists: ", lists);
 
       return board;
