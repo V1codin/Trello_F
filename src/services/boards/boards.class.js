@@ -47,7 +47,6 @@ exports.Boards = class Boards extends Service {
 
       return patchedBoard;
     } catch (e) {
-      //console.log("subscribe error", e);
       return Promise.reject(new Error("Invalid data for subscribe"));
     }
   }
@@ -77,7 +76,6 @@ exports.Boards = class Boards extends Service {
 
       return patchedBoard[0];
     } catch (e) {
-      console.log("e: ", e);
       return Promise.reject(new Error("Invalid data for accept"));
     }
   }

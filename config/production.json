@@ -2,5 +2,25 @@
   "host": "HOST",
   "port": "PORT",
   "mongodb": "MONGO_DB_URI",
-  "public": "../build/"
+  "public": "../build/",
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "path": "/authentication",
+    "secret": "EpLH+BPkbtTN9chIhK46btNGWKs=",
+    "authStrategies": ["jwt", "local"],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "issuer": "http://localhost:3030",
+      "algorithm": "HS256",
+      "expiresIn": "7m"
+    },
+    "local": {
+      "usernameField": "\\username",
+      "passwordField": "password"
+    }
+  }
 }

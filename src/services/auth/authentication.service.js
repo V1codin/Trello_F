@@ -1,23 +1,58 @@
 const { JWTStrategy } = require("@feathersjs/authentication");
 const { LocalStrategy } = require("@feathersjs/authentication-local");
+const { NotAuthenticated } = require("@feathersjs/errors");
 const { expressOauth } = require("@feathersjs/authentication-oauth");
+
+const logger = require("../../logger");
 const hooks = require("./authentication.hooks");
 
 const { CustomAuth } = require("./authentication.class");
 
-const jwtChecker = require("../../hooks/jwtRefresh");
-
 class MyJwtStrategy extends JWTStrategy {
-  // ? customization for refresh jwt token
-  /**
-   * * for every request to the server from a client
-   * * the server checks if expiration of the client's
-   * * jwt token is not less than 2(optional) mins
-   * * if so - refresh a token
-   *
-   * TODO put the token that's server got from LOGOUT to Blacklist
-   * that nobody could use the unexpired token after client's logout
-   */
+  async authenticate(authentication, params) {
+    const { accessToken } = authentication;
+    const { entity } = this.configuration;
+
+    if (!accessToken) {
+      throw new NotAuthenticated("No access token");
+    }
+
+    const payload = await this.authentication.verifyAccessToken(
+      accessToken,
+      params.jwt
+    );
+
+    // If token type is refresh token then throw error
+    if (payload.tokenType === "refresh") {
+      logger.info(`User (${payload.sub}) tried to access using refresh token`);
+      throw new NotAuthenticated("Invalid access token");
+    }
+
+    const userPayload = await this.authentication.getUserPayload(payload.sub);
+
+    const result = {
+      accessToken,
+      authentication: {
+        strategy: "jwt",
+        accessToken,
+        payload,
+      },
+      ...userPayload,
+    };
+
+    if (entity === null) {
+      return result;
+    }
+
+    const entityId = await this.getEntityId(result, params);
+    const value = await this.getEntity(entityId, params);
+
+    return {
+      ...result,
+      [entity]: value,
+    };
+  }
+  /*
   async authenticate(authentication, params) {
     const payload = await super.authenticate(authentication, params);
     const isExpired = jwtChecker(payload.authentication.payload.exp);
@@ -26,16 +61,12 @@ class MyJwtStrategy extends JWTStrategy {
 
     // ! not working
     if (isExpired) {
-      /*
-      TODO
-      return this.app.service("authentication").refreshToken(payload)
-      */
-      // ? if delete the accessToken the strategy will regenerate a new token
       delete res.accessToken;
     }
 
     return res;
   }
+  */
 }
 
 module.exports = (app) => {

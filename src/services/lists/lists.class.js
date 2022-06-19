@@ -24,7 +24,6 @@ exports.Lists = class Lists extends Service {
 
       return payload;
     } catch (e) {
-      // throw new Error("Invalid Board");
       return Promise.reject(new Error("Invalid Board"));
     }
   }
