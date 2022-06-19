@@ -14,9 +14,11 @@ exports.CustomAuth = class CustomAuth extends AuthenticationService {
   async getUserPayload(userId) {
     const ownerObjId = Types.ObjectId(userId);
 
-    const boards = await this.app
-      .service("boards")
-      .find({ query: { ownerId: ownerObjId } });
+    const boards = await this.app.service("boards").find({
+      query: {
+        $or: [{ ownerId: ownerObjId }, { memberIds: { $in: userId } }],
+      },
+    });
 
     const notes = await this.app.service("notifications").find({
       query: { recipient: ownerObjId },
