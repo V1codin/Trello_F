@@ -1,0 +1,16 @@
+.avatar * {
+  text-align: center !important;
+}
+
+.colored > * {
+  color: var(--yellow);
+  text-align: center;
+  font-weight: 700;
+  font-size: 1em !important;
+  border-radius: 50%;
+  background: var(--monokai) !important;
+}
+
+.avatar:focus {
+  border: 1px dashed var(--pale-blue);
+}

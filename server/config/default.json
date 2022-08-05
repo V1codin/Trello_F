@@ -1,0 +1,30 @@
+{
+  "host": "localhost",
+  "port": 3030,
+  "public": "../public/",
+  "paginate": {
+    "default": 500,
+    "max": 1000
+  },
+  "authentication": {
+    "entity": "user",
+    "service": "users",
+    "path": "/authentication",
+    "secret": "EpLH+BPkbtTN9chIhK46btNGWKs=",
+    "authStrategies": ["jwt", "local"],
+    "jwtOptions": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "issuer": "http://localhost:3030",
+      "algorithm": "HS256",
+      "expiresIn": "7m"
+    },
+    "local": {
+      "usernameField": "\\username",
+      "passwordField": "password"
+    }
+  },
+  "mongodb": "mongodb://localhost:27017/Trello"
+}

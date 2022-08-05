@@ -1,0 +1,25 @@
+.note__list__el {
+  cursor: pointer;
+  padding: 10px;
+  font-size: 1.1em;
+}
+
+.note__btns {
+  display: flex;
+}
+
+.note__span {
+  width: 65%;
+  word-wrap: normal;
+  margin-left: 5px;
+}
+
+/*  * notes invite / info / etc */
+
+.invite {
+  color: #a1eba5;
+}
+
+.info {
+  color: #fff;
+}
