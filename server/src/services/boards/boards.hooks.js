@@ -22,7 +22,7 @@ module.exports = {
     create: [setUserForCreation],
     update: [setUserIdToQuery],
     patch: [setUserIdToQuery],
-    remove: [setUserIdToQuery],
+    remove: [],
   },
 
   after: {

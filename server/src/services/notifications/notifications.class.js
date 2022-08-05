@@ -19,6 +19,35 @@ exports.Notifications = class Notifications extends Service {
     return `${ownerName} has invited you to ${boardName}`;
   }
 
+  async remove(id) {
+    try {
+      const removed = await super._remove(id);
+      const { recipient, inviteToBoardId } = removed;
+
+      await this.clearNotesAcceptedClients(inviteToBoardId, recipient);
+
+      const boardsService = this.app.service("boards");
+
+      const {
+        data: [{ pendingMemberIds }],
+      } = await boardsService._find({ query: { _id: inviteToBoardId } });
+
+      const newMembers = pendingMemberIds.filter(
+        (item) => item !== String(recipient)
+      );
+
+      await boardsService._patch(inviteToBoardId, {
+        pendingMemberIds: newMembers,
+      });
+
+      return removed;
+    } catch (e) {
+      console.log("notification remove error: ", e);
+
+      return Promise.reject(new Error("Invalid notification data"));
+    }
+  }
+
   async subscribingNote(props, members, boardId) {
     try {
       const { ownerName, name } = props;
@@ -56,13 +85,15 @@ exports.Notifications = class Notifications extends Service {
       const updatedNotes = await Promise.all(
         data.map(async ({ _id }) => {
           return this.remove(_id);
+          //? try this for optiomize performance
+          //? return this._remove(_id);
         })
       );
 
       return updatedNotes;
     } catch (e) {
       console.log("remove accepted note err", e);
-      return Promise.reject(new Error("Invalid data for subscribe"));
+      return Promise.reject(new Error("Invalid data for remove notes"));
     }
   }
 };

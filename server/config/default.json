@@ -1,6 +1,7 @@
 {
   "host": "localhost",
   "port": 3030,
+  "mongodb": "mongodb://localhost:27017/Trello",
   "public": "../public/",
   "paginate": {
     "default": 500,
@@ -25,6 +26,5 @@
       "usernameField": "\\username",
       "passwordField": "password"
     }
-  },
-  "mongodb": "mongodb://localhost:27017/Trello"
+  }
 }

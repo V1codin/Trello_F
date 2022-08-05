@@ -47,7 +47,6 @@ exports.Boards = class Boards extends Service {
 
       return patchedBoard;
     } catch (e) {
-      //console.log("subscribe error", e);
       return Promise.reject(new Error("Invalid data for subscribe"));
     }
   }
@@ -77,7 +76,6 @@ exports.Boards = class Boards extends Service {
 
       return patchedBoard[0];
     } catch (e) {
-      console.log("e: ", e);
       return Promise.reject(new Error("Invalid data for accept"));
     }
   }
@@ -116,9 +114,21 @@ exports.Boards = class Boards extends Service {
     }
   }
 
-  // TODO remove method that removes a board and related lists and cards
-  /*
+  async remove(boardId) {
+    try {
+      const result = await Promise.all([
+        super._remove(boardId),
 
+        this.app.service("lists").removeNested(boardId),
+      ]);
+
+      return result[0];
+    } catch (e) {
+      return Promise.reject(new Error("Invalid Board"));
+    }
+  }
+
+  /*
   // ! DEV for imitate server load
 
   async remove(params) {

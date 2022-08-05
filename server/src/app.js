@@ -5,6 +5,12 @@ const helmet = require("helmet");
 const cors = require("cors");
 const logger = require("./logger");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config({ path: __dirname + "/.env" });
+
+  //  require("dotenv").config({ path: path.resolve("config", "default.json") });
+}
+
 const feathers = require("@feathersjs/feathers");
 const configuration = require("@feathersjs/configuration");
 const express = require("@feathersjs/express");
@@ -50,7 +56,7 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
-
+app.use("*", express.static(app.get("public")));
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));
