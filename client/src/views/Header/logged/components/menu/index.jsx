@@ -18,25 +18,25 @@ import './Menu.css';
 const mapStateToProps = (state) => {
   return {
     notifications: state.notes,
-    userId: state.auth.user._id
+    userId: state.auth.user._id,
   };
 };
 
-function RowMenu(props) {
+function RawMenu(props) {
   const { notifications, userId } = props;
 
   const defState = {
     add: false,
     info: false,
     note: false,
-    account: false
+    account: false,
   };
   const [state, setState] = useState(defState);
   const [overlay, setOverlay] = useState(false);
 
   const clickHandler = (e) => {
     const {
-      target: { name }
+      target: { name },
     } = e;
 
     setState({ ...defState, [name]: !state[name] });
@@ -108,6 +108,6 @@ function RowMenu(props) {
   );
 }
 
-const Menu = connect(mapStateToProps, null)(RowMenu);
+const Menu = connect(mapStateToProps, null)(RawMenu);
 
 export { Menu };

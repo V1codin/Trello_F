@@ -12,7 +12,7 @@
     "service": "users",
     "path": "/authentication",
     "secret": "EpLH+BPkbtTN9chIhK46btNGWKs=",
-    "authStrategies": ["jwt", "local"],
+    "authStrategies": ["jwt", "local", "google"],
     "jwtOptions": {
       "header": {
         "typ": "access"
@@ -25,6 +25,14 @@
     "local": {
       "usernameField": "\\username",
       "passwordField": "password"
+    },
+    "oauth": {
+      "google": {
+        "key": "GOOGLE_CLIENT_ID",
+        "secret": "GOOGLE_CLIENT_S",
+        "scope": ["openid", "profile", "email"],
+        "nonce": true
+      }
     }
   }
 }

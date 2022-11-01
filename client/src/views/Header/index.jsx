@@ -18,24 +18,22 @@ const HeaderView = memo((props) => {
       </NavLink>
       {isLogged === false ? (
         <div className="header__log">
-          <NavLink to="/login" className="log__link" ref={loginLink}></NavLink>
-          <button
-            className="log__btn"
-            onClick={() => loginLink.current.click()}
-          >
-            Log in
-          </button>
-          <NavLink
-            to="/signup"
-            className="log__link"
-            ref={signupLink}
-          ></NavLink>
-          <button
-            className="log__btn log__btn_sign"
-            onClick={() => signupLink.current.click()}
-          >
-            Sign up
-          </button>
+          <NavLink to="/login" ref={loginLink} tabIndex="-1">
+            <button
+              className="log__btn"
+              onClick={() => loginLink.current.click()}
+            >
+              Log in
+            </button>
+          </NavLink>
+          <NavLink to="/signup" ref={signupLink} tabIndex="-1">
+            <button
+              className="log__btn log__btn_sign"
+              onClick={() => signupLink.current.click()}
+            >
+              Sign up
+            </button>
+          </NavLink>
         </div>
       ) : (
         <LoggedHeader />

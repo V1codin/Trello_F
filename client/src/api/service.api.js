@@ -8,7 +8,7 @@ class Service {
         if (typeof dispatch === 'function') dispatch({ type: LOGOUT_ACTION });
         return {
           message: 'Invalid username or password',
-          errorClass: error.className || ''
+          errorClass: error.className || '',
         };
       case 408:
         if (typeof dispatch === 'function') {
@@ -16,19 +16,19 @@ class Service {
         }
         return {
           message: "Server doesn't respond",
-          errorClass: error.className || ''
+          errorClass: error.className || '',
         };
 
       case 409:
         return {
           message: 'User with this parameters already exists',
-          errorClass: error.className || ''
+          errorClass: error.className || '',
         };
 
       default:
         return {
           message: 'Unexpected error',
-          errorClass: ''
+          errorClass: '',
         };
     }
   }

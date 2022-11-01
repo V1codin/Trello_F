@@ -1,5 +1,6 @@
 const { JWTStrategy } = require("@feathersjs/authentication");
 const { LocalStrategy } = require("@feathersjs/authentication-local");
+// const { OAuthStrategy } = require("@feathersjs/authentication-oauth");
 const { NotAuthenticated } = require("@feathersjs/errors");
 const { expressOauth } = require("@feathersjs/authentication-oauth");
 
@@ -69,6 +70,24 @@ class MyJwtStrategy extends JWTStrategy {
   */
 }
 
+/*
+class GoogleStrategy extends OAuthStrategy {
+  async getEntityData(profile) {
+    console.log("profile: ", profile);
+    // this will set 'googleId'
+    const baseData = await super.getEntityData(profile);
+
+    // this will grab the picture and email address of the Google profile
+    return {
+      ...baseData,
+      profilePicture: profile.picture,
+      email: profile.email,
+    };
+  }
+}
+
+*/
+
 module.exports = (app) => {
   const authentication = new CustomAuth(app, "authentication");
 
@@ -76,6 +95,7 @@ module.exports = (app) => {
 
   authentication.register("jwt", myJwtStrategy);
   authentication.register("local", new LocalStrategy());
+  // authentication.register("google", new GoogleStrategy());
 
   app.use("/authentication", authentication);
 

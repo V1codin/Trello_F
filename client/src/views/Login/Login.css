@@ -1,0 +1,21 @@
+.login_via {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #fff;
+  color: #2727fe;
+}
+
+.login_via:hover {
+  background-color: #2727fe;
+  color: #fff;
+}
+
+.login_via:active {
+  background-color: #6a6afd;
+}
+
+.login_via_icon {
+  width: 20px;
+  height: 20px;
+}

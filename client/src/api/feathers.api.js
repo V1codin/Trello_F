@@ -9,17 +9,17 @@ const options = {
   header: 'Authorization',
   scheme: 'Bearer',
   path: '/authentication',
-  jwtStrategy: 'jwt',
+  jwtStrategy: ['jwt', 'local', 'google'],
   entity: 'user',
   service: 'users',
   cookie: 'feathers-jwt',
   storageKey: 'feathers-jwt',
-  storage: localStorage
+  storage: localStorage,
 };
 
 const socket = io(BASE_URL, {
   reconnectionDelay: 5000,
-  transports: ['websocket']
+  transports: ['websocket'],
 });
 
 socket.on('connect_error', (e) => {
@@ -40,4 +40,11 @@ const cardsService = client.service('cards');
 
 const notificationsService = client.service('notifications');
 
-export { client, userService, boardsService, listsService, cardsService, notificationsService };
+export {
+  client,
+  userService,
+  boardsService,
+  listsService,
+  cardsService,
+  notificationsService,
+};

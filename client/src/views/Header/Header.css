@@ -17,7 +17,7 @@
 .header__article {
   cursor: pointer;
   color: #ccc;
-  font-family: "Roboto Condensed";
+  font-family: 'Roboto Condensed';
   font-weight: 300;
   font-style: italic;
   transition: 0.3s;
@@ -31,6 +31,7 @@
 }
 
 .header__log {
+  display: flex;
   margin-right: 20px;
 }
 .log__btn {
@@ -46,9 +47,6 @@
   border-radius: 7px;
   border: 1px dashed transparent;
   transition: 0.3s;
-}
-.log__link {
-  display: none;
 }
 
 .userSection {
@@ -77,4 +75,12 @@
 }
 button:focus {
   border-radius: 7px;
+}
+
+.active {
+  background-color: unset !important;
+}
+
+.active button {
+  color: #21e421 !important;
 }

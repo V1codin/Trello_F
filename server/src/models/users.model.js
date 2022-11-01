@@ -7,6 +7,9 @@ const { Schema } = require("mongoose");
 const schemaProps = {
   username: { type: String, unique: true, require: true },
 
+  googleId: { type: String, unique: true, require: false },
+  profilePicture: { type: String, unique: true, require: false },
+
   password: { type: String, required: true },
 
   displayName: {

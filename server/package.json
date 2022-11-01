@@ -25,8 +25,8 @@
   },
   "scripts": {
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
-    "nodemon": "nodemon src/ --config nodemon.json",
-    "develop": "concurrently \"npm run nodemon\"  \"npm run start --prefix ./client\"",
+    "server": "nodemon src/ --config nodemon.json",
+    "develop": "concurrently \"npm run server\"  \"npm run start --prefix ./client\"",
     "dev": "concurrently \"npm run build --prefix ./client\" && nodemon src/ --config nodemon.json",
     "start": "node src/",
     "jest": "jest  --forceExit",

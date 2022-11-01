@@ -2,7 +2,7 @@
   "host": "localhost",
   "port": 3030,
   "public": "../public/",
-  "mongodb": "mongodb+srv://wers32:cntrkj@cluster0.2hds27j.mongodb.net/TRELLO_DB?retryWrites=true&w=majority",
+  "mongodb": "MONGO_DB_URI",
   "paginate": {
     "default": 500,
     "max": 1000
@@ -11,20 +11,28 @@
     "entity": "user",
     "service": "users",
     "path": "/authentication",
-    "secret": "EpLH+BPkbtTN9chIhK46btNGWKs=",
-    "authStrategies": ["jwt", "local"],
+    "secret": "AUTH_SEC",
+    "authStrategies": ["jwt", "local", "google"],
     "jwtOptions": {
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
-      "issuer": "http://localhost:3030",
-      "algorithm": "HS256",
-      "expiresIn": "7m"
+      "audience": "JWT_OPT_AUDIENCE",
+      "issuer": "JWT_OPT_ISSUER",
+      "algorithm": "JWT_OPT_ALG",
+      "expiresIn": "JWT_OPT_EXPIRE"
     },
     "local": {
       "usernameField": "\\username",
       "passwordField": "password"
+    },
+    "oauth": {
+      "google": {
+        "key": "GOOGLE_CLIENT_ID",
+        "secret": "GOOGLE_CLIENT_S",
+        "scope": ["openid", "profile", "email"],
+        "nonce": true
+      }
     }
   }
 }

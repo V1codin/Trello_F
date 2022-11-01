@@ -11,11 +11,11 @@ import './App.css';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
-function RowApp(props) {
+function RawApp(props) {
   const { dispatch } = props;
 
   const { loading } = useAsync(auth.loginFromCache, [dispatch]);
@@ -36,6 +36,6 @@ function RowApp(props) {
   );
 }
 
-const App = connect(null, mapDispatchToProps)(RowApp);
+const App = connect(null, mapDispatchToProps)(RawApp);
 
 export { App };

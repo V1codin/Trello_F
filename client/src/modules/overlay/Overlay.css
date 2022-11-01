@@ -11,3 +11,15 @@
   z-index: 5000;
   background-color: var(--popup-overlay);
 }
+
+.overlay_medium {
+  width: 200px;
+  height: 500px;
+}
+
+.overlay_center {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+}

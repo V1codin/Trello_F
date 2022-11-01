@@ -7,20 +7,29 @@
     "entity": "user",
     "service": "users",
     "path": "/authentication",
-    "secret": "EpLH+BPkbtTN9chIhK46btNGWKs=",
+    "secret": "AUTH_SEC",
     "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "header": {
         "typ": "access"
       },
-      "audience": "https://yourdomain.com",
-      "issuer": "http://localhost:3030",
-      "algorithm": "HS256",
-      "expiresIn": "15m"
+      "audience": "JWT_OPT_AUDIENCE",
+      "issuer": "JWT_OPT_ISSUER",
+      "algorithm": "JWT_OPT_ALG",
+      "expiresIn": "JWT_OPT_EXPIRE"
     },
     "local": {
       "usernameField": "\\username",
       "passwordField": "password"
+    },
+    "google": {
+      "client_id": "GOOGLE_CLIENT_ID",
+      "project_id": "PROJECT_ID",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_secret": "GOOGLE_CLIENT_S",
+      "javascript_origins": ["JS_ORIGINS_1", "JS_ORIGINS_2"]
     }
   }
 }

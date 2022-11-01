@@ -8,7 +8,7 @@ import { FormWrapper } from '../../modules/formWrapper';
 import {
   formValidation,
   inputValidation,
-  confirmValidation
+  confirmValidation,
 } from '../../utils/auth.form.validation';
 
 // ? type for validation fn
@@ -20,13 +20,13 @@ import './Signup.css';
 
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged
+    isLogged: state.auth.isLogged,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
@@ -109,7 +109,7 @@ const FormBody = memo((props) => {
   );
 });
 
-function RowSignup(props) {
+function RawSignup(props) {
   const { isLogged, dispatch } = props;
 
   const sendRequest = async (data) => {
@@ -128,7 +128,7 @@ function RowSignup(props) {
     confirmPassword: '',
     displayName: '',
     email: '',
-    className: ''
+    className: '',
   };
 
   const [form, setForm] = useState(formDefault);
@@ -144,18 +144,18 @@ function RowSignup(props) {
     if (!isValidated) {
       setWarn({
         ...warn,
-        [name]: message
+        [name]: message,
       });
     } else {
       setWarn({
         ...warn,
-        [name]: ''
+        [name]: '',
       });
     }
 
     setForm({
       ...form,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -163,24 +163,24 @@ function RowSignup(props) {
     const {
       name,
       value,
-      dataset: { validatefor }
+      dataset: { validatefor },
     } = e.target;
 
     // * onblur validation with toggling warnings by update local warnings state.
     const { message, isValidated } = confirmValidation(
       value,
-      form[validatefor]
+      form[validatefor],
     );
 
     if (!isValidated) {
       setWarn({
         ...warn,
-        [name]: message
+        [name]: message,
       });
     } else {
       setWarn({
         ...warn,
-        [name]: ''
+        [name]: '',
       });
     }
   };
@@ -212,6 +212,6 @@ function RowSignup(props) {
   );
 }
 
-const Signup = connect(mapStateToProps, mapDispatchToProps)(RowSignup);
+const Signup = connect(mapStateToProps, mapDispatchToProps)(RawSignup);
 
 export { Signup };

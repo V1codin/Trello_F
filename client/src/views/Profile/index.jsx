@@ -13,17 +13,17 @@ import './Profile.css';
 const mapStateToProps = (state) => {
   return {
     isLogged: state.auth.isLogged,
-    boards: state.boards
+    boards: state.boards,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
-function RowProfile(props) {
+function RawProfile(props) {
   const { isLogged, boards, dispatch } = props;
   useBodyColor();
 
@@ -39,15 +39,15 @@ function RowProfile(props) {
             ...board,
             deleteIco,
             bgChecker,
-            dispatch
+            dispatch,
           };
           return <BoardCard {...boardProps} />;
-        })
+        }),
       )}
     </div>
   );
 }
 
-const Profile = connect(mapStateToProps, mapDispatchToProps)(RowProfile);
+const Profile = connect(mapStateToProps, mapDispatchToProps)(RawProfile);
 
 export { Profile };

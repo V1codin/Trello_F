@@ -11,13 +11,13 @@ import { DropDown } from '../../../../../modules/dropdown';
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
 const mapStateToProps = (state) => {
   return {
-    userInfo: state.auth.user
+    userInfo: state.auth.user,
   };
 };
 
@@ -38,7 +38,7 @@ const PopupBody = (props) => {
   );
 };
 
-function RowAccountDrop(props) {
+function RawAccountDrop(props) {
   const { toggle, dispatch, userInfo } = props;
 
   const parentRef = useContext(ParentRefContext);
@@ -63,14 +63,14 @@ function RowAccountDrop(props) {
     toggle,
     heading: 'Account',
     classList: ['account'],
-    popupBody: PopupBody({ ...userInfo, click, logoutHandler })
+    popupBody: PopupBody({ ...userInfo, click, logoutHandler }),
   };
 
   return <DropDown {...dropProps} />;
 }
 const AccountDrop = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(RowAccountDrop);
+  mapDispatchToProps,
+)(RawAccountDrop);
 
 export { AccountDrop };

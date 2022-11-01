@@ -5,18 +5,18 @@ import { board } from './board.api';
 import { note } from './notification.api';
 
 import { LOGIN_ACTION, LOGOUT_ACTION } from '../utils/actions.types';
-import { STRATEGY } from '../utils/constants';
+import { STRATEGY, GOOGLE_STRATEGY } from '../utils/constants';
 
 class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
     try {
       const [payload, boards, notes] = await Promise.all([
         client.authenticate({
+          strategy: STRATEGY,
           ...loginPayload,
-          strategy: STRATEGY
         }),
         board.find(),
-        note.find()
+        note.find(),
       ]);
 
       callbacks.forEach((cb) => {
@@ -29,7 +29,7 @@ class Auth extends Service {
         type: LOGIN_ACTION,
         payload,
         boards: boards.data,
-        notes: notes.data
+        notes: notes.data,
       });
 
       return payload;
@@ -44,7 +44,7 @@ class Auth extends Service {
       const res = await client.logout();
 
       dispatch({
-        type: LOGOUT_ACTION
+        type: LOGOUT_ACTION,
       });
 
       return res;
@@ -73,14 +73,14 @@ class Auth extends Service {
         const [payload, boards, notes] = await Promise.all([
           client.reAuthenticate(),
           board.find(),
-          note.find()
+          note.find(),
         ]);
 
         dispatch({
           type: LOGIN_ACTION,
           payload,
           boards: boards.data,
-          notes: notes.data
+          notes: notes.data,
         });
       } catch (e) {
         console.log(this.handleError(e));
@@ -108,7 +108,7 @@ class Auth extends Service {
   getUsersFromRegex = async (regex = '', ...callbacks) => {
     try {
       const { data } = await userService.find({
-        query: { nameAlias: { $regex: regex, $options: 'gi' } }
+        query: { nameAlias: { $regex: regex, $options: 'gi' } },
       });
 
       callbacks.forEach((cb) => {
@@ -125,6 +125,29 @@ class Auth extends Service {
   };
 }
 
-const auth = new Auth();
+class GoogleAuth extends Auth {
+  login = async (loginPayload, dispatch, ...callbacks) => {
+    try {
+      const response = await client.authenticate({
+        strategy: GOOGLE_STRATEGY,
+        ...loginPayload,
+      });
 
-export { auth };
+      const payload = '1';
+      console.log('response: ', response);
+
+      dispatch();
+
+      return payload;
+    } catch (e) {
+      console.log('e: ', e);
+      const errorFromHandler = this.handleError(e, dispatch);
+      throw errorFromHandler;
+    }
+  };
+}
+
+const auth = new Auth();
+const googleAuth = new GoogleAuth();
+
+export { auth, googleAuth };
