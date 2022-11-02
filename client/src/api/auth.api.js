@@ -28,8 +28,8 @@ class Auth extends Service {
       dispatch({
         type: LOGIN_ACTION,
         payload,
-        boards: boards?.data || boards,
-        notes: notes?.data || notes,
+        boards: boards.data,
+        notes: notes.data,
       });
 
       return payload;
@@ -79,8 +79,8 @@ class Auth extends Service {
         dispatch({
           type: LOGIN_ACTION,
           payload,
-          boards: boards?.data || boards,
-          notes: notes?.data || notes,
+          boards: boards.data,
+          notes: notes.data,
         });
       } catch (e) {
         console.log(this.handleError(e));
