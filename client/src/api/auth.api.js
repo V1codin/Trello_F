@@ -24,8 +24,6 @@ class Auth extends Service {
           cb(payload, boards.data);
         }
       });
-      console.log("boards: ", boards);
-      console.log("notes: ", notes);
 
       dispatch({
         type: LOGIN_ACTION,

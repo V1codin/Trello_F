@@ -3,12 +3,13 @@ import {
   BOARD_DELETED,
   LOGIN_ACTION,
   LOGOUT_ACTION,
-  BOARD_PATCHED
-} from './actions.types';
+  BOARD_PATCHED,
+} from "./actions.types";
 
 const init = [];
 
 function boards(state = init, { type, payload, boards = [] }) {
+  console.log("boards: ", boards);
   switch (type) {
     case NEW_BOARD_CREATED:
       return [...state, payload];
