@@ -20,17 +20,16 @@ class List extends Service {
     }
   };
   find = async (props, dispatch, ...callbacks) => {
-    console.log("props: ", props);
     try {
-      const response = await listsService.find({ query: { props } });
+      const { data } = await listsService.find({ query: { props } });
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
-          cb(response.data);
+          cb(data);
         }
       });
 
-      return response.data;
+      return data;
     } catch (e) {
       console.log("find a list error", e);
       const errorFromHandler = this.handleError(e, dispatch);

@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { Service } = require("feathers-mongoose");
 const mongoose = require("mongoose");
 
@@ -17,11 +18,12 @@ exports.Lists = class Lists extends Service {
 
   async find(props) {
     const boardId = props.query.props;
-    console.log("boardId: ", boardId);
     if (!boardId) return Promise.reject(new Error("Invalid Board"));
 
     try {
-      const payload = await super.find({ query: { boardId } });
+      const payload = await super.find({
+        query: { boardId: new ObjectId(boardId) },
+      });
 
       return payload;
     } catch (e) {
