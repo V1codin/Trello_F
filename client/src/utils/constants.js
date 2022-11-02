@@ -31,8 +31,8 @@ const authFormTypeSignup = "signup";
 const BASE_URL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3030"
-    : process.env.JS_ORIGINS_1;
-console.log("BASE_URL: ", BASE_URL);
+    : process.env.BASE_URL;
+console.log("process.env: ", process.env);
 
 export {
   STRATEGY,
