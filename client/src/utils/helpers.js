@@ -2,7 +2,7 @@ import {
   boardsService,
   listsService,
   cardsService,
-  notificationsService
+  notificationsService,
 } from '../api/feathers.api';
 import {
   NEW_BOARD_CREATED,
@@ -14,7 +14,7 @@ import {
   NEW_CARD_CREATED,
   CARD_PATCHED,
   NOTE_DISMISSED,
-  NOTE_RECEIVED
+  NOTE_RECEIVED,
 } from '../utils/actions.types';
 
 const isLink = (background) => {
@@ -64,49 +64,49 @@ const addListenersForServerChanges = (dispatch) => {
   notificationsService.on('created', (payload) => {
     dispatch({
       type: NOTE_RECEIVED,
-      payload
+      payload,
     });
   });
 
   notificationsService.on('removed', (payload) => {
     dispatch({
       type: NOTE_DISMISSED,
-      payload
+      payload,
     });
   });
 
   boardsService.on('patched', (payload) => {
     dispatch({
       type: BOARD_PATCHED,
-      payload
+      payload,
     });
   });
 
   boardsService.on('created', (payload) => {
     dispatch({
       type: NEW_BOARD_CREATED,
-      payload
+      payload,
     });
   });
 
   boardsService.on('removed', ({ _id }) => {
     dispatch({
       type: BOARD_DELETED,
-      payload: _id
+      payload: _id,
     });
   });
 
   listsService.on('created', (payload) => {
     dispatch({
       type: NEW_LIST_CREATED,
-      payload
+      payload,
     });
   });
 
   listsService.on('removed', (payload) => {
     dispatch({
       type: LIST_DELETED,
-      payload
+      payload,
     });
   });
 
@@ -120,21 +120,21 @@ const addListenersForServerChanges = (dispatch) => {
   cardsService.on('removed', ({ _id, listId }) => {
     dispatch({
       type: CARD_DELETED,
-      payload: { _id, listId }
+      payload: { _id, listId },
     });
   });
 
   cardsService.on('created', (payload) => {
     dispatch({
       type: NEW_CARD_CREATED,
-      payload
+      payload,
     });
   });
 
   cardsService.on('patched', (payload) => {
     dispatch({
       type: CARD_PATCHED,
-      payload
+      payload,
     });
   });
 };
@@ -152,4 +152,15 @@ const errorDisplay = (stateFn, timer = 1000, ...args) => {
   };
 };
 
-export { isLink, getDataFromClipBoard, isPropInObject, addListenersForServerChanges, errorDisplay };
+const isTrueSearchPath = (path) => {
+  return /\/?code=4.+/g.test(path);
+};
+
+export {
+  isTrueSearchPath,
+  isLink,
+  getDataFromClipBoard,
+  isPropInObject,
+  addListenersForServerChanges,
+  errorDisplay,
+};

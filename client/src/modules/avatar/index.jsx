@@ -39,14 +39,14 @@ Avatar.defaultProps = {
   imgLink: '',
   name: '',
   size: 40,
-  classList: []
+  classList: [],
 };
 
 Avatar.propTypes = {
   imgLink: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
-  classList: PropTypes.arrayOf(PropTypes.string)
+  classList: PropTypes.arrayOf(PropTypes.string),
 };
 
 export { Avatar };

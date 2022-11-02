@@ -4,9 +4,12 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { publicRoutes, authenticatedRoutes } from './routes.js';
 
+import { GoogleLogin } from '../views/GoogleLogin';
+import { isTrueSearchPath } from '../utils/helpers.js';
+
 const mapStateToProps = (state) => {
   return {
-    isLogged: state.auth.isLogged
+    isLogged: state.auth.isLogged,
   };
 };
 
@@ -20,7 +23,7 @@ function RowRouter(props) {
             authenticatedRoutes.map((route) => {
               const { path, component } = route;
               return <Route exact path={path} component={component} />;
-            })
+            }),
           )
         : null}
 
@@ -28,9 +31,20 @@ function RowRouter(props) {
         publicRoutes.map((route) => {
           const { path, component } = route;
           return <Route exact path={path} component={component} />;
-        })
+        }),
       )}
-      <Redirect to="/login" />
+
+      <Route
+        component={(props) => {
+          return props.location.search &&
+            !isLogged &&
+            isTrueSearchPath(props.location.search) ? (
+            <GoogleLogin {...props} />
+          ) : (
+            <Redirect to="/login" />
+          );
+        }}
+      />
     </Switch>
   );
 }

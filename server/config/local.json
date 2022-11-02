@@ -27,7 +27,10 @@
       "passwordField": "password"
     },
     "oauth": {
+      "redirect": "JS_ORIGINS_1",
       "google": {
+        "redirect_uri": "JS_ORIGINS_2",
+        "callback": "/oauth/google/authenticate",
         "key": "GOOGLE_CLIENT_ID",
         "secret": "GOOGLE_CLIENT_S",
         "scope": ["openid", "profile", "email"],

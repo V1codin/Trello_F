@@ -14,7 +14,7 @@ const options = {
   service: 'users',
   cookie: 'feathers-jwt',
   storageKey: 'feathers-jwt',
-  storage: localStorage,
+  storage: window.localStorage,
 };
 
 const socket = io(BASE_URL, {

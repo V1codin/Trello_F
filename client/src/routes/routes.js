@@ -6,27 +6,27 @@ import { Profile } from '../views/Profile';
 const publicRoutes = [
   {
     path: '/login',
-    component: Login
+    component: Login,
   },
   {
     path: '/signup',
-    component: Signup
-  }
+    component: Signup,
+  },
 ];
 
 const authenticatedRoutes = [
   {
     path: '/',
-    component: Profile
+    component: Profile,
   },
   {
     path: '/board/:id',
-    component: Board
+    component: Board,
   },
   {
     path: '/profile',
-    component: Profile
-  }
+    component: Profile,
+  },
 ];
 
 export { publicRoutes, authenticatedRoutes };

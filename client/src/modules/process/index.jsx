@@ -21,12 +21,12 @@ function Process(props) {
 }
 
 Process.defaultProps = {
-  isShown: false
+  isShown: false,
 };
 
 Process.propTypes = {
   isShown: PropTypes.bool.isRequired,
-  wrapperStyles: PropTypes.object
+  wrapperStyles: PropTypes.object,
 };
 
 export { Process };

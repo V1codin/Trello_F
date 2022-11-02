@@ -17,7 +17,6 @@
 } */
 
 .wrapper {
-  /* margin: 10% auto; */
   display: flex;
   justify-content: center;
   align-self: center;
@@ -29,6 +28,10 @@
 }
 .spinner {
   width: 130px;
+}
+
+.wrapper_centered {
+  margin: 10% auto;
 }
 
 #pulse {

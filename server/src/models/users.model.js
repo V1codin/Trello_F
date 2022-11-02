@@ -5,19 +5,17 @@
 const { Schema } = require("mongoose");
 
 const schemaProps = {
-  username: { type: String, unique: true, require: true },
+  username: { type: String, unique: true, require: false },
 
-  googleId: { type: String, unique: true, require: false },
-  profilePicture: { type: String, unique: true, require: false },
-
-  password: { type: String, required: true },
+  password: { type: String, required: false },
 
   displayName: {
     type: String,
     default: "",
   },
 
-  email: { type: String, unique: true, require },
+  externalLogin: { type: String, require: false, default: "local" },
+  email: { type: String, unique: true, require: true },
 
   subs: [{ type: Schema.Types.ObjectId, ref: "boards" }],
 

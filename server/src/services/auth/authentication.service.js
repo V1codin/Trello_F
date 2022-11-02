@@ -1,7 +1,12 @@
+const axios = require("axios");
+const qs = require("qs");
+const jwt = require("jsonwebtoken");
+
 const { JWTStrategy } = require("@feathersjs/authentication");
 const { LocalStrategy } = require("@feathersjs/authentication-local");
-// const { OAuthStrategy } = require("@feathersjs/authentication-oauth");
+const { OAuthStrategy } = require("@feathersjs/authentication-oauth");
 const { NotAuthenticated } = require("@feathersjs/errors");
+
 const { expressOauth } = require("@feathersjs/authentication-oauth");
 
 const logger = require("../../logger");
@@ -70,10 +75,68 @@ class MyJwtStrategy extends JWTStrategy {
   */
 }
 
-/*
 class GoogleStrategy extends OAuthStrategy {
+  async authenticate(authentication) {
+    const {
+      oauth: {
+        google,
+        google: { tokenApiUrl },
+      },
+    } = this.app.get("authentication");
+
+    const userService = this.app.service("users");
+
+    const opts = {
+      code: authentication.code,
+      client_id: google.key,
+      client_secret: google.secret,
+      redirect_uri: google.redirect_uri,
+      grant_type: "authorization_code",
+    };
+
+    try {
+      const { data } = await axios.post(tokenApiUrl, qs.stringify(opts), {
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded",
+        },
+      });
+
+      const user = jwt.decode(data.id_token);
+
+      const existingUser = await userService.find({
+        query: {
+          email: user.email,
+        },
+      });
+
+      if (existingUser.data.length) {
+        return {
+          user: existingUser.data[0],
+        };
+      }
+
+      const formatted = this.formatUserData(user);
+      const createdUser = await userService.create(formatted);
+
+      return {
+        user: createdUser,
+      };
+    } catch (e) {
+      console.log("google auth error", e);
+    }
+  }
+
+  formatUserData(data) {
+    const res = {
+      displayName: data.name,
+      imageURL: data.picture,
+      email: data.email,
+      externalLogin: "google",
+    };
+    return res;
+  }
+
   async getEntityData(profile) {
-    console.log("profile: ", profile);
     // this will set 'googleId'
     const baseData = await super.getEntityData(profile);
 
@@ -86,8 +149,6 @@ class GoogleStrategy extends OAuthStrategy {
   }
 }
 
-*/
-
 module.exports = (app) => {
   const authentication = new CustomAuth(app, "authentication");
 
@@ -95,7 +156,7 @@ module.exports = (app) => {
 
   authentication.register("jwt", myJwtStrategy);
   authentication.register("local", new LocalStrategy());
-  // authentication.register("google", new GoogleStrategy());
+  authentication.register("google", new GoogleStrategy());
 
   app.use("/authentication", authentication);
 

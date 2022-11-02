@@ -12,10 +12,11 @@ import {
 } from '../../utils/auth.form.validation';
 
 // ? type for validation fn
-import { authFormTypeSignup as type } from '../../utils/constants';
+import { authFormTypeSignup as type, BASE_URL } from '../../utils/constants';
 
 import { auth } from '../../api/auth.api';
 
+import googleIcon from '../../assets/google_icon.svg';
 import './Signup.css';
 
 const mapStateToProps = (state) => {
@@ -32,6 +33,15 @@ const mapDispatchToProps = (dispatch) => {
 
 const FormBody = memo((props) => {
   const { confirmBlur, warn, form, changeHandler, submit } = props;
+  const oauthHandler = async (type) => {
+    try {
+      if (type === 'google') {
+        window.location.replace(`${BASE_URL}/oauth/google`);
+      }
+    } catch (e) {
+      console.log('', e);
+    }
+  };
 
   return (
     <>
@@ -104,6 +114,18 @@ const FormBody = memo((props) => {
       {warn.email ? <span className="form__warning">{warn.email}</span> : null}
       <button className="form__btn" onClick={submit}>
         Sign up
+      </button>
+      <button
+        className="form__btn login_via"
+        type="button"
+        data-oauthtype="google"
+        onClick={(e) => {
+          const type = e.currentTarget.dataset.oauthtype;
+          oauthHandler(type);
+        }}
+      >
+        <img src={googleIcon} alt="google" className="login_via_icon" />{' '}
+        Continue with Google
       </button>
     </>
   );

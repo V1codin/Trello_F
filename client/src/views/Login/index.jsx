@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { useAsyncCallback } from 'react-async-hook';
 import { NavLink } from 'react-router-dom';
 
-import { Overlay } from '../../modules/overlay';
 import { FormWrapper } from '../../modules/formWrapper';
 import {
   formValidation,
@@ -12,9 +11,9 @@ import {
 } from '../../utils/auth.form.validation';
 
 // ? type for validation function
-import { authFormTypeLogin as type } from '../../utils/constants';
+import { authFormTypeLogin as type, BASE_URL } from '../../utils/constants';
 
-import { auth, googleAuth } from '../../api/auth.api';
+import { auth } from '../../api/auth.api';
 
 import googleIcon from '../../assets/google_icon.svg';
 import './Login.css';
@@ -32,15 +31,12 @@ const mapStateToProps = (state) => {
 };
 
 const FormBody = memo((props) => {
-  const { warn, form, changeHandler, submit, setIsOverlay } = props;
+  const { warn, form, changeHandler, submit } = props;
 
   const oauthHandler = async (type) => {
     try {
       if (type === 'google') {
-        googleAuth.login({}, () => {
-          setIsOverlay((prev) => !prev);
-        });
-        setIsOverlay((prev) => !prev);
+        window.location.replace(`${BASE_URL}/oauth/google`);
       }
     } catch (e) {
       console.log('', e);
@@ -112,7 +108,6 @@ function RawLogin(props) {
 
   const [form, setForm] = useState(formDefault);
   const [warn, setWarn] = useState(formDefault);
-  const [isOverlay, setIsOverlay] = useState(false);
 
   const sendRequest = async (data) => {
     try {
@@ -172,18 +167,10 @@ function RawLogin(props) {
     form,
     changeHandler,
     submit,
-    isOverlay,
-    setIsOverlay,
   };
 
   return (
     <div className="form__container">
-      {isOverlay && (
-        <Overlay
-          renderBody={() => <h1>Test</h1>}
-          classList={['overlay_medium', 'overlay_center']}
-        />
-      )}
       <FormWrapper form={form} error={error} loading={loading}>
         <FormBody {...bodyProps} />
       </FormWrapper>

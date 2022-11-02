@@ -11,6 +11,7 @@ exports.CustomAuth = class CustomAuth extends AuthenticationService {
    * @param data The authentication request (should include `strategy` key)
    * @param params Service call parameters
    */
+
   async getUserPayload(userId) {
     const ownerObjId = Types.ObjectId(userId);
 

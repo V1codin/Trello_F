@@ -5,7 +5,7 @@ import { board } from './board.api';
 import { note } from './notification.api';
 
 import { LOGIN_ACTION, LOGOUT_ACTION } from '../utils/actions.types';
-import { STRATEGY, GOOGLE_STRATEGY } from '../utils/constants';
+import { STRATEGY } from '../utils/constants';
 
 class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
@@ -125,29 +125,6 @@ class Auth extends Service {
   };
 }
 
-class GoogleAuth extends Auth {
-  login = async (loginPayload, dispatch, ...callbacks) => {
-    try {
-      const response = await client.authenticate({
-        strategy: GOOGLE_STRATEGY,
-        ...loginPayload,
-      });
-
-      const payload = '1';
-      console.log('response: ', response);
-
-      dispatch();
-
-      return payload;
-    } catch (e) {
-      console.log('e: ', e);
-      const errorFromHandler = this.handleError(e, dispatch);
-      throw errorFromHandler;
-    }
-  };
-}
-
 const auth = new Auth();
-const googleAuth = new GoogleAuth();
 
-export { auth, googleAuth };
+export { auth };
