@@ -15,14 +15,13 @@ function GoogleLogin(props) {
     const initLoginWithGoogle = async () => {
       try {
         const code = new URLSearchParams(props.location.search).get("code");
-        const result = await auth.login(
+        await auth.login(
           {
             strategy: "google",
             code,
           },
           dispatch
         );
-        console.log("result: ", result);
       } catch (e) {
         console.log("login with google error", e);
       } finally {
