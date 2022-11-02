@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-import { auth } from '../../api/auth.api';
-import { Process } from '../../modules/process';
-import { useHistory } from 'react-router-dom';
+import { auth } from "../../api/auth.api";
+import { Process } from "../../modules/process";
+import { useHistory } from "react-router-dom";
 
 function GoogleLogin(props) {
   const dispatch = useDispatch();
@@ -14,21 +14,20 @@ function GoogleLogin(props) {
   useEffect(() => {
     const initLoginWithGoogle = async () => {
       try {
-        const code = new URLSearchParams(props.location.search).get('code');
+        const code = new URLSearchParams(props.location.search).get("code");
         const result = await auth.login(
           {
-            strategy: 'google',
+            strategy: "google",
             code,
           },
-          dispatch,
+          dispatch
         );
-        if (result.user._id) {
-        }
+        console.log("result: ", result);
       } catch (e) {
-        console.log('login with google error', e);
+        console.log("login with google error", e);
       } finally {
         setIsLoader(() => false);
-        history.push('/profile');
+        history.push("/profile");
       }
     };
 
@@ -38,7 +37,7 @@ function GoogleLogin(props) {
   });
   return (
     <>
-      <Process isShown={isLoader} styles={{ margin: '10% auto' }} />
+      <Process isShown={isLoader} styles={{ margin: "10% auto" }} />
     </>
   );
 }
