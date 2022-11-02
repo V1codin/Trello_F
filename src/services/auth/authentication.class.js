@@ -32,6 +32,7 @@ exports.CustomAuth = class CustomAuth extends AuthenticationService {
     const { entity } = this.configuration;
     const authStrategies =
       params.authStrategies || this.configuration.authStrategies;
+    console.log("check");
 
     if (!authStrategies.length) {
       throw new NotAuthenticated(

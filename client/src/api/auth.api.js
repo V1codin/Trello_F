@@ -18,7 +18,6 @@ class Auth extends Service {
         board.find(),
         note.find(),
       ]);
-      console.log("payload: ", payload);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
