@@ -101,7 +101,6 @@ class GoogleStrategy extends OAuthStrategy {
         },
       });
 
-      console.log("data: ", data);
       const user = jwt.decode(data.id_token);
 
       const existingUser = await userService.find({

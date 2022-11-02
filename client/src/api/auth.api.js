@@ -1,11 +1,11 @@
-import { Service } from './service.api';
-import { client, userService } from './feathers.api';
+import { Service } from "./service.api";
+import { client, userService } from "./feathers.api";
 
-import { board } from './board.api';
-import { note } from './notification.api';
+import { board } from "./board.api";
+import { note } from "./notification.api";
 
-import { LOGIN_ACTION, LOGOUT_ACTION } from '../utils/actions.types';
-import { STRATEGY } from '../utils/constants';
+import { LOGIN_ACTION, LOGOUT_ACTION } from "../utils/actions.types";
+import { STRATEGY } from "../utils/constants";
 
 class Auth extends Service {
   login = async (loginPayload, dispatch, ...callbacks) => {
@@ -20,10 +20,12 @@ class Auth extends Service {
       ]);
 
       callbacks.forEach((cb) => {
-        if (typeof cb === 'function') {
+        if (typeof cb === "function") {
           cb(payload, boards.data);
         }
       });
+      console.log("boards: ", boards);
+      console.log("notes: ", notes);
 
       dispatch({
         type: LOGIN_ACTION,
@@ -66,9 +68,9 @@ class Auth extends Service {
   };
 
   loginFromCache = async (dispatch) => {
-    const token = window.localStorage.getItem('feathers-jwt');
+    const token = window.localStorage.getItem("feathers-jwt");
 
-    if (typeof token === 'string' && token.length > 0) {
+    if (typeof token === "string" && token.length > 0) {
       try {
         const [payload, boards, notes] = await Promise.all([
           client.reAuthenticate(),
@@ -93,7 +95,7 @@ class Auth extends Service {
       const { data } = await userService.find({ query: { _id: { $in: arr } } });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === 'function') {
+        if (typeof cb === "function") {
           cb(data);
         }
       });
@@ -105,14 +107,14 @@ class Auth extends Service {
     }
   };
 
-  getUsersFromRegex = async (regex = '', ...callbacks) => {
+  getUsersFromRegex = async (regex = "", ...callbacks) => {
     try {
       const { data } = await userService.find({
-        query: { nameAlias: { $regex: regex, $options: 'gi' } },
+        query: { nameAlias: { $regex: regex, $options: "gi" } },
       });
 
       callbacks.forEach((cb) => {
-        if (typeof cb === 'function') {
+        if (typeof cb === "function") {
           cb(data);
         }
       });
