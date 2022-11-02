@@ -20,9 +20,9 @@ class List extends Service {
     }
   };
   find = async (props, dispatch, ...callbacks) => {
+    console.log("props: ", props);
     try {
       const response = await listsService.find({ query: { props } });
-      console.log("response: ", response);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
