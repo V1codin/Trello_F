@@ -83,7 +83,7 @@ class GoogleStrategy extends OAuthStrategy {
         google: { tokenApiUrl },
       },
     } = this.app.get("authentication");
-    console.log("tokenApiUrl: ", tokenApiUrl);
+    console.log("tokenApiUrl");
 
     const userService = this.app.service("users");
 
@@ -102,7 +102,6 @@ class GoogleStrategy extends OAuthStrategy {
         },
       });
 
-      console.log("data: ", data);
       const user = jwt.decode(data.id_token);
 
       const existingUser = await userService.find({
