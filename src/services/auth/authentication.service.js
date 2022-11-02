@@ -86,7 +86,6 @@ class GoogleStrategy extends OAuthStrategy {
 
     const userService = this.app.service("users");
 
-    console.log("authentication.code: ", authentication.code);
     const opts = {
       code: authentication.code,
       client_id: google.key,
