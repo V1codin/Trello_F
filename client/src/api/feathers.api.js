@@ -17,7 +17,6 @@ const options = {
   storage: window.localStorage,
 };
 
-console.log("BASE_URL: ", BASE_URL);
 const socket = io(BASE_URL, {
   reconnectionDelay: 5000,
   transports: ["websocket"],
