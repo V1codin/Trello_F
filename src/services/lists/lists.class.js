@@ -25,6 +25,7 @@ exports.Lists = class Lists extends Service {
         query: { boardId: new ObjectId(boardId) },
       });
 
+      console.log("payload: ", payload);
       return payload;
     } catch (e) {
       return Promise.reject(new Error("Invalid Board"));
