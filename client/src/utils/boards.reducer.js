@@ -9,7 +9,6 @@ import {
 const init = [];
 
 function boards(state = init, { type, payload, boards = [] }) {
-  console.log("boards: ", boards);
   switch (type) {
     case NEW_BOARD_CREATED:
       return [...state, payload];

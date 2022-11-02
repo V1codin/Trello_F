@@ -18,7 +18,6 @@ class Auth extends Service {
         board.find(),
         note.find(),
       ]);
-      console.log("boards: ", boards);
 
       callbacks.forEach((cb) => {
         if (typeof cb === "function") {
@@ -29,8 +28,8 @@ class Auth extends Service {
       dispatch({
         type: LOGIN_ACTION,
         payload,
-        boards: boards.data,
-        notes: notes.data,
+        boards: boards?.data || boards,
+        notes: notes?.data || notes,
       });
 
       return payload;
