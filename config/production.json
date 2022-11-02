@@ -12,7 +12,7 @@
     "service": "users",
     "path": "/authentication",
     "secret": "AUTH_SEC",
-    "authStrategies": ["jwt", "local"],
+    "authStrategies": ["jwt", "local", "google"],
     "jwtOptions": {
       "header": {
         "typ": "access"
