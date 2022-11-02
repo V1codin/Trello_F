@@ -3,7 +3,7 @@ import {
   listsService,
   cardsService,
   notificationsService,
-} from '../api/feathers.api';
+} from "../api/feathers.api";
 import {
   NEW_BOARD_CREATED,
   BOARD_DELETED,
@@ -15,7 +15,7 @@ import {
   CARD_PATCHED,
   NOTE_DISMISSED,
   NOTE_RECEIVED,
-} from '../utils/actions.types';
+} from "../utils/actions.types";
 
 const isLink = (background) => {
   return /^https:\/\/images\.unsplash\.com\/.{1,}/g.test(background);
@@ -23,13 +23,13 @@ const isLink = (background) => {
 
 const isImage = (src) => {
   return new Promise((resolve, reject) => {
-    const img = document.createElement('img');
+    const img = document.createElement("img");
     img.src = src;
 
     img.onload = () => resolve(src);
 
     img.onerror = (e) => {
-      reject('Your link has no image');
+      reject("Your link has no image");
     };
   });
 };
@@ -37,12 +37,12 @@ const isImage = (src) => {
 const getDataFromClipBoard = async () => {
   try {
     const link = await navigator.clipboard.readText();
-    if (!isLink(link)) return Promise.reject('Your link has no image');
+    if (!isLink(link)) return Promise.reject("Your link has no image");
 
     const result = await isImage(link);
     return result;
   } catch (e) {
-    console.log('e: ', e);
+    console.log("e: ", e);
     throw e;
   }
 };
@@ -61,49 +61,49 @@ const addListenersForServerChanges = (dispatch) => {
 
   // ? events for updating data in case of subscription
 
-  notificationsService.on('created', (payload) => {
+  notificationsService.on("created", (payload) => {
     dispatch({
       type: NOTE_RECEIVED,
       payload,
     });
   });
 
-  notificationsService.on('removed', (payload) => {
+  notificationsService.on("removed", (payload) => {
     dispatch({
       type: NOTE_DISMISSED,
       payload,
     });
   });
 
-  boardsService.on('patched', (payload) => {
+  boardsService.on("patched", (payload) => {
     dispatch({
       type: BOARD_PATCHED,
       payload,
     });
   });
 
-  boardsService.on('created', (payload) => {
+  boardsService.on("created", (payload) => {
     dispatch({
       type: NEW_BOARD_CREATED,
       payload,
     });
   });
 
-  boardsService.on('removed', ({ _id }) => {
+  boardsService.on("removed", ({ _id }) => {
     dispatch({
       type: BOARD_DELETED,
       payload: _id,
     });
   });
 
-  listsService.on('created', (payload) => {
+  listsService.on("created", (payload) => {
     dispatch({
       type: NEW_LIST_CREATED,
       payload,
     });
   });
 
-  listsService.on('removed', (payload) => {
+  listsService.on("removed", (payload) => {
     dispatch({
       type: LIST_DELETED,
       payload,
@@ -117,21 +117,21 @@ const addListenersForServerChanges = (dispatch) => {
   ? instead of
   */
 
-  cardsService.on('removed', ({ _id, listId }) => {
+  cardsService.on("removed", ({ _id, listId }) => {
     dispatch({
       type: CARD_DELETED,
       payload: { _id, listId },
     });
   });
 
-  cardsService.on('created', (payload) => {
+  cardsService.on("created", (payload) => {
     dispatch({
       type: NEW_CARD_CREATED,
       payload,
     });
   });
 
-  cardsService.on('patched', (payload) => {
+  cardsService.on("patched", (payload) => {
     dispatch({
       type: CARD_PATCHED,
       payload,
@@ -156,6 +156,41 @@ const isTrueSearchPath = (path) => {
   return /\/?code=4.+/g.test(path);
 };
 
+class CustomUrlSearchParams {
+  constructor(query) {
+    this.query = query;
+  }
+  getSearchObject = () => {
+    const { query } = this;
+    return query
+      ? (/^[?#]/.test(query) ? query.slice(1) : query)
+          .split("&")
+          .reduce((params, param) => {
+            let [key, value] = param.split("=");
+            params[key] = value
+              ? decodeURIComponent(value.replace(/\+/g, " "))
+              : "";
+            return params;
+          }, {})
+      : {};
+  };
+  getAll = () => {
+    const searchParams = this.getSearchObject();
+    return searchParams;
+  };
+  get = (param) => {
+    const searchParams = this.getSearchObject();
+    return searchParams[param];
+  };
+  setUrl = (param, value) => {
+    const searchParams = this.getSearchObject();
+    searchParams[param] = value;
+    return Object.keys(searchParams)
+      .map((key) => key + "=" + searchParams[key])
+      .join("&");
+  };
+}
+
 export {
   isTrueSearchPath,
   isLink,
@@ -163,4 +198,5 @@ export {
   isPropInObject,
   addListenersForServerChanges,
   errorDisplay,
+  CustomUrlSearchParams,
 };

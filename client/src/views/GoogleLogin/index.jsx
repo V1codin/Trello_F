@@ -6,6 +6,8 @@ import { auth } from "../../api/auth.api";
 import { Process } from "../../modules/process";
 import { useHistory } from "react-router-dom";
 
+import { CustomUrlSearchParams } from "../../utils/helpers";
+
 function GoogleLogin(props) {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -14,7 +16,8 @@ function GoogleLogin(props) {
   useEffect(() => {
     const initLoginWithGoogle = async () => {
       try {
-        const code = new URLSearchParams(props.location.search).get("code");
+        const url = new CustomUrlSearchParams(props.location.search);
+        const code = url.get("code");
         await auth.login(
           {
             strategy: "google",
