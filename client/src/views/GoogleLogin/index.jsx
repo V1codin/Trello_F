@@ -18,6 +18,7 @@ function GoogleLogin(props) {
       try {
         const url = new CustomUrlSearchParams(props.location.search);
         const code = url.get("code");
+        console.log("code: ", code);
         await auth.login(
           {
             strategy: "google",
