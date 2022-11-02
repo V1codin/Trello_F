@@ -22,14 +22,17 @@
       "usernameField": "\\username",
       "passwordField": "password"
     },
-    "google": {
-      "client_id": "GOOGLE_CLIENT_ID",
-      "project_id": "PROJECT_ID",
-      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-      "token_uri": "https://oauth2.googleapis.com/token",
-      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-      "client_secret": "GOOGLE_CLIENT_S",
-      "javascript_origins": ["JS_ORIGINS_1", "JS_ORIGINS_2"]
+    "oauth": {
+      "redirect": "JS_ORIGINS_2",
+      "google": {
+        "redirect_uri": "JS_ORIGINS_2",
+        "callback": "/oauth/google/authenticate",
+        "key": "GOOGLE_CLIENT_ID",
+        "secret": "GOOGLE_CLIENT_S",
+        "scope": ["openid", "profile", "email"],
+        "nonce": true,
+        "tokenApiUrl": "GOOGLE_TOKEN_URL"
+      }
     }
   }
 }
