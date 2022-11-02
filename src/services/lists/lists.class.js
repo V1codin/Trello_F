@@ -22,7 +22,7 @@ exports.Lists = class Lists extends Service {
 
     try {
       const payload = await super._find({
-        query: { boardId },
+        query: { boardId: new ObjectId(boardId) },
       });
 
       console.log("payload: ", payload);
