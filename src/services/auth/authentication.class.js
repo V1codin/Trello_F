@@ -58,7 +58,7 @@ exports.CustomAuth = class CustomAuth extends AuthenticationService {
         authentication: { strategy: data.strategy },
       };
     } else {
-      console.log("check");
+      console.log(JSON.stringify(this.authenticate));
       authResult = await this.authenticate(data, params, ...authStrategies);
     }
 
