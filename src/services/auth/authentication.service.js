@@ -83,6 +83,7 @@ class GoogleStrategy extends OAuthStrategy {
         google: { tokenApiUrl },
       },
     } = this.app.get("authentication");
+    console.log("tokenApiUrl: ", tokenApiUrl);
 
     const userService = this.app.service("users");
 
