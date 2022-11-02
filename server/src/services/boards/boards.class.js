@@ -114,15 +114,33 @@ exports.Boards = class Boards extends Service {
     }
   }
 
-  async remove(boardId) {
+  async remove(boardId, params) {
     try {
-      const result = await Promise.all([
-        super._remove(boardId),
+      const issuerId = params.user._id;
+      const {
+        data: [board],
+      } = await this.find({
+        query: {
+          _id: boardId,
+        },
+      });
 
-        this.app.service("lists").removeNested(boardId),
-      ]);
+      if (String(board.ownerId) === String(issuerId)) {
+        const result = await Promise.all([
+          super._remove(boardId),
 
-      return result[0];
+          this.app.service("lists").removeNested(boardId),
+        ]);
+
+        return result[0];
+      }
+
+      return Promise.reject(
+        Object.assign(
+          new Error("You have to be owner of the board to remove it"),
+          { code: 4011 }
+        )
+      );
     } catch (e) {
       return Promise.reject(new Error("Invalid Board"));
     }

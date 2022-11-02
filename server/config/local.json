@@ -1,6 +1,6 @@
 {
-  "host": "localhost",
-  "port": 3030,
+  "host": "HOST",
+  "port": "PORT",
   "public": "../public/",
   "mongodb": "MONGO_DB_URI",
   "paginate": {
@@ -34,7 +34,8 @@
         "key": "GOOGLE_CLIENT_ID",
         "secret": "GOOGLE_CLIENT_S",
         "scope": ["openid", "profile", "email"],
-        "nonce": true
+        "nonce": true,
+        "tokenApiUrl": "GOOGLE_TOKEN_URL"
       }
     }
   }

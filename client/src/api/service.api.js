@@ -25,6 +25,12 @@ class Service {
           errorClass: error.className || '',
         };
 
+      case 4011:
+        return {
+          message: error.message,
+          errorClass: error.className || '',
+        };
+
       default:
         return {
           message: 'Unexpected error',

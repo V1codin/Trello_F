@@ -11,11 +11,10 @@ function GoogleLogin(props) {
   const history = useHistory();
   const [isLoader, setIsLoader] = useState(true);
 
-  const code = new URLSearchParams(props.location.search).get('code');
-
   useEffect(() => {
     const initLoginWithGoogle = async () => {
       try {
+        const code = new URLSearchParams(props.location.search).get('code');
         const result = await auth.login(
           {
             strategy: 'google',
