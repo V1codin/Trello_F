@@ -21,8 +21,8 @@ exports.Lists = class Lists extends Service {
     if (!boardId) return Promise.reject(new Error("Invalid Board"));
 
     try {
-      const payload = await super.find({
-        query: { boardId: new ObjectId(boardId) },
+      const payload = await super._find({
+        query: { boardId },
       });
 
       console.log("payload: ", payload);
