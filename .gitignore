@@ -1,10 +1,9 @@
 /config/default.json
+/config/local.json
 
 # Logs
 logs
 *.log
-
-client
 
 nodemon.json
 
