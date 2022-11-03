@@ -31,7 +31,7 @@ const ListsIterator = (props) => {
   return lists.map((list) => <List key={list._id} list={list} />);
 };
 
-function RowListsWrapper(props) {
+function RawListsWrapper(props) {
   const { localBoard, dispatch, isLogged, lists, _boardId } = props;
 
   const { loading } = useAsync(
@@ -77,6 +77,6 @@ function RowListsWrapper(props) {
 const ListsWrapper = connect(
   mapStateToProps,
   mapDispatchToProps
-)(RowListsWrapper);
+)(RawListsWrapper);
 
 export { ListsWrapper };

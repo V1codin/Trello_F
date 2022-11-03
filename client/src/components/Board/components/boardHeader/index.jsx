@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 
-import { auth } from '../../../../api/auth.api';
+import { auth } from "../../../../api/auth.api";
 
-import { Invite } from './invite';
-import { Avatar } from '../../../../modules/avatar';
+import { Invite } from "./invite";
+import { Avatar } from "../../../../modules/avatar";
 
-import ownerIco from '../../../../assets/owner.svg';
+import ownerIco from "../../../../assets/owner.svg";
 
 const mapStateToProps = (state, props) => {
   const { _boardId } = props;
@@ -15,7 +15,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     localBoard,
-    currentUser
+    currentUser,
   };
 };
 
@@ -45,11 +45,11 @@ const SubscribersSection = (props) => {
   );
 };
 
-function RowBoardHeader(props) {
+function RawBoardHeader(props) {
   const {
     currentUser,
     localBoard,
-    localBoard: { title, memberIds, ownerId, _id }
+    localBoard: { title, memberIds, ownerId, _id },
   } = props;
 
   const [subs, setSubs] = useState([]);
@@ -85,6 +85,6 @@ function RowBoardHeader(props) {
   );
 }
 
-const BoardHeader = connect(mapStateToProps, null)(RowBoardHeader);
+const BoardHeader = connect(mapStateToProps, null)(RawBoardHeader);
 
 export { BoardHeader };

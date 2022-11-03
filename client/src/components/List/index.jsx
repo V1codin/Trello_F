@@ -1,29 +1,29 @@
-import { connect } from 'react-redux';
-import { useAsyncCallback } from 'react-async-hook';
+import { connect } from "react-redux";
+import { useAsyncCallback } from "react-async-hook";
 
-import { list } from '../../api/list.api';
-import { card } from '../../api/card.api';
+import { list } from "../../api/list.api";
+import { card } from "../../api/card.api";
 
-import { Card } from '../../components/Card';
-import { AddForm } from './components/addForm';
-import { ListDropDown } from './components/dropdown';
-import { Process } from '../../modules/process';
+import { Card } from "../../components/Card";
+import { AddForm } from "./components/addForm";
+import { ListDropDown } from "./components/dropdown";
+import { Process } from "../../modules/process";
 
-import './List.css';
+import "./List.css";
 
 const mapStateToProps = (state, props) => {
   const {
-    list: { _id }
+    list: { _id },
   } = props;
 
   return {
-    cards: state.cards[_id] || []
+    cards: state.cards[_id] || [],
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatch
+    dispatch,
   };
 };
 
@@ -34,18 +34,18 @@ const CardsIterator = (props) => {
   ));
 };
 
-function RowList(props) {
+function RawList(props) {
   const {
     dispatch,
     list: { name, _id, boardId },
-    cards
+    cards,
   } = props;
 
   const deleteList = async () => {
     try {
       await list.delete(_id, dispatch);
     } catch (e) {
-      console.log('delete list error', e);
+      console.log("delete list error", e);
     }
   };
 
@@ -53,7 +53,7 @@ function RowList(props) {
     try {
       await card.delete(id, dispatch);
     } catch (e) {
-      console.log('card delete error /list component/', e);
+      console.log("card delete error /list component/", e);
     }
   };
 
@@ -91,6 +91,6 @@ function RowList(props) {
   );
 }
 
-const List = connect(mapStateToProps, mapDispatchToProps)(RowList);
+const List = connect(mapStateToProps, mapDispatchToProps)(RawList);
 
 export { List };

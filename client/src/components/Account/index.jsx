@@ -1,22 +1,22 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { Avatar } from '../../modules/avatar';
+import { Avatar } from "../../modules/avatar";
 
 const mapStateToProps = (state) => {
   return {
     displayName: state.auth.user.displayName,
-    imgLink: state.auth.user.imageURL
+    imgLink: state.auth.user.imageURL,
   };
 };
 
-function RowAccount(props) {
+function RawAccount(props) {
   const { imgLink, displayName, click } = props;
 
   const accountMenuToggle = (e) => {
     // ? in click function -> [name] : !dropDownState[name]
     // ? for closing one drop when open another
     // ? if it's clicked to inner avatar components instead of the button
-    e.target.name = 'account';
+    e.target.name = "account";
     click(e);
   };
 
@@ -29,6 +29,6 @@ function RowAccount(props) {
   );
 }
 
-const Account = connect(mapStateToProps, null)(RowAccount);
+const Account = connect(mapStateToProps, null)(RawAccount);
 
 export { Account };
