@@ -7,7 +7,6 @@ const logger = require("./logger");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config({ path: __dirname + "/.env" });
-
   //  require("dotenv").config({ path: path.resolve("config", "production.json") });
 }
 
