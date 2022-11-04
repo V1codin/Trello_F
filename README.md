@@ -4,7 +4,7 @@
 
 ## About
 
-# The project provides you to get login/signin with username/password or with google
+# The project provides you to get login/signup with username/password or with google
 
 ![homePage](./assets/readme/login_page.JPG)
 
