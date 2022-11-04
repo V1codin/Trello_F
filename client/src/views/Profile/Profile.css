@@ -15,6 +15,11 @@
   height: 150px;
 }
 
+.card__error {
+  left: 50%;
+  top: -3%;
+}
+
 .board__card:hover {
   box-shadow: 0 0 15px var(--blue);
 }

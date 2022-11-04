@@ -1,45 +1,40 @@
-# trello-f
+## trello-f
 
-> Task manager
+> Task manager that is deployed at [link](https://trello-46.herokuapp.com/)
 
 ## About
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+# The project provides you to get login/signin with username/password or with google
 
-## Getting Started
+![homePage](./assets/readme/login_page.JPG)
 
-Getting up and running is as easy as 1, 2, 3.
+# The profile provides you to create/join boards
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
+![createBoard](./assets/readme/create_board.JPG)
 
-    ```
-    cd path/to/trello-f
-    npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm start
-    ```
-
-## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers help                           # Show all commands
-```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+- Create board require name of the board and background.
+  - Background could be picked up from default values or from color picker
+    ![pickColor](./assets/readme/pick_board_color.JPG)
+  - Background could be picked up from clipboard if there is a url to picture from [unsplash](https://unsplash.com/) (needs the browser premission of using data from clipboard being set to true)
+    ![pickBg](./assets/readme/pick_board_bg.JPG)
+- Boards display at the home page.
+  ![profile](./assets/readme/profile_page.JPG)
+  - Board could has lists that could be added via form
+    ![board](./assets/readme/board.JPG)
+    ![list_form](./assets/readme/create_list.JPG)
+    ![list](./assets/readme/list.JPG)
+  - Lists could contain cards that could be added via card form
+    ![card_form](./assets/readme/create_list_card.JPG)
+    ![card](./assets/readme/card.JPG)
+  - List could be removed
+    ![list_popup](./assets/readme/list_popup.JPG)
+  - Card could be removed or edited
+    ![card_popup](./assets/readme/card_edit_popup.JPG)
+- User can invite another user to board
+  ![board_invite](./assets/readme/board_invite.JPG)
+  - Invited user should accept the invitation
+    ![board_invite_note](./assets/readme/board_invite_note.JPG)
+    ![board_accept_note](./assets/readme/board_accept_note.JPG)
+  - Then ivnited user has access to the board/lits/cards etc
+    ![board_invited](./assets/readme/board_invited.JPG)
+    ![board_invited_list](./assets/readme/board_invited_list.JPG)

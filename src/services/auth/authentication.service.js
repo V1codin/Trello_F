@@ -123,6 +123,7 @@ class GoogleStrategy extends OAuthStrategy {
       };
     } catch (e) {
       console.log("google auth error", e);
+      return Promise.reject(new Error("Invalid google credentials"));
     }
   }
 
