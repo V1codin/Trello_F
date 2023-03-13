@@ -31,7 +31,7 @@ const authFormTypeSignup = "signup";
 const BASE_URL =
   process.env.NODE_ENV !== "production"
     ? "http://localhost:3030"
-    : "https://trello-46.herokuapp.com";
+    : process.env.BASE_URL;
 
 export {
   STRATEGY,
